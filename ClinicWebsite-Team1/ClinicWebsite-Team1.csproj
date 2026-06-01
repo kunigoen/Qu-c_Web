@@ -147,6 +147,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\clinic.sql" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />
@@ -164,6 +165,31 @@
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\images\1.jpg" />
+    <Content Include="Content\images\dalieu.jpg" />
+    <Content Include="Content\images\doctor1.jpg" />
+    <Content Include="Content\images\doctor10.jpg" />
+    <Content Include="Content\images\doctor11.jpg" />
+    <Content Include="Content\images\doctor12.jpg" />
+    <Content Include="Content\images\doctor13.jpg" />
+    <Content Include="Content\images\doctor14.jpg" />
+    <Content Include="Content\images\doctor15.jpg" />
+    <Content Include="Content\images\doctor2.jpg" />
+    <Content Include="Content\images\doctor3.jpg" />
+    <Content Include="Content\images\doctor4.jpg" />
+    <Content Include="Content\images\doctor5.jpg" />
+    <Content Include="Content\images\doctor6.jpg" />
+    <Content Include="Content\images\doctor7.jpg" />
+    <Content Include="Content\images\doctor8.jpg" />
+    <Content Include="Content\images\doctor9.jpg" />
+    <Content Include="Content\images\mat.jpg" />
+    <Content Include="Content\images\nhikhoa.jpg" />
+    <Content Include="Content\images\noi.jpg" />
+    <Content Include="Content\images\sanphu.jpg" />
+    <Content Include="Content\images\thankinh.jpg" />
+    <Content Include="Content\images\tieuhoa.jpg" />
+    <Content Include="Content\images\timmach.jpg" />
+    <Content Include="Content\images\tmh.jpg" />
+    <Content Include="Content\images\xuongkhop.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -208,7 +234,6 @@
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Views\Doctor\" />
   </ItemGroup>
   <ItemGroup>

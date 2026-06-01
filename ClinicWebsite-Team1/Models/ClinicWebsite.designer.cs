@@ -30,39 +30,39 @@ namespace ClinicWebsite_Team1.Models
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
+    partial void Insertdoctor(doctor instance);
+    partial void Updatedoctor(doctor instance);
+    partial void Deletedoctor(doctor instance);
     partial void Insertappointment(appointment instance);
     partial void Updateappointment(appointment instance);
     partial void Deleteappointment(appointment instance);
-    partial void Insertappointment_service(appointment_service instance);
-    partial void Updateappointment_service(appointment_service instance);
-    partial void Deleteappointment_service(appointment_service instance);
     partial void Insertappointment_status(appointment_status instance);
     partial void Updateappointment_status(appointment_status instance);
     partial void Deleteappointment_status(appointment_status instance);
     partial void Insertclinic_room(clinic_room instance);
     partial void Updateclinic_room(clinic_room instance);
     partial void Deleteclinic_room(clinic_room instance);
+    partial void Insertappointment_service(appointment_service instance);
+    partial void Updateappointment_service(appointment_service instance);
+    partial void Deleteappointment_service(appointment_service instance);
     partial void Insertconsultation(consultation instance);
     partial void Updateconsultation(consultation instance);
     partial void Deleteconsultation(consultation instance);
-    partial void Insertdoctor(doctor instance);
-    partial void Updatedoctor(doctor instance);
-    partial void Deletedoctor(doctor instance);
-    partial void Insertdoctor_review(doctor_review instance);
-    partial void Updatedoctor_review(doctor_review instance);
-    partial void Deletedoctor_review(doctor_review instance);
     partial void Insertmedical_service(medical_service instance);
     partial void Updatemedical_service(medical_service instance);
     partial void Deletemedical_service(medical_service instance);
+    partial void Insertdoctor_review(doctor_review instance);
+    partial void Updatedoctor_review(doctor_review instance);
+    partial void Deletedoctor_review(doctor_review instance);
+    partial void Insertpayment(payment instance);
+    partial void Updatepayment(payment instance);
+    partial void Deletepayment(payment instance);
     partial void Insertpatient(patient instance);
     partial void Updatepatient(patient instance);
     partial void Deletepatient(patient instance);
     partial void Insertschedule(schedule instance);
     partial void Updateschedule(schedule instance);
     partial void Deleteschedule(schedule instance);
-    partial void Insertpayment(payment instance);
-    partial void Updatepayment(payment instance);
-    partial void Deletepayment(payment instance);
     partial void Insertspecialty(specialty instance);
     partial void Updatespecialty(specialty instance);
     partial void Deletespecialty(specialty instance);
@@ -88,11 +88,24 @@ namespace ClinicWebsite_Team1.Models
 		{
 			OnCreated();
 		}
-		
-		public ClinicWebsiteDataContext(System.Data.IDbConnection connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
+        public ClinicWebsiteDataContext() :
+            base(global::System.Configuration.ConfigurationManager.ConnectionStrings[
+"ClinicWebsiteConnectionString"].ConnectionString, mappingSource)
+        {
+            OnCreated();
+        }
+        public ClinicWebsiteDataContext(System.Data.IDbConnection connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
+		}
+		
+		public System.Data.Linq.Table<doctor> doctors
+		{
+			get
+			{
+				return this.GetTable<doctor>();
+			}
 		}
 		
 		public System.Data.Linq.Table<appointment> appointments
@@ -100,14 +113,6 @@ namespace ClinicWebsite_Team1.Models
 			get
 			{
 				return this.GetTable<appointment>();
-			}
-		}
-		
-		public System.Data.Linq.Table<appointment_service> appointment_services
-		{
-			get
-			{
-				return this.GetTable<appointment_service>();
 			}
 		}
 		
@@ -127,6 +132,14 @@ namespace ClinicWebsite_Team1.Models
 			}
 		}
 		
+		public System.Data.Linq.Table<appointment_service> appointment_services
+		{
+			get
+			{
+				return this.GetTable<appointment_service>();
+			}
+		}
+		
 		public System.Data.Linq.Table<consultation> consultations
 		{
 			get
@@ -135,11 +148,11 @@ namespace ClinicWebsite_Team1.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<doctor> doctors
+		public System.Data.Linq.Table<medical_service> medical_services
 		{
 			get
 			{
-				return this.GetTable<doctor>();
+				return this.GetTable<medical_service>();
 			}
 		}
 		
@@ -151,11 +164,11 @@ namespace ClinicWebsite_Team1.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<medical_service> medical_services
+		public System.Data.Linq.Table<payment> payments
 		{
 			get
 			{
-				return this.GetTable<medical_service>();
+				return this.GetTable<payment>();
 			}
 		}
 		
@@ -175,14 +188,6 @@ namespace ClinicWebsite_Team1.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<payment> payments
-		{
-			get
-			{
-				return this.GetTable<payment>();
-			}
-		}
-		
 		public System.Data.Linq.Table<specialty> specialties
 		{
 			get
@@ -197,6 +202,498 @@ namespace ClinicWebsite_Team1.Models
 			{
 				return this.GetTable<user_account>();
 			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.doctor")]
+	public partial class doctor : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id;
+		
+		private int _user_account_id;
+		
+		private int _specialty_id;
+		
+		private string _license_number;
+		
+		private System.Nullable<int> _experience_years;
+		
+		private decimal _consultation_fee;
+		
+		private string _biography;
+		
+		private string _image_url;
+		
+		private string _status;
+		
+		private System.Nullable<System.DateTime> _created_at;
+		
+		private System.Nullable<System.DateTime> _updated_at;
+		
+		private string _phone_number;
+		
+		private EntitySet<appointment> _appointments;
+		
+		private EntitySet<doctor_review> _doctor_reviews;
+		
+		private EntitySet<schedule> _schedules;
+		
+		private EntityRef<specialty> _specialty;
+		
+		private EntityRef<user_account> _user_account;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void Onuser_account_idChanging(int value);
+    partial void Onuser_account_idChanged();
+    partial void Onspecialty_idChanging(int value);
+    partial void Onspecialty_idChanged();
+    partial void Onlicense_numberChanging(string value);
+    partial void Onlicense_numberChanged();
+    partial void Onexperience_yearsChanging(System.Nullable<int> value);
+    partial void Onexperience_yearsChanged();
+    partial void Onconsultation_feeChanging(decimal value);
+    partial void Onconsultation_feeChanged();
+    partial void OnbiographyChanging(string value);
+    partial void OnbiographyChanged();
+    partial void Onimage_urlChanging(string value);
+    partial void Onimage_urlChanged();
+    partial void OnstatusChanging(string value);
+    partial void OnstatusChanged();
+    partial void Oncreated_atChanging(System.Nullable<System.DateTime> value);
+    partial void Oncreated_atChanged();
+    partial void Onupdated_atChanging(System.Nullable<System.DateTime> value);
+    partial void Onupdated_atChanged();
+    partial void Onphone_numberChanging(string value);
+    partial void Onphone_numberChanged();
+    #endregion
+		
+		public doctor()
+		{
+			this._appointments = new EntitySet<appointment>(new Action<appointment>(this.attach_appointments), new Action<appointment>(this.detach_appointments));
+			this._doctor_reviews = new EntitySet<doctor_review>(new Action<doctor_review>(this.attach_doctor_reviews), new Action<doctor_review>(this.detach_doctor_reviews));
+			this._schedules = new EntitySet<schedule>(new Action<schedule>(this.attach_schedules), new Action<schedule>(this.detach_schedules));
+			this._specialty = default(EntityRef<specialty>);
+			this._user_account = default(EntityRef<user_account>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_user_account_id", DbType="Int NOT NULL")]
+		public int user_account_id
+		{
+			get
+			{
+				return this._user_account_id;
+			}
+			set
+			{
+				if ((this._user_account_id != value))
+				{
+					if (this._user_account.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onuser_account_idChanging(value);
+					this.SendPropertyChanging();
+					this._user_account_id = value;
+					this.SendPropertyChanged("user_account_id");
+					this.Onuser_account_idChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_specialty_id", DbType="Int NOT NULL")]
+		public int specialty_id
+		{
+			get
+			{
+				return this._specialty_id;
+			}
+			set
+			{
+				if ((this._specialty_id != value))
+				{
+					if (this._specialty.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onspecialty_idChanging(value);
+					this.SendPropertyChanging();
+					this._specialty_id = value;
+					this.SendPropertyChanged("specialty_id");
+					this.Onspecialty_idChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_license_number", DbType="VarChar(100)")]
+		public string license_number
+		{
+			get
+			{
+				return this._license_number;
+			}
+			set
+			{
+				if ((this._license_number != value))
+				{
+					this.Onlicense_numberChanging(value);
+					this.SendPropertyChanging();
+					this._license_number = value;
+					this.SendPropertyChanged("license_number");
+					this.Onlicense_numberChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_experience_years", DbType="Int")]
+		public System.Nullable<int> experience_years
+		{
+			get
+			{
+				return this._experience_years;
+			}
+			set
+			{
+				if ((this._experience_years != value))
+				{
+					this.Onexperience_yearsChanging(value);
+					this.SendPropertyChanging();
+					this._experience_years = value;
+					this.SendPropertyChanged("experience_years");
+					this.Onexperience_yearsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_consultation_fee", DbType="Decimal(18,2) NOT NULL")]
+		public decimal consultation_fee
+		{
+			get
+			{
+				return this._consultation_fee;
+			}
+			set
+			{
+				if ((this._consultation_fee != value))
+				{
+					this.Onconsultation_feeChanging(value);
+					this.SendPropertyChanging();
+					this._consultation_fee = value;
+					this.SendPropertyChanged("consultation_fee");
+					this.Onconsultation_feeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_biography", DbType="NVarChar(MAX)")]
+		public string biography
+		{
+			get
+			{
+				return this._biography;
+			}
+			set
+			{
+				if ((this._biography != value))
+				{
+					this.OnbiographyChanging(value);
+					this.SendPropertyChanging();
+					this._biography = value;
+					this.SendPropertyChanged("biography");
+					this.OnbiographyChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_image_url", DbType="NVarChar(500)")]
+		public string image_url
+		{
+			get
+			{
+				return this._image_url;
+			}
+			set
+			{
+				if ((this._image_url != value))
+				{
+					this.Onimage_urlChanging(value);
+					this.SendPropertyChanging();
+					this._image_url = value;
+					this.SendPropertyChanged("image_url");
+					this.Onimage_urlChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_status", DbType="VarChar(20)")]
+		public string status
+		{
+			get
+			{
+				return this._status;
+			}
+			set
+			{
+				if ((this._status != value))
+				{
+					this.OnstatusChanging(value);
+					this.SendPropertyChanging();
+					this._status = value;
+					this.SendPropertyChanged("status");
+					this.OnstatusChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_created_at", DbType="DateTime")]
+		public System.Nullable<System.DateTime> created_at
+		{
+			get
+			{
+				return this._created_at;
+			}
+			set
+			{
+				if ((this._created_at != value))
+				{
+					this.Oncreated_atChanging(value);
+					this.SendPropertyChanging();
+					this._created_at = value;
+					this.SendPropertyChanged("created_at");
+					this.Oncreated_atChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_updated_at", DbType="DateTime")]
+		public System.Nullable<System.DateTime> updated_at
+		{
+			get
+			{
+				return this._updated_at;
+			}
+			set
+			{
+				if ((this._updated_at != value))
+				{
+					this.Onupdated_atChanging(value);
+					this.SendPropertyChanging();
+					this._updated_at = value;
+					this.SendPropertyChanged("updated_at");
+					this.Onupdated_atChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_phone_number", DbType="VarChar(20)")]
+		public string phone_number
+		{
+			get
+			{
+				return this._phone_number;
+			}
+			set
+			{
+				if ((this._phone_number != value))
+				{
+					this.Onphone_numberChanging(value);
+					this.SendPropertyChanging();
+					this._phone_number = value;
+					this.SendPropertyChanged("phone_number");
+					this.Onphone_numberChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="doctor_appointment", Storage="_appointments", ThisKey="id", OtherKey="doctor_id")]
+		public EntitySet<appointment> appointments
+		{
+			get
+			{
+				return this._appointments;
+			}
+			set
+			{
+				this._appointments.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="doctor_doctor_review", Storage="_doctor_reviews", ThisKey="id", OtherKey="doctor_id")]
+		public EntitySet<doctor_review> doctor_reviews
+		{
+			get
+			{
+				return this._doctor_reviews;
+			}
+			set
+			{
+				this._doctor_reviews.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="doctor_schedule", Storage="_schedules", ThisKey="id", OtherKey="doctor_id")]
+		public EntitySet<schedule> schedules
+		{
+			get
+			{
+				return this._schedules;
+			}
+			set
+			{
+				this._schedules.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="specialty_doctor", Storage="_specialty", ThisKey="specialty_id", OtherKey="id", IsForeignKey=true)]
+		public specialty specialty
+		{
+			get
+			{
+				return this._specialty.Entity;
+			}
+			set
+			{
+				specialty previousValue = this._specialty.Entity;
+				if (((previousValue != value) 
+							|| (this._specialty.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._specialty.Entity = null;
+						previousValue.doctors.Remove(this);
+					}
+					this._specialty.Entity = value;
+					if ((value != null))
+					{
+						value.doctors.Add(this);
+						this._specialty_id = value.id;
+					}
+					else
+					{
+						this._specialty_id = default(int);
+					}
+					this.SendPropertyChanged("specialty");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="user_account_doctor", Storage="_user_account", ThisKey="user_account_id", OtherKey="id", IsForeignKey=true)]
+		public user_account user_account
+		{
+			get
+			{
+				return this._user_account.Entity;
+			}
+			set
+			{
+				user_account previousValue = this._user_account.Entity;
+				if (((previousValue != value) 
+							|| (this._user_account.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._user_account.Entity = null;
+						previousValue.doctors.Remove(this);
+					}
+					this._user_account.Entity = value;
+					if ((value != null))
+					{
+						value.doctors.Add(this);
+						this._user_account_id = value.id;
+					}
+					else
+					{
+						this._user_account_id = default(int);
+					}
+					this.SendPropertyChanged("user_account");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_appointments(appointment entity)
+		{
+			this.SendPropertyChanging();
+			entity.doctor = this;
+		}
+		
+		private void detach_appointments(appointment entity)
+		{
+			this.SendPropertyChanging();
+			entity.doctor = null;
+		}
+		
+		private void attach_doctor_reviews(doctor_review entity)
+		{
+			this.SendPropertyChanging();
+			entity.doctor = this;
+		}
+		
+		private void detach_doctor_reviews(doctor_review entity)
+		{
+			this.SendPropertyChanging();
+			entity.doctor = null;
+		}
+		
+		private void attach_schedules(schedule entity)
+		{
+			this.SendPropertyChanging();
+			entity.doctor = this;
+		}
+		
+		private void detach_schedules(schedule entity)
+		{
+			this.SendPropertyChanging();
+			entity.doctor = null;
 		}
 	}
 	
@@ -232,9 +729,9 @@ namespace ClinicWebsite_Team1.Models
 		
 		private EntitySet<payment> _payments;
 		
-		private EntityRef<appointment_status> _appointment_status;
-		
 		private EntityRef<doctor> _doctor;
+		
+		private EntityRef<appointment_status> _appointment_status;
 		
 		private EntityRef<patient> _patient;
 		
@@ -270,8 +767,8 @@ namespace ClinicWebsite_Team1.Models
 			this._consultations = new EntitySet<consultation>(new Action<consultation>(this.attach_consultations), new Action<consultation>(this.detach_consultations));
 			this._doctor_reviews = new EntitySet<doctor_review>(new Action<doctor_review>(this.attach_doctor_reviews), new Action<doctor_review>(this.detach_doctor_reviews));
 			this._payments = new EntitySet<payment>(new Action<payment>(this.attach_payments), new Action<payment>(this.detach_payments));
-			this._appointment_status = default(EntityRef<appointment_status>);
 			this._doctor = default(EntityRef<doctor>);
+			this._appointment_status = default(EntityRef<appointment_status>);
 			this._patient = default(EntityRef<patient>);
 			this._schedule = default(EntityRef<schedule>);
 			OnCreated();
@@ -525,40 +1022,6 @@ namespace ClinicWebsite_Team1.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="appointment_status_appointment", Storage="_appointment_status", ThisKey="status_id", OtherKey="id", IsForeignKey=true)]
-		public appointment_status appointment_status
-		{
-			get
-			{
-				return this._appointment_status.Entity;
-			}
-			set
-			{
-				appointment_status previousValue = this._appointment_status.Entity;
-				if (((previousValue != value) 
-							|| (this._appointment_status.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._appointment_status.Entity = null;
-						previousValue.appointments.Remove(this);
-					}
-					this._appointment_status.Entity = value;
-					if ((value != null))
-					{
-						value.appointments.Add(this);
-						this._status_id = value.id;
-					}
-					else
-					{
-						this._status_id = default(int);
-					}
-					this.SendPropertyChanged("appointment_status");
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="doctor_appointment", Storage="_doctor", ThisKey="doctor_id", OtherKey="id", IsForeignKey=true)]
 		public doctor doctor
 		{
@@ -589,6 +1052,40 @@ namespace ClinicWebsite_Team1.Models
 						this._doctor_id = default(int);
 					}
 					this.SendPropertyChanged("doctor");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="appointment_status_appointment", Storage="_appointment_status", ThisKey="status_id", OtherKey="id", IsForeignKey=true)]
+		public appointment_status appointment_status
+		{
+			get
+			{
+				return this._appointment_status.Entity;
+			}
+			set
+			{
+				appointment_status previousValue = this._appointment_status.Entity;
+				if (((previousValue != value) 
+							|| (this._appointment_status.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._appointment_status.Entity = null;
+						previousValue.appointments.Remove(this);
+					}
+					this._appointment_status.Entity = value;
+					if ((value != null))
+					{
+						value.appointments.Add(this);
+						this._status_id = value.id;
+					}
+					else
+					{
+						this._status_id = default(int);
+					}
+					this.SendPropertyChanged("appointment_status");
 				}
 			}
 		}
@@ -727,222 +1224,6 @@ namespace ClinicWebsite_Team1.Models
 		{
 			this.SendPropertyChanging();
 			entity.appointment = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.appointment_service")]
-	public partial class appointment_service : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _appointment_id;
-		
-		private int _service_id;
-		
-		private System.Nullable<int> _quantity;
-		
-		private decimal _unit_price;
-		
-		private EntityRef<appointment> _appointment;
-		
-		private EntityRef<medical_service> _medical_service;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void Onappointment_idChanging(int value);
-    partial void Onappointment_idChanged();
-    partial void Onservice_idChanging(int value);
-    partial void Onservice_idChanged();
-    partial void OnquantityChanging(System.Nullable<int> value);
-    partial void OnquantityChanged();
-    partial void Onunit_priceChanging(decimal value);
-    partial void Onunit_priceChanged();
-    #endregion
-		
-		public appointment_service()
-		{
-			this._appointment = default(EntityRef<appointment>);
-			this._medical_service = default(EntityRef<medical_service>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_appointment_id", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int appointment_id
-		{
-			get
-			{
-				return this._appointment_id;
-			}
-			set
-			{
-				if ((this._appointment_id != value))
-				{
-					if (this._appointment.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Onappointment_idChanging(value);
-					this.SendPropertyChanging();
-					this._appointment_id = value;
-					this.SendPropertyChanged("appointment_id");
-					this.Onappointment_idChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_service_id", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int service_id
-		{
-			get
-			{
-				return this._service_id;
-			}
-			set
-			{
-				if ((this._service_id != value))
-				{
-					if (this._medical_service.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Onservice_idChanging(value);
-					this.SendPropertyChanging();
-					this._service_id = value;
-					this.SendPropertyChanged("service_id");
-					this.Onservice_idChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_quantity", DbType="Int")]
-		public System.Nullable<int> quantity
-		{
-			get
-			{
-				return this._quantity;
-			}
-			set
-			{
-				if ((this._quantity != value))
-				{
-					this.OnquantityChanging(value);
-					this.SendPropertyChanging();
-					this._quantity = value;
-					this.SendPropertyChanged("quantity");
-					this.OnquantityChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_unit_price", DbType="Decimal(18,2) NOT NULL")]
-		public decimal unit_price
-		{
-			get
-			{
-				return this._unit_price;
-			}
-			set
-			{
-				if ((this._unit_price != value))
-				{
-					this.Onunit_priceChanging(value);
-					this.SendPropertyChanging();
-					this._unit_price = value;
-					this.SendPropertyChanged("unit_price");
-					this.Onunit_priceChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="appointment_appointment_service", Storage="_appointment", ThisKey="appointment_id", OtherKey="id", IsForeignKey=true)]
-		public appointment appointment
-		{
-			get
-			{
-				return this._appointment.Entity;
-			}
-			set
-			{
-				appointment previousValue = this._appointment.Entity;
-				if (((previousValue != value) 
-							|| (this._appointment.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._appointment.Entity = null;
-						previousValue.appointment_services.Remove(this);
-					}
-					this._appointment.Entity = value;
-					if ((value != null))
-					{
-						value.appointment_services.Add(this);
-						this._appointment_id = value.id;
-					}
-					else
-					{
-						this._appointment_id = default(int);
-					}
-					this.SendPropertyChanged("appointment");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="medical_service_appointment_service", Storage="_medical_service", ThisKey="service_id", OtherKey="id", IsForeignKey=true)]
-		public medical_service medical_service
-		{
-			get
-			{
-				return this._medical_service.Entity;
-			}
-			set
-			{
-				medical_service previousValue = this._medical_service.Entity;
-				if (((previousValue != value) 
-							|| (this._medical_service.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._medical_service.Entity = null;
-						previousValue.appointment_services.Remove(this);
-					}
-					this._medical_service.Entity = value;
-					if ((value != null))
-					{
-						value.appointment_services.Add(this);
-						this._service_id = value.id;
-					}
-					else
-					{
-						this._service_id = default(int);
-					}
-					this.SendPropertyChanged("medical_service");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
 		}
 	}
 	
@@ -1246,6 +1527,222 @@ namespace ClinicWebsite_Team1.Models
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.appointment_service")]
+	public partial class appointment_service : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _appointment_id;
+		
+		private int _service_id;
+		
+		private System.Nullable<int> _quantity;
+		
+		private decimal _unit_price;
+		
+		private EntityRef<appointment> _appointment;
+		
+		private EntityRef<medical_service> _medical_service;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void Onappointment_idChanging(int value);
+    partial void Onappointment_idChanged();
+    partial void Onservice_idChanging(int value);
+    partial void Onservice_idChanged();
+    partial void OnquantityChanging(System.Nullable<int> value);
+    partial void OnquantityChanged();
+    partial void Onunit_priceChanging(decimal value);
+    partial void Onunit_priceChanged();
+    #endregion
+		
+		public appointment_service()
+		{
+			this._appointment = default(EntityRef<appointment>);
+			this._medical_service = default(EntityRef<medical_service>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_appointment_id", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int appointment_id
+		{
+			get
+			{
+				return this._appointment_id;
+			}
+			set
+			{
+				if ((this._appointment_id != value))
+				{
+					if (this._appointment.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onappointment_idChanging(value);
+					this.SendPropertyChanging();
+					this._appointment_id = value;
+					this.SendPropertyChanged("appointment_id");
+					this.Onappointment_idChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_service_id", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int service_id
+		{
+			get
+			{
+				return this._service_id;
+			}
+			set
+			{
+				if ((this._service_id != value))
+				{
+					if (this._medical_service.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onservice_idChanging(value);
+					this.SendPropertyChanging();
+					this._service_id = value;
+					this.SendPropertyChanged("service_id");
+					this.Onservice_idChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_quantity", DbType="Int")]
+		public System.Nullable<int> quantity
+		{
+			get
+			{
+				return this._quantity;
+			}
+			set
+			{
+				if ((this._quantity != value))
+				{
+					this.OnquantityChanging(value);
+					this.SendPropertyChanging();
+					this._quantity = value;
+					this.SendPropertyChanged("quantity");
+					this.OnquantityChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_unit_price", DbType="Decimal(18,2) NOT NULL")]
+		public decimal unit_price
+		{
+			get
+			{
+				return this._unit_price;
+			}
+			set
+			{
+				if ((this._unit_price != value))
+				{
+					this.Onunit_priceChanging(value);
+					this.SendPropertyChanging();
+					this._unit_price = value;
+					this.SendPropertyChanged("unit_price");
+					this.Onunit_priceChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="appointment_appointment_service", Storage="_appointment", ThisKey="appointment_id", OtherKey="id", IsForeignKey=true)]
+		public appointment appointment
+		{
+			get
+			{
+				return this._appointment.Entity;
+			}
+			set
+			{
+				appointment previousValue = this._appointment.Entity;
+				if (((previousValue != value) 
+							|| (this._appointment.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._appointment.Entity = null;
+						previousValue.appointment_services.Remove(this);
+					}
+					this._appointment.Entity = value;
+					if ((value != null))
+					{
+						value.appointment_services.Add(this);
+						this._appointment_id = value.id;
+					}
+					else
+					{
+						this._appointment_id = default(int);
+					}
+					this.SendPropertyChanged("appointment");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="medical_service_appointment_service", Storage="_medical_service", ThisKey="service_id", OtherKey="id", IsForeignKey=true)]
+		public medical_service medical_service
+		{
+			get
+			{
+				return this._medical_service.Entity;
+			}
+			set
+			{
+				medical_service previousValue = this._medical_service.Entity;
+				if (((previousValue != value) 
+							|| (this._medical_service.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._medical_service.Entity = null;
+						previousValue.appointment_services.Remove(this);
+					}
+					this._medical_service.Entity = value;
+					if ((value != null))
+					{
+						value.appointment_services.Add(this);
+						this._service_id = value.id;
+					}
+					else
+					{
+						this._service_id = default(int);
+					}
+					this.SendPropertyChanged("medical_service");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.consultation")]
 	public partial class consultation : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -1469,43 +1966,25 @@ namespace ClinicWebsite_Team1.Models
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.doctor")]
-	public partial class doctor : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.medical_service")]
+	public partial class medical_service : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private int _id;
 		
-		private int _user_account_id;
+		private string _service_name;
 		
-		private int _specialty_id;
+		private string _description;
 		
-		private string _license_number;
+		private decimal _price;
 		
-		private System.Nullable<int> _experience_years;
+		private System.Nullable<int> _duration_minutes;
 		
-		private decimal _consultation_fee;
+		private System.Nullable<bool> _status;
 		
-		private string _biography;
-		
-		private string _image_url;
-		
-		private string _status;
-		
-		private System.Nullable<System.DateTime> _created_at;
-		
-		private System.Nullable<System.DateTime> _updated_at;
-		
-		private EntitySet<appointment> _appointments;
-		
-		private EntitySet<doctor_review> _doctor_reviews;
-		
-		private EntitySet<schedule> _schedules;
-		
-		private EntityRef<specialty> _specialty;
-		
-		private EntityRef<user_account> _user_account;
+		private EntitySet<appointment_service> _appointment_services;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -1513,35 +1992,21 @@ namespace ClinicWebsite_Team1.Models
     partial void OnCreated();
     partial void OnidChanging(int value);
     partial void OnidChanged();
-    partial void Onuser_account_idChanging(int value);
-    partial void Onuser_account_idChanged();
-    partial void Onspecialty_idChanging(int value);
-    partial void Onspecialty_idChanged();
-    partial void Onlicense_numberChanging(string value);
-    partial void Onlicense_numberChanged();
-    partial void Onexperience_yearsChanging(System.Nullable<int> value);
-    partial void Onexperience_yearsChanged();
-    partial void Onconsultation_feeChanging(decimal value);
-    partial void Onconsultation_feeChanged();
-    partial void OnbiographyChanging(string value);
-    partial void OnbiographyChanged();
-    partial void Onimage_urlChanging(string value);
-    partial void Onimage_urlChanged();
-    partial void OnstatusChanging(string value);
+    partial void Onservice_nameChanging(string value);
+    partial void Onservice_nameChanged();
+    partial void OndescriptionChanging(string value);
+    partial void OndescriptionChanged();
+    partial void OnpriceChanging(decimal value);
+    partial void OnpriceChanged();
+    partial void Onduration_minutesChanging(System.Nullable<int> value);
+    partial void Onduration_minutesChanged();
+    partial void OnstatusChanging(System.Nullable<bool> value);
     partial void OnstatusChanged();
-    partial void Oncreated_atChanging(System.Nullable<System.DateTime> value);
-    partial void Oncreated_atChanged();
-    partial void Onupdated_atChanging(System.Nullable<System.DateTime> value);
-    partial void Onupdated_atChanged();
     #endregion
 		
-		public doctor()
+		public medical_service()
 		{
-			this._appointments = new EntitySet<appointment>(new Action<appointment>(this.attach_appointments), new Action<appointment>(this.detach_appointments));
-			this._doctor_reviews = new EntitySet<doctor_review>(new Action<doctor_review>(this.attach_doctor_reviews), new Action<doctor_review>(this.detach_doctor_reviews));
-			this._schedules = new EntitySet<schedule>(new Action<schedule>(this.attach_schedules), new Action<schedule>(this.detach_schedules));
-			this._specialty = default(EntityRef<specialty>);
-			this._user_account = default(EntityRef<user_account>);
+			this._appointment_services = new EntitySet<appointment_service>(new Action<appointment_service>(this.attach_appointment_services), new Action<appointment_service>(this.detach_appointment_services));
 			OnCreated();
 		}
 		
@@ -1565,156 +2030,88 @@ namespace ClinicWebsite_Team1.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_user_account_id", DbType="Int NOT NULL")]
-		public int user_account_id
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_service_name", DbType="NVarChar(150) NOT NULL", CanBeNull=false)]
+		public string service_name
 		{
 			get
 			{
-				return this._user_account_id;
+				return this._service_name;
 			}
 			set
 			{
-				if ((this._user_account_id != value))
+				if ((this._service_name != value))
 				{
-					if (this._user_account.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Onuser_account_idChanging(value);
+					this.Onservice_nameChanging(value);
 					this.SendPropertyChanging();
-					this._user_account_id = value;
-					this.SendPropertyChanged("user_account_id");
-					this.Onuser_account_idChanged();
+					this._service_name = value;
+					this.SendPropertyChanged("service_name");
+					this.Onservice_nameChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_specialty_id", DbType="Int NOT NULL")]
-		public int specialty_id
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_description", DbType="NVarChar(1000)")]
+		public string description
 		{
 			get
 			{
-				return this._specialty_id;
+				return this._description;
 			}
 			set
 			{
-				if ((this._specialty_id != value))
+				if ((this._description != value))
 				{
-					if (this._specialty.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Onspecialty_idChanging(value);
+					this.OndescriptionChanging(value);
 					this.SendPropertyChanging();
-					this._specialty_id = value;
-					this.SendPropertyChanged("specialty_id");
-					this.Onspecialty_idChanged();
+					this._description = value;
+					this.SendPropertyChanged("description");
+					this.OndescriptionChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_license_number", DbType="VarChar(100)")]
-		public string license_number
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_price", DbType="Decimal(18,2) NOT NULL")]
+		public decimal price
 		{
 			get
 			{
-				return this._license_number;
+				return this._price;
 			}
 			set
 			{
-				if ((this._license_number != value))
+				if ((this._price != value))
 				{
-					this.Onlicense_numberChanging(value);
+					this.OnpriceChanging(value);
 					this.SendPropertyChanging();
-					this._license_number = value;
-					this.SendPropertyChanged("license_number");
-					this.Onlicense_numberChanged();
+					this._price = value;
+					this.SendPropertyChanged("price");
+					this.OnpriceChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_experience_years", DbType="Int")]
-		public System.Nullable<int> experience_years
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_duration_minutes", DbType="Int")]
+		public System.Nullable<int> duration_minutes
 		{
 			get
 			{
-				return this._experience_years;
+				return this._duration_minutes;
 			}
 			set
 			{
-				if ((this._experience_years != value))
+				if ((this._duration_minutes != value))
 				{
-					this.Onexperience_yearsChanging(value);
+					this.Onduration_minutesChanging(value);
 					this.SendPropertyChanging();
-					this._experience_years = value;
-					this.SendPropertyChanged("experience_years");
-					this.Onexperience_yearsChanged();
+					this._duration_minutes = value;
+					this.SendPropertyChanged("duration_minutes");
+					this.Onduration_minutesChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_consultation_fee", DbType="Decimal(18,2) NOT NULL")]
-		public decimal consultation_fee
-		{
-			get
-			{
-				return this._consultation_fee;
-			}
-			set
-			{
-				if ((this._consultation_fee != value))
-				{
-					this.Onconsultation_feeChanging(value);
-					this.SendPropertyChanging();
-					this._consultation_fee = value;
-					this.SendPropertyChanged("consultation_fee");
-					this.Onconsultation_feeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_biography", DbType="NVarChar(MAX)")]
-		public string biography
-		{
-			get
-			{
-				return this._biography;
-			}
-			set
-			{
-				if ((this._biography != value))
-				{
-					this.OnbiographyChanging(value);
-					this.SendPropertyChanging();
-					this._biography = value;
-					this.SendPropertyChanged("biography");
-					this.OnbiographyChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_image_url", DbType="NVarChar(500)")]
-		public string image_url
-		{
-			get
-			{
-				return this._image_url;
-			}
-			set
-			{
-				if ((this._image_url != value))
-				{
-					this.Onimage_urlChanging(value);
-					this.SendPropertyChanging();
-					this._image_url = value;
-					this.SendPropertyChanged("image_url");
-					this.Onimage_urlChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_status", DbType="VarChar(20)")]
-		public string status
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_status", DbType="Bit")]
+		public System.Nullable<bool> status
 		{
 			get
 			{
@@ -1733,150 +2130,16 @@ namespace ClinicWebsite_Team1.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_created_at", DbType="DateTime")]
-		public System.Nullable<System.DateTime> created_at
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="medical_service_appointment_service", Storage="_appointment_services", ThisKey="id", OtherKey="service_id")]
+		public EntitySet<appointment_service> appointment_services
 		{
 			get
 			{
-				return this._created_at;
+				return this._appointment_services;
 			}
 			set
 			{
-				if ((this._created_at != value))
-				{
-					this.Oncreated_atChanging(value);
-					this.SendPropertyChanging();
-					this._created_at = value;
-					this.SendPropertyChanged("created_at");
-					this.Oncreated_atChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_updated_at", DbType="DateTime")]
-		public System.Nullable<System.DateTime> updated_at
-		{
-			get
-			{
-				return this._updated_at;
-			}
-			set
-			{
-				if ((this._updated_at != value))
-				{
-					this.Onupdated_atChanging(value);
-					this.SendPropertyChanging();
-					this._updated_at = value;
-					this.SendPropertyChanged("updated_at");
-					this.Onupdated_atChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="doctor_appointment", Storage="_appointments", ThisKey="id", OtherKey="doctor_id")]
-		public EntitySet<appointment> appointments
-		{
-			get
-			{
-				return this._appointments;
-			}
-			set
-			{
-				this._appointments.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="doctor_doctor_review", Storage="_doctor_reviews", ThisKey="id", OtherKey="doctor_id")]
-		public EntitySet<doctor_review> doctor_reviews
-		{
-			get
-			{
-				return this._doctor_reviews;
-			}
-			set
-			{
-				this._doctor_reviews.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="doctor_schedule", Storage="_schedules", ThisKey="id", OtherKey="doctor_id")]
-		public EntitySet<schedule> schedules
-		{
-			get
-			{
-				return this._schedules;
-			}
-			set
-			{
-				this._schedules.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="specialty_doctor", Storage="_specialty", ThisKey="specialty_id", OtherKey="id", IsForeignKey=true)]
-		public specialty specialty
-		{
-			get
-			{
-				return this._specialty.Entity;
-			}
-			set
-			{
-				specialty previousValue = this._specialty.Entity;
-				if (((previousValue != value) 
-							|| (this._specialty.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._specialty.Entity = null;
-						previousValue.doctors.Remove(this);
-					}
-					this._specialty.Entity = value;
-					if ((value != null))
-					{
-						value.doctors.Add(this);
-						this._specialty_id = value.id;
-					}
-					else
-					{
-						this._specialty_id = default(int);
-					}
-					this.SendPropertyChanged("specialty");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="user_account_doctor", Storage="_user_account", ThisKey="user_account_id", OtherKey="id", IsForeignKey=true)]
-		public user_account user_account
-		{
-			get
-			{
-				return this._user_account.Entity;
-			}
-			set
-			{
-				user_account previousValue = this._user_account.Entity;
-				if (((previousValue != value) 
-							|| (this._user_account.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._user_account.Entity = null;
-						previousValue.doctors.Remove(this);
-					}
-					this._user_account.Entity = value;
-					if ((value != null))
-					{
-						value.doctors.Add(this);
-						this._user_account_id = value.id;
-					}
-					else
-					{
-						this._user_account_id = default(int);
-					}
-					this.SendPropertyChanged("user_account");
-				}
+				this._appointment_services.Assign(value);
 			}
 		}
 		
@@ -1900,40 +2163,16 @@ namespace ClinicWebsite_Team1.Models
 			}
 		}
 		
-		private void attach_appointments(appointment entity)
+		private void attach_appointment_services(appointment_service entity)
 		{
 			this.SendPropertyChanging();
-			entity.doctor = this;
+			entity.medical_service = this;
 		}
 		
-		private void detach_appointments(appointment entity)
+		private void detach_appointment_services(appointment_service entity)
 		{
 			this.SendPropertyChanging();
-			entity.doctor = null;
-		}
-		
-		private void attach_doctor_reviews(doctor_review entity)
-		{
-			this.SendPropertyChanging();
-			entity.doctor = this;
-		}
-		
-		private void detach_doctor_reviews(doctor_review entity)
-		{
-			this.SendPropertyChanging();
-			entity.doctor = null;
-		}
-		
-		private void attach_schedules(schedule entity)
-		{
-			this.SendPropertyChanging();
-			entity.doctor = this;
-		}
-		
-		private void detach_schedules(schedule entity)
-		{
-			this.SendPropertyChanging();
-			entity.doctor = null;
+			entity.medical_service = null;
 		}
 	}
 	
@@ -2266,25 +2505,27 @@ namespace ClinicWebsite_Team1.Models
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.medical_service")]
-	public partial class medical_service : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.payment")]
+	public partial class payment : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private int _id;
 		
-		private string _service_name;
+		private int _appointment_id;
 		
-		private string _description;
+		private decimal _amount;
 		
-		private decimal _price;
+		private string _payment_method;
 		
-		private System.Nullable<int> _duration_minutes;
+		private string _transaction_code;
 		
-		private System.Nullable<bool> _status;
+		private System.Nullable<System.DateTime> _payment_date;
 		
-		private EntitySet<appointment_service> _appointment_services;
+		private string _status;
+		
+		private EntityRef<appointment> _appointment;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -2292,21 +2533,23 @@ namespace ClinicWebsite_Team1.Models
     partial void OnCreated();
     partial void OnidChanging(int value);
     partial void OnidChanged();
-    partial void Onservice_nameChanging(string value);
-    partial void Onservice_nameChanged();
-    partial void OndescriptionChanging(string value);
-    partial void OndescriptionChanged();
-    partial void OnpriceChanging(decimal value);
-    partial void OnpriceChanged();
-    partial void Onduration_minutesChanging(System.Nullable<int> value);
-    partial void Onduration_minutesChanged();
-    partial void OnstatusChanging(System.Nullable<bool> value);
+    partial void Onappointment_idChanging(int value);
+    partial void Onappointment_idChanged();
+    partial void OnamountChanging(decimal value);
+    partial void OnamountChanged();
+    partial void Onpayment_methodChanging(string value);
+    partial void Onpayment_methodChanged();
+    partial void Ontransaction_codeChanging(string value);
+    partial void Ontransaction_codeChanged();
+    partial void Onpayment_dateChanging(System.Nullable<System.DateTime> value);
+    partial void Onpayment_dateChanged();
+    partial void OnstatusChanging(string value);
     partial void OnstatusChanged();
     #endregion
 		
-		public medical_service()
+		public payment()
 		{
-			this._appointment_services = new EntitySet<appointment_service>(new Action<appointment_service>(this.attach_appointment_services), new Action<appointment_service>(this.detach_appointment_services));
+			this._appointment = default(EntityRef<appointment>);
 			OnCreated();
 		}
 		
@@ -2330,88 +2573,112 @@ namespace ClinicWebsite_Team1.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_service_name", DbType="NVarChar(150) NOT NULL", CanBeNull=false)]
-		public string service_name
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_appointment_id", DbType="Int NOT NULL")]
+		public int appointment_id
 		{
 			get
 			{
-				return this._service_name;
+				return this._appointment_id;
 			}
 			set
 			{
-				if ((this._service_name != value))
+				if ((this._appointment_id != value))
 				{
-					this.Onservice_nameChanging(value);
+					if (this._appointment.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onappointment_idChanging(value);
 					this.SendPropertyChanging();
-					this._service_name = value;
-					this.SendPropertyChanged("service_name");
-					this.Onservice_nameChanged();
+					this._appointment_id = value;
+					this.SendPropertyChanged("appointment_id");
+					this.Onappointment_idChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_description", DbType="NVarChar(1000)")]
-		public string description
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_amount", DbType="Decimal(18,2) NOT NULL")]
+		public decimal amount
 		{
 			get
 			{
-				return this._description;
+				return this._amount;
 			}
 			set
 			{
-				if ((this._description != value))
+				if ((this._amount != value))
 				{
-					this.OndescriptionChanging(value);
+					this.OnamountChanging(value);
 					this.SendPropertyChanging();
-					this._description = value;
-					this.SendPropertyChanged("description");
-					this.OndescriptionChanged();
+					this._amount = value;
+					this.SendPropertyChanged("amount");
+					this.OnamountChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_price", DbType="Decimal(18,2) NOT NULL")]
-		public decimal price
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_payment_method", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string payment_method
 		{
 			get
 			{
-				return this._price;
+				return this._payment_method;
 			}
 			set
 			{
-				if ((this._price != value))
+				if ((this._payment_method != value))
 				{
-					this.OnpriceChanging(value);
+					this.Onpayment_methodChanging(value);
 					this.SendPropertyChanging();
-					this._price = value;
-					this.SendPropertyChanged("price");
-					this.OnpriceChanged();
+					this._payment_method = value;
+					this.SendPropertyChanged("payment_method");
+					this.Onpayment_methodChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_duration_minutes", DbType="Int")]
-		public System.Nullable<int> duration_minutes
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_transaction_code", DbType="VarChar(200)")]
+		public string transaction_code
 		{
 			get
 			{
-				return this._duration_minutes;
+				return this._transaction_code;
 			}
 			set
 			{
-				if ((this._duration_minutes != value))
+				if ((this._transaction_code != value))
 				{
-					this.Onduration_minutesChanging(value);
+					this.Ontransaction_codeChanging(value);
 					this.SendPropertyChanging();
-					this._duration_minutes = value;
-					this.SendPropertyChanged("duration_minutes");
-					this.Onduration_minutesChanged();
+					this._transaction_code = value;
+					this.SendPropertyChanged("transaction_code");
+					this.Ontransaction_codeChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_status", DbType="Bit")]
-		public System.Nullable<bool> status
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_payment_date", DbType="DateTime")]
+		public System.Nullable<System.DateTime> payment_date
+		{
+			get
+			{
+				return this._payment_date;
+			}
+			set
+			{
+				if ((this._payment_date != value))
+				{
+					this.Onpayment_dateChanging(value);
+					this.SendPropertyChanging();
+					this._payment_date = value;
+					this.SendPropertyChanged("payment_date");
+					this.Onpayment_dateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_status", DbType="VarChar(20)")]
+		public string status
 		{
 			get
 			{
@@ -2430,16 +2697,37 @@ namespace ClinicWebsite_Team1.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="medical_service_appointment_service", Storage="_appointment_services", ThisKey="id", OtherKey="service_id")]
-		public EntitySet<appointment_service> appointment_services
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="appointment_payment", Storage="_appointment", ThisKey="appointment_id", OtherKey="id", IsForeignKey=true)]
+		public appointment appointment
 		{
 			get
 			{
-				return this._appointment_services;
+				return this._appointment.Entity;
 			}
 			set
 			{
-				this._appointment_services.Assign(value);
+				appointment previousValue = this._appointment.Entity;
+				if (((previousValue != value) 
+							|| (this._appointment.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._appointment.Entity = null;
+						previousValue.payments.Remove(this);
+					}
+					this._appointment.Entity = value;
+					if ((value != null))
+					{
+						value.payments.Add(this);
+						this._appointment_id = value.id;
+					}
+					else
+					{
+						this._appointment_id = default(int);
+					}
+					this.SendPropertyChanged("appointment");
+				}
 			}
 		}
 		
@@ -2461,18 +2749,6 @@ namespace ClinicWebsite_Team1.Models
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
-		}
-		
-		private void attach_appointment_services(appointment_service entity)
-		{
-			this.SendPropertyChanging();
-			entity.medical_service = this;
-		}
-		
-		private void detach_appointment_services(appointment_service entity)
-		{
-			this.SendPropertyChanging();
-			entity.medical_service = null;
 		}
 	}
 	
@@ -2499,6 +2775,8 @@ namespace ClinicWebsite_Team1.Models
 		private System.Nullable<System.DateTime> _created_at;
 		
 		private System.Nullable<System.DateTime> _updated_at;
+		
+		private string _phone_number;
 		
 		private EntitySet<appointment> _appointments;
 		
@@ -2528,6 +2806,8 @@ namespace ClinicWebsite_Team1.Models
     partial void Oncreated_atChanged();
     partial void Onupdated_atChanging(System.Nullable<System.DateTime> value);
     partial void Onupdated_atChanged();
+    partial void Onphone_numberChanging(string value);
+    partial void Onphone_numberChanged();
     #endregion
 		
 		public patient()
@@ -2718,6 +2998,26 @@ namespace ClinicWebsite_Team1.Models
 					this._updated_at = value;
 					this.SendPropertyChanged("updated_at");
 					this.Onupdated_atChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_phone_number", DbType="VarChar(20)")]
+		public string phone_number
+		{
+			get
+			{
+				return this._phone_number;
+			}
+			set
+			{
+				if ((this._phone_number != value))
+				{
+					this.Onphone_numberChanging(value);
+					this.SendPropertyChanging();
+					this._phone_number = value;
+					this.SendPropertyChanged("phone_number");
+					this.Onphone_numberChanged();
 				}
 			}
 		}
@@ -3212,253 +3512,6 @@ namespace ClinicWebsite_Team1.Models
 		{
 			this.SendPropertyChanging();
 			entity.schedule = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.payment")]
-	public partial class payment : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _id;
-		
-		private int _appointment_id;
-		
-		private decimal _amount;
-		
-		private string _payment_method;
-		
-		private string _transaction_code;
-		
-		private System.Nullable<System.DateTime> _payment_date;
-		
-		private string _status;
-		
-		private EntityRef<appointment> _appointment;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnidChanging(int value);
-    partial void OnidChanged();
-    partial void Onappointment_idChanging(int value);
-    partial void Onappointment_idChanged();
-    partial void OnamountChanging(decimal value);
-    partial void OnamountChanged();
-    partial void Onpayment_methodChanging(string value);
-    partial void Onpayment_methodChanged();
-    partial void Ontransaction_codeChanging(string value);
-    partial void Ontransaction_codeChanged();
-    partial void Onpayment_dateChanging(System.Nullable<System.DateTime> value);
-    partial void Onpayment_dateChanged();
-    partial void OnstatusChanging(string value);
-    partial void OnstatusChanged();
-    #endregion
-		
-		public payment()
-		{
-			this._appointment = default(EntityRef<appointment>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int id
-		{
-			get
-			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this.OnidChanging(value);
-					this.SendPropertyChanging();
-					this._id = value;
-					this.SendPropertyChanged("id");
-					this.OnidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_appointment_id", DbType="Int NOT NULL")]
-		public int appointment_id
-		{
-			get
-			{
-				return this._appointment_id;
-			}
-			set
-			{
-				if ((this._appointment_id != value))
-				{
-					if (this._appointment.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Onappointment_idChanging(value);
-					this.SendPropertyChanging();
-					this._appointment_id = value;
-					this.SendPropertyChanged("appointment_id");
-					this.Onappointment_idChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_amount", DbType="Decimal(18,2) NOT NULL")]
-		public decimal amount
-		{
-			get
-			{
-				return this._amount;
-			}
-			set
-			{
-				if ((this._amount != value))
-				{
-					this.OnamountChanging(value);
-					this.SendPropertyChanging();
-					this._amount = value;
-					this.SendPropertyChanged("amount");
-					this.OnamountChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_payment_method", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string payment_method
-		{
-			get
-			{
-				return this._payment_method;
-			}
-			set
-			{
-				if ((this._payment_method != value))
-				{
-					this.Onpayment_methodChanging(value);
-					this.SendPropertyChanging();
-					this._payment_method = value;
-					this.SendPropertyChanged("payment_method");
-					this.Onpayment_methodChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_transaction_code", DbType="VarChar(200)")]
-		public string transaction_code
-		{
-			get
-			{
-				return this._transaction_code;
-			}
-			set
-			{
-				if ((this._transaction_code != value))
-				{
-					this.Ontransaction_codeChanging(value);
-					this.SendPropertyChanging();
-					this._transaction_code = value;
-					this.SendPropertyChanged("transaction_code");
-					this.Ontransaction_codeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_payment_date", DbType="DateTime")]
-		public System.Nullable<System.DateTime> payment_date
-		{
-			get
-			{
-				return this._payment_date;
-			}
-			set
-			{
-				if ((this._payment_date != value))
-				{
-					this.Onpayment_dateChanging(value);
-					this.SendPropertyChanging();
-					this._payment_date = value;
-					this.SendPropertyChanged("payment_date");
-					this.Onpayment_dateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_status", DbType="VarChar(20)")]
-		public string status
-		{
-			get
-			{
-				return this._status;
-			}
-			set
-			{
-				if ((this._status != value))
-				{
-					this.OnstatusChanging(value);
-					this.SendPropertyChanging();
-					this._status = value;
-					this.SendPropertyChanged("status");
-					this.OnstatusChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="appointment_payment", Storage="_appointment", ThisKey="appointment_id", OtherKey="id", IsForeignKey=true)]
-		public appointment appointment
-		{
-			get
-			{
-				return this._appointment.Entity;
-			}
-			set
-			{
-				appointment previousValue = this._appointment.Entity;
-				if (((previousValue != value) 
-							|| (this._appointment.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._appointment.Entity = null;
-						previousValue.payments.Remove(this);
-					}
-					this._appointment.Entity = value;
-					if ((value != null))
-					{
-						value.payments.Add(this);
-						this._appointment_id = value.id;
-					}
-					else
-					{
-						this._appointment_id = default(int);
-					}
-					this.SendPropertyChanged("appointment");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
 		}
 	}
 	

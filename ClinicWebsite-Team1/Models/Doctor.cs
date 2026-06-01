@@ -32,5 +32,6 @@ namespace ClinicWebsite_Team1.Models
         public virtual ICollection<Appointment> Appointments { get; set; }
         public virtual ICollection<DoctorReview> DoctorReviews { get; set; }
         public virtual ICollection<Schedule> Schedules { get; set; }
+        public object FeaturedDoctor { get; internal set; }
     }
 }

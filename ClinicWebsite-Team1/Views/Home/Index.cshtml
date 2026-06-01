@@ -1,6 +1,11 @@
-﻿@{
+﻿@using System.Linq
+@model List<ClinicWebsite_Team1.Models.doctor>
+
+@{
+
     ViewBag.Title = "Home Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var services = ViewBag.Services as List<ClinicWebsite_Team1.Models.medical_service>;
 }
 
 <section class="hero-section py-5">
@@ -8,7 +13,7 @@
 
         <div class="col-lg-6">
             <h2 class="display-4 fw-bold">
-                Quoc Khanh Hospital 
+                Quoc Khanh Hospital
             </h2>
             <h4>Your Trusted Healthcare Partner</h4>
             <p class="lead">
@@ -89,6 +94,321 @@
         </div>
     </div>
 </section>
+<section class="my-5">
+    <h2 class="text-center mb-4">Medical Specialties</h2>
+
+    <div class="position-relative">
+
+        <!-- Nút trái -->
+        <button class="scroll-btn left" type="button" onclick="scrollSpecialties(-1)">
+            ‹
+        </button>
+
+        <!-- Nút phải -->
+        <button class="scroll-btn right" type="button" onclick="scrollSpecialties(1)">
+            ›
+        </button>
+
+        <!-- Scroll container -->
+        <div class="specialty-scroll-wrapper" id="specialtyScroll">
+
+            @foreach (var s in ViewBag.Specialties as List<ClinicWebsite_Team1.Models.specialty>)
+            {
+                <div class="specialty-card">
+
+                    <div class="card h-100 text-center shadow-sm border-0">
+
+                        <img src="@Url.Content("~/Content/images/" + s.image_url)"
+                             class="card-img-top"
+                             style="height:140px; object-fit:cover;" />
+
+                        <div class="card-body">
+
+                            <h6 class="mb-1">@s.name</h6>
+
+                            <p class="small text-muted mb-0">
+                                @s.description
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            }
+
+        </div>
+    </div>
+</section>
+<section class="my-5">
+    <h2 class="text-center mb-5">Featured Doctors</h2>
+
+    @{
+        var featuredDoctor = Model.FirstOrDefault();
+        var otherDoctors = Model.Skip(1).ToList();
+    }
+
+    @if (featuredDoctor != null)
+    {
+        <!-- Chief Doctor -->
+        <div class="card shadow border-0 mb-5">
+            <div class="row g-0 align-items-center">
+
+                <div class="col-md-5">
+                    <img src="@Url.Content(featuredDoctor.image_url)"
+                         class="img-fluid w-100"
+                         style="height:420px; object-fit:contain; background:#f8f9fa;" />
+                </div>
+
+                <div class="col-md-7">
+                    <div class="card-body p-4">
+
+                        <span class="badge bg-primary mb-3">Chief Doctor</span>
+
+                        <h3>@featuredDoctor.user_account.full_name</h3>
+
+                        <p class="text-muted mb-1">
+                            @featuredDoctor.specialty.name
+                        </p>
+                        <p>Experice years : @featuredDoctor.experience_years</p>
+                        <p class="mb-1">
+                            @featuredDoctor.user_account.email
+                        </p>
+
+                        <p class="mb-0">
+                            @featuredDoctor.user_account.phone_number
+                        </p>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    }
+    <!-- Other Doctors -->
+    <div class="position-relative mt-4">
+
+        <!-- Nút trái -->
+        <button class="scroll-btn left" type="button" onclick="scrollDoctors(-1)">
+            ‹
+        </button>
+
+        <!-- Nút phải -->
+        <button class="scroll-btn right" type="button" onclick="scrollDoctors(1)">
+            ›
+        </button>
+
+        <!-- Scroll container (QUAN TRỌNG) -->
+        <div class="doctor-scroll-wrapper" id="doctorScroll">
+
+            @foreach (var doctor in otherDoctors)
+            {
+                <div class="doctor-card" data-index="@doctor.id">
+
+                    <div class="card h-100 shadow-sm border-0">
+
+                        <div class="row g-0">
+
+                            <div class="col-5">
+                                <img src="@Url.Content(doctor.image_url)"
+                                     class="w-100"
+                                     style="height:180px; object-fit:cover;" />
+                            </div>
+
+                            <div class="col-7">
+                                <div class="card-body">
+
+                                    <h6 class="mb-1">
+                                        @doctor.user_account.full_name
+                                    </h6>
+
+                                    <p class="text-primary small mb-1">
+                                        @doctor.specialty.name
+                                    </p>
+                                    <p>
+                                       Experience years : @doctor.experience_years
+                                    </p>
+                                    <p>Contact</p>
+                                    <p class="small mb-0">
+                                        @doctor.user_account.email
+                                    </p>
+
+                                    <p class="small mb-0">
+                                        @doctor.user_account.phone_number
+                                    </p>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            }
+
+        </div>
+    </div>
+</section>
+<section class="my-5">
+    <h2 class="text-center mb-4">Medical Services</h2>
+
+    @if (services != null && services.Any())
+    {
+        <div class="service-scroll-wrapper" id="serviceScroll">
+
+            @foreach (var s in services)
+            {
+                <div class="service-card">
+
+                    <div class="card h-100 shadow-sm border-0">
+
+                        <div class="card-body text-center">
+
+                            <h5 class="mb-2">
+                                @s.service_name
+                            </h5>
+
+                            <p class="small text-muted mb-2">
+                                @s.description
+                            </p>
+
+                            <p class="fw-bold text-primary mb-1">
+                                @String.Format("{0:N0} đ", s.price)
+                            </p>
+
+                            <p class="small mb-0">
+                                @s.duration_minutes phút
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            }
+
+        </div>
+
+        <!-- Buttons -->
+        <div class="text-center mt-3">
+            <button class="btn btn-outline-primary" onclick="scrollService(-1)">‹</button>
+            <button class="btn btn-outline-primary" onclick="scrollService(1)">›</button>
+        </div>
+    }
+</section>
+<script>
+    let isScrolling = false;
+
+    function scrollDoctors(direction) {
+        const container = document.getElementById("doctorScroll");
+        const cards = container.querySelectorAll(".doctor-card");
+
+        const cardWidth = cards[0].offsetWidth + 16; // width + gap
+        const maxScroll = container.scrollWidth - container.clientWidth;
+
+        let newScroll = container.scrollLeft + (direction * cardWidth);
+
+        // 👉 Nếu đi tới cuối → quay về bác sĩ thứ 2 (index 1)
+        if (newScroll >= maxScroll) {
+            container.scrollTo({
+                left: cardWidth, // bác sĩ số 2
+                behavior: "smooth"
+            });
+            return;
+        }
+
+        // 👉 Nếu đi ngược quá đầu → nhảy về cuối
+        if (newScroll <= 0) {
+            container.scrollTo({
+                left: maxScroll - cardWidth,
+                behavior: "smooth"
+            });
+            return;
+        }
+
+        container.scrollBy({
+            left: direction * cardWidth,
+            behavior: "smooth"
+        });
+    }
+
+    /*  Bonus: kéo tay cũng loop mượt */
+    document.addEventListener("DOMContentLoaded", () => {
+        const container = document.getElementById("doctorScroll");
+
+        container.addEventListener("scroll", () => {
+            if (isScrolling) return;
+
+            const maxScroll = container.scrollWidth - container.clientWidth;
+
+            // nếu gần cuối → reset về bác sĩ 2
+            if (container.scrollLeft >= maxScroll - 5) {
+                isScrolling = true;
+
+                setTimeout(() => {
+                    container.scrollTo({
+                        left: container.children[1].offsetLeft,
+                        behavior: "auto"
+                    });
+                    isScrolling = false;
+                }, 200);
+            }
+        });
+    });
+</script>
+<script>
+    function scrollSpecialties(direction) {
+        const container = document.getElementById("specialtyScroll");
+        const cards = container.querySelectorAll(".specialty-card");
+
+        const cardWidth = cards[0].offsetWidth + 16;
+        const maxScroll = container.scrollWidth - container.clientWidth;
+
+        let newScroll = container.scrollLeft + direction * cardWidth;
+
+        // end → quay về item 2
+        if (newScroll >= maxScroll) {
+            container.scrollTo({
+                left: cardWidth,
+                behavior: "smooth"
+            });
+            return;
+        }
+
+        // start → quay về gần cuối
+        if (newScroll <= 0) {
+            container.scrollTo({
+                left: maxScroll - cardWidth,
+                behavior: "smooth"
+            });
+            return;
+        }
+
+        container.scrollBy({
+            left: direction * cardWidth,
+            behavior: "smooth"
+        });
+    }
+</script>
+<script>
+    function scrollService(direction) {
+        const container = document.getElementById("serviceScroll");
+        const scrollAmount = 280;
+
+        container.scrollBy({
+            left: direction * scrollAmount,
+            behavior: "smooth"
+        });
+
+        // fake infinite loop feel
+        setTimeout(() => {
+            if (container.scrollLeft + container.clientWidth >= container.scrollWidth) {
+                container.scrollTo({ left: 0, behavior: "smooth" });
+            }
+        }, 500);
+    }
+</script>
 <style>
     .hero-section {
         min-height: 500px;
@@ -96,20 +416,175 @@
         align-items: center;
     }
 
+    /* Card hover effect */
     .card {
-        transition: .3s;
+        transition: 0.3s ease-in-out;
     }
 
         .card:hover {
             transform: translateY(-5px);
         }
 
+    /* Section spacing */
     section {
         margin-bottom: 30px;
     }
+
+    /* Hero carousel image fix */
     #heroCarousel img {
-        height: 450px;
+        height: 300px;
         object-fit: cover;
-        width :100px;
+        width: 100%;
     }
+
+    /* Doctor chief image */
+    .featured-doctor-img {
+        height: 420px;
+        object-fit: contain;
+        background: #f8f9fa;
+    }
+
+    /* Doctor list card (fixed layout) */
+    .doctor-card-fixed {
+        height: 180px;
+        overflow: hidden;
+        border-radius: 12px;
+    }
+
+        /* Doctor image inside card */
+        .doctor-card-fixed img {
+            height: 100%;
+            object-fit: cover;
+        }
+
+    /* Horizontal scroll container (if needed later) */
+    .doctor-scroll-wrapper {
+        display: flex;
+        overflow-x: auto;
+        scroll-behavior: smooth;
+        gap: 16px;
+        padding: 10px 40px;
+    }
+
+        /* ẩn scrollbar */
+        .doctor-scroll-wrapper::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .doctor-scroll-wrapper::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 10px;
+        }
+
+    /* mỗi card nằm ngang */
+    .doctor-card {
+        flex: 0 0 auto;
+        width: 380px;
+    }
+
+    /* nút scroll */
+    .scroll-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 10;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 1px solid #ddd;
+        background: white;
+        font-size: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+    }
+
+        .scroll-btn.left {
+            left: 0;
+        }
+
+        .scroll-btn.right {
+            right: 0;
+        }
+
+    .specialty-scroll-wrapper {
+        display: flex;
+        overflow-x: auto;
+        scroll-behavior: smooth;
+        gap: 16px;
+        padding: 10px 40px;
+    }
+
+        .specialty-scroll-wrapper::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .specialty-scroll-wrapper::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 10px;
+        }
+
+    .specialty-card {
+        flex: 0 0 auto;
+        width: 220px;
+    }
+
+    /* dùng chung nút scroll với doctor */
+    .scroll-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 10;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 1px solid #ddd;
+        background: white;
+        font-size: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+    }
+
+        .scroll-btn.left {
+            left: 0;
+        }
+
+        .scroll-btn.right {
+            right: 0;
+        }
+    .service-scroll-wrapper {
+        display: flex;
+        overflow-x: auto;
+        scroll-behavior: smooth;
+        gap: 15px;
+        padding: 10px;
+    }
+
+        /* hide scrollbar */
+        .service-scroll-wrapper::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .service-scroll-wrapper::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 10px;
+        }
+
+    .service-card {
+        min-width: 260px;
+        flex: 0 0 auto;
+    }
+
+        .service-card .card {
+            height: 180px;
+            border-radius: 12px;
+            transition: 0.3s;
+        }
+
+            .service-card .card:hover {
+                transform: translateY(-5px);
+            }
 </style>
