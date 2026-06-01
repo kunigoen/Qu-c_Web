@@ -38,10 +38,50 @@ namespace ClinicWebsite_Team1.Controllers
                   .ToList();
 
             return View(doctors);
-
             
         }
+        public ActionResult Details(int id)
+        {
+            var doctor = db.doctors.FirstOrDefault(x => x.id == id);
 
+            if (doctor == null)
+                return HttpNotFound();
+
+            var schedules = db.schedules
+                              .Where(s => s.doctor_id == id)
+                              .OrderBy(s => s.work_date)
+                              .ToList();
+
+            var reviews = db.doctor_reviews
+                            .Where(r => r.doctor_id == id)
+                            .OrderByDescending(r => r.review_date)
+                            .ToList();
+
+            ViewBag.Schedules = schedules;
+            ViewBag.Reviews = reviews;
+
+            return View(doctor);
+        }
+        public ActionResult DoctorDetail(int id)
+        {
+            var doctor = db.doctors
+                           .Include("specialty")
+                           .Include("user_account")
+                           .FirstOrDefault(x => x.id == id);
+
+            var schedules = db.schedules
+                              .Where(s => s.doctor_id == id)
+                              .ToList();
+
+            var reviews = db.doctor_reviews
+                             .Where(r => r.doctor_id == id)
+                             .ToList();
+
+            ViewBag.Schedules = schedules;
+            ViewBag.Reviews = reviews;
+
+            return View(doctor);
+        }
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";

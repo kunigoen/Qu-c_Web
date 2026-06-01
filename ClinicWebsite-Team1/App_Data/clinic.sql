@@ -21,6 +21,7 @@ CREATE TABLE user_account(
     created_at DATETIME DEFAULT GETDATE(),
     updated_at DATETIME NULL
 );
+select * from user_account
 
 CREATE TABLE specialty(
     id INT IDENTITY(1,1) PRIMARY KEY,
@@ -299,6 +300,68 @@ INSERT INTO payment(appointment_id,amount,payment_method,transaction_code,paymen
 INSERT INTO payment(appointment_id,amount,payment_method,transaction_code,payment_date,status) VALUES (13,300000,'VNPay','TXN0013',GETDATE(),'Paid');
 INSERT INTO payment(appointment_id,amount,payment_method,transaction_code,payment_date,status) VALUES (14,300000,'VNPay','TXN0014',GETDATE(),'Paid');
 INSERT INTO payment(appointment_id,amount,payment_method,transaction_code,payment_date,status) VALUES (15,300000,'VNPay','TXN0015',GETDATE(),'Paid');
+
+
+WITH cte AS (
+    SELECT 
+        id,
+        ROW_NUMBER() OVER (ORDER BY id) AS rn
+    FROM doctor
+)
+UPDATE d
+SET image_url = '/Content/images/doctor' 
+                + CAST(cte.rn AS NVARCHAR(10)) 
+                + '.jpg'
+FROM doctor d
+JOIN cte ON d.id = cte.id;
+
+
+WITH cte AS (
+    SELECT 
+        u.id,
+        ROW_NUMBER() OVER (ORDER BY u.id) AS rn
+    FROM user_account u
+    WHERE u.role = 'Doctor'
+)
+UPDATE u
+SET avatar_url = '/Content/images/doctor' 
+                + CAST(cte.rn AS NVARCHAR(10)) 
+                + '.jpg'
+FROM user_account u
+JOIN cte ON u.id = cte.id
+WHERE u.role = 'Doctor';
+
+
+WITH cte AS (
+    SELECT 
+        id,
+        ROW_NUMBER() OVER (ORDER BY id) AS rn
+    FROM user_account
+)
+UPDATE user_account
+SET phone_number = '090' + RIGHT('0000000' + CAST(cte.rn AS VARCHAR(10)), 7)
+FROM user_account u
+JOIN cte ON u.id = cte.id;
+
+
+
+-- PATIENT phone_number lấy từ user_account
+UPDATE p
+SET p.phone_number = u.phone_number
+FROM patient p
+JOIN user_account u ON p.user_account_id = u.id;
+-- DOCTOR phone_number lấy từ user_account
+UPDATE d
+SET d.phone_number = u.phone_number
+FROM doctor d
+JOIN user_account u ON d.user_account_id = u.id;
+
+ALTER TABLE patient
+ADD phone_number VARCHAR(20);
+ALTER TABLE doctor
+ADD phone_number VARCHAR(20);
+select * from doctor
+
 SELECT COUNT(*) AS total_doctors
 FROM doctor;
 

@@ -1,0 +1,107 @@
+﻿@model ClinicWebsite_Team1.Models.doctor
+
+@{
+    ViewBag.Title = "Doctor Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var schedules = ViewBag.Schedules as List<ClinicWebsite_Team1.Models.schedule>;
+    var reviews = ViewBag.Reviews as List<ClinicWebsite_Team1.Models.doctor_review>;
+}
+<div class="container my-4">
+
+    <div class="row">
+
+        <div class="col-md-4">
+            <img src="@Url.Content(Model.image_url)"
+                 class="img-fluid rounded shadow"
+                 style="height:320px; object-fit:cover;" />
+        </div>
+
+        <div class="col-md-8">
+
+            <h2>@Model.user_account.full_name</h2>
+
+            <h5 class="text-primary">
+                @Model.specialty.name
+            </h5>
+
+            <p>
+                <b>Experience:</b> @Model.experience_years years
+            </p>
+
+            <p>
+                <b>Fee:</b>
+                @String.Format("{0:N0} đ", Model.consultation_fee)
+            </p>
+
+            <p>
+                @Model.biography
+            </p>
+
+            <a href="@Url.Action("Create","Appointment", new { doctorId = Model.id })"
+               class="btn btn-success">
+                Book Appointment
+            </a>
+
+        </div>
+
+    </div>
+    <hr />
+
+    <h4>Schedule</h4>
+
+    <div class="row">
+
+        @if (schedules != null && schedules.Any())
+        {
+            foreach (var s in schedules)
+            {
+                <div class="col-md-4">
+                    <div class="card p-3 mb-3 shadow-sm">
+
+                        <p><b>Date:</b> @s.work_date.ToString("dd/MM/yyyy")</p>
+                        <p><b>Time:</b> @s.start_time - @s.end_time</p>
+                        <p><b>Room:</b> @s.room_id</p>
+                        <p><b>Status:</b> @s.status</p>
+
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <p>No schedule available.</p>
+        }
+
+    </div>
+    <hr />
+
+    <h4>Reviews</h4>
+
+    @if (reviews != null && reviews.Any())
+    {
+        foreach (var r in reviews)
+        {
+            <div class="border p-3 mb-2 rounded">
+
+                <b>Rating:</b> @r.rating / 5
+                <br />
+                <span>@r.comment</span>
+
+            </div>
+        }
+    }
+    else
+    {
+        <p>No reviews yet.</p>
+    }
+
+<style>
+    .container img {
+        border-radius: 12px;
+    }
+
+    .card {
+        border-radius: 12px;
+    }
+</style>

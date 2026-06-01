@@ -3,7 +3,7 @@
 
 @{
 
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Quoc Khanh Hospital";
     Layout = "~/Views/Shared/_Layout.cshtml";
     var services = ViewBag.Services as List<ClinicWebsite_Team1.Models.medical_service>;
 }
@@ -178,6 +178,8 @@
                         <p class="mb-0">
                             @featuredDoctor.user_account.phone_number
                         </p>
+                        <a href="@Url.Action("Details", "Home", new {  @featuredDoctor.id})"
+                           class="text-decoration-none text-dark">
 
                     </div>
                 </div>
@@ -204,45 +206,47 @@
         @foreach (var doctor in otherDoctors)
         {
             <div class="doctor-card" data-index="@doctor.id">
+                <a href="@Url.Action("Details", "Home", new { id = doctor.id })"
+                   class="text-decoration-none text-dark">
 
-                <div class="card h-100 shadow-sm border-0">
+                    <div class="card h-100 shadow-sm border-0">
 
-                    <div class="row g-0">
+                        <div class="row g-0">
 
-                        <div class="col-5">
-                            <img src="@Url.Content(doctor.image_url)"
-                                 class="w-100"
-                                 style="height:180px; object-fit:cover;" />
-                        </div>
-
-                        <div class="col-7">
-                            <div class="card-body">
-
-                                <h6 class="mb-1">
-                                    @doctor.user_account.full_name
-                                </h6>
-
-                                <p class="text-primary small mb-1">
-                                    @doctor.specialty.name
-                                </p>
-                                <p>
-                                    Experience years : @doctor.experience_years
-                                </p>
-                                <p>Contact</p>
-                                <p class="small mb-0">
-                                    @doctor.user_account.email
-                                </p>
-
-                                <p class="small mb-0">
-                                    @doctor.user_account.phone_number
-                                </p>
-
+                            <div class="col-5">
+                                <img src="@Url.Content(doctor.image_url)"
+                                     class="w-100"
+                                     style="height:180px; object-fit:cover;" />
                             </div>
+
+                            <div class="col-7">
+                                <div class="card-body">
+
+                                    <h6 class="mb-1">
+                                        @doctor.user_account.full_name
+                                    </h6>
+
+                                    <p class="text-primary small mb-1">
+                                        @doctor.specialty.name
+                                    </p>
+                                    <p>
+                                        Experience years : @doctor.experience_years
+                                    </p>
+                                    <p>Contact</p>
+                                    <p class="small mb-0">
+                                        @doctor.user_account.email
+                                    </p>
+
+                                    <p class="small mb-0">
+                                        @doctor.user_account.phone_number
+                                    </p>
+
+                                </div>
+                            </div>
+
                         </div>
 
                     </div>
-
-                </div>
 
             </div>
         }
