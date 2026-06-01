@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
 
 namespace ClinicWebsite_Team1.Controllers
 {
@@ -31,9 +32,14 @@ namespace ClinicWebsite_Team1.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            var doctors = db.doctors
+                  .Include("specialty")
+                  .Include("user_account")
+                  .ToList();
 
-            return View();
+            return View(doctors);
+
+            
         }
 
         public ActionResult Contact()

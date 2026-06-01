@@ -77,3 +77,7 @@ D:\Thanh\GitHub\WebPrograming\FinalsPJ\ClinicWebsite-Team1\ClinicWebsite-Team1\o
 D:\Thanh\GitHub\WebPrograming\FinalsPJ\ClinicWebsite-Team1\ClinicWebsite-Team1\obj\Debug\ClinicWe.86CF874B.Up2Date
 D:\Thanh\GitHub\WebPrograming\FinalsPJ\ClinicWebsite-Team1\ClinicWebsite-Team1\obj\Debug\ClinicWebsite-Team1.dll
 D:\Thanh\GitHub\WebPrograming\FinalsPJ\ClinicWebsite-Team1\ClinicWebsite-Team1\obj\Debug\ClinicWebsite-Team1.pdb
+D:\Thanh\GitHub\WebPrograming\FinalsPJ\ClinicWebsite-Team1\ClinicWebsite-Team1\bin\EntityFramework.dll
+D:\Thanh\GitHub\WebPrograming\FinalsPJ\ClinicWebsite-Team1\ClinicWebsite-Team1\bin\EntityFramework.SqlServer.dll
+D:\Thanh\GitHub\WebPrograming\FinalsPJ\ClinicWebsite-Team1\ClinicWebsite-Team1\bin\EntityFramework.xml
+D:\Thanh\GitHub\WebPrograming\FinalsPJ\ClinicWebsite-Team1\ClinicWebsite-Team1\bin\EntityFramework.SqlServer.xml

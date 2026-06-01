@@ -186,69 +186,76 @@
         </div>
     }
     <!-- Other Doctors -->
-    <div class="position-relative mt-4">
+<div class="position-relative mt-4">
 
-        <!-- Nút trái -->
-        <button class="scroll-btn left" type="button" onclick="scrollDoctors(-1)">
-            ‹
-        </button>
+    <!-- Nút trái -->
+    <button class="scroll-btn left" type="button" onclick="scrollDoctors(-1)">
+        ‹
+    </button>
 
-        <!-- Nút phải -->
-        <button class="scroll-btn right" type="button" onclick="scrollDoctors(1)">
-            ›
-        </button>
+    <!-- Nút phải -->
+    <button class="scroll-btn right" type="button" onclick="scrollDoctors(1)">
+        ›
+    </button>
 
-        <!-- Scroll container (QUAN TRỌNG) -->
-        <div class="doctor-scroll-wrapper" id="doctorScroll">
+    <!-- Scroll container (QUAN TRỌNG) -->
+    <div class="doctor-scroll-wrapper" id="doctorScroll">
 
-            @foreach (var doctor in otherDoctors)
-            {
-                <div class="doctor-card" data-index="@doctor.id">
+        @foreach (var doctor in otherDoctors)
+        {
+            <div class="doctor-card" data-index="@doctor.id">
 
-                    <div class="card h-100 shadow-sm border-0">
+                <div class="card h-100 shadow-sm border-0">
 
-                        <div class="row g-0">
+                    <div class="row g-0">
 
-                            <div class="col-5">
-                                <img src="@Url.Content(doctor.image_url)"
-                                     class="w-100"
-                                     style="height:180px; object-fit:cover;" />
+                        <div class="col-5">
+                            <img src="@Url.Content(doctor.image_url)"
+                                 class="w-100"
+                                 style="height:180px; object-fit:cover;" />
+                        </div>
+
+                        <div class="col-7">
+                            <div class="card-body">
+
+                                <h6 class="mb-1">
+                                    @doctor.user_account.full_name
+                                </h6>
+
+                                <p class="text-primary small mb-1">
+                                    @doctor.specialty.name
+                                </p>
+                                <p>
+                                    Experience years : @doctor.experience_years
+                                </p>
+                                <p>Contact</p>
+                                <p class="small mb-0">
+                                    @doctor.user_account.email
+                                </p>
+
+                                <p class="small mb-0">
+                                    @doctor.user_account.phone_number
+                                </p>
+
                             </div>
-
-                            <div class="col-7">
-                                <div class="card-body">
-
-                                    <h6 class="mb-1">
-                                        @doctor.user_account.full_name
-                                    </h6>
-
-                                    <p class="text-primary small mb-1">
-                                        @doctor.specialty.name
-                                    </p>
-                                    <p>
-                                       Experience years : @doctor.experience_years
-                                    </p>
-                                    <p>Contact</p>
-                                    <p class="small mb-0">
-                                        @doctor.user_account.email
-                                    </p>
-
-                                    <p class="small mb-0">
-                                        @doctor.user_account.phone_number
-                                    </p>
-
-                                </div>
-                            </div>
-
                         </div>
 
                     </div>
 
                 </div>
-            }
 
-        </div>
+            </div>
+        }
+
     </div>
+    <li class="nav-item w-100 d-flex justify-content-center">
+        <a href="@Url.Action("About", "Home")"
+           class="btn btn-primary px-4">
+            More
+        </a>
+    </li>
+
+</div>
 </section>
 <section class="my-5">
     <h2 class="text-center mb-4">Medical Services</h2>
@@ -587,4 +594,12 @@
             .service-card .card:hover {
                 transform: translateY(-5px);
             }
+    .btn-primary {
+        transition: 0.3s;
+    }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+        }
 </style>

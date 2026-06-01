@@ -1,9 +1,159 @@
-﻿@{
+﻿@using System.Linq
+@model List<ClinicWebsite_Team1.Models.doctor>
+@{
     ViewBag.Title = "About";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<main aria-labelledby="title">
-    <h2 id="title">@ViewBag.Title.</h2>
-    <h3>@ViewBag.Message</h3>
+<div class="container my-4">
 
-    <p>Use this area to provide additional information.</p>
-</main>
+    <h2 class="text-center mb-4">Doctor List</h2>
+
+    <div class="row mb-3">
+
+        <!-- Search -->
+        <div class="col-md-6">
+            <input type="text" id="searchBox" class="form-control"
+                   placeholder="Search doctor name..." onkeyup="filterDoctors()">
+        </div>
+
+        <!-- Filter Specialty -->
+        <div class="col-md-6">
+            <select id="specialtyFilter" class="form-select" onchange="filterDoctors()">
+                <option value="">All Specialties</option>
+                @foreach (var s in Model.Select(x => x.specialty.name).Distinct())
+                {
+                    <option value="@s">@s</option>
+                }
+            </select>
+        </div>
+
+    </div>
+    <div class="row" id="doctorContainer">
+
+        @foreach (var d in Model)
+        {
+            <div class="col-md-4 doctor-item"
+                 data-name="@d.user_account.full_name.ToLower()"
+                 data-specialty="@d.specialty.name">
+
+                <div class="card mb-4 shadow-sm">
+
+                    <img src="@Url.Content(d.image_url)"
+                         class="card-img-top"
+                         style="height:220px; object-fit:cover;" />
+
+                    <div class="card-body text-center">
+
+                        <h5 class="doctor-name">
+                            @d.user_account.full_name
+                        </h5>
+
+                        <p class="text-primary mb-1">
+                            @d.specialty.name
+                        </p>
+
+                        <p class="small mb-1">
+                            Experience: @d.experience_years years
+                        </p>
+
+                        <p class="fw-bold text-success mb-0">
+                            Fee: @String.Format("{0:N0} đ", d.consultation_fee)
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+        }
+
+    </div>
+    <div class="text-center mt-3">
+        <button class="btn btn-outline-primary" onclick="changePage(-1)">Prev</button>
+        <span id="pageInfo" class="mx-2"></span>
+        <button class="btn btn-outline-primary" onclick="changePage(1)">Next</button>
+    </div>
+
+</div>
+<script>
+    let currentPage = 1;
+    const itemsPerPage = 6;
+
+    function filterDoctors() {
+        currentPage = 1;
+        renderDoctors();
+    }
+
+    function renderDoctors() {
+        const search = document.getElementById("searchBox").value.toLowerCase();
+        const specialty = document.getElementById("specialtyFilter").value;
+
+        const items = document.querySelectorAll(".doctor-item");
+
+        let visibleItems = [];
+
+        items.forEach(item => {
+
+            const name = item.getAttribute("data-name");
+            const spec = item.getAttribute("data-specialty");
+
+            const matchSearch = name.includes(search);
+            const matchSpec = specialty === "" || spec === specialty;
+
+            if (matchSearch && matchSpec) {
+                visibleItems.push(item);
+            } else {
+                item.style.display = "none";
+            }
+        });
+
+        // pagination
+        const totalPages = Math.ceil(visibleItems.length / itemsPerPage);
+
+        visibleItems.forEach((item, index) => {
+
+            if (index >= (currentPage - 1) * itemsPerPage &&
+                index < currentPage * itemsPerPage) {
+                item.style.display = "block";
+            } else {
+                item.style.display = "none";
+            }
+        });
+
+        document.getElementById("pageInfo").innerText =
+            `Page ${currentPage} / ${totalPages || 1}`;
+    }
+
+    function changePage(step) {
+        currentPage += step;
+        if (currentPage < 1) currentPage = 1;
+        renderDoctors();
+    }
+
+    // init
+    window.onload = renderDoctors;
+</script>
+<style>
+    .card-img-top {
+        width: 100%;
+        height: 300px;
+        object-fit: contain; /* không cắt ảnh */
+        object-position: center;
+        background-color: #f8f9fa; /* nền để nhìn gọn */
+        padding: 8px;
+        object-position: top;
+    }
+
+    .doctor-item .card {
+        transition: 0.3s;
+        border-radius: 12px;
+    }
+
+        .doctor-item .card:hover {
+            transform: translateY(-5px);
+        }
+
+    #searchBox, #specialtyFilter {
+        border-radius: 10px;
+    }
+</style>
