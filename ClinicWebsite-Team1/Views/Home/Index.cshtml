@@ -1,39 +1,115 @@
 ﻿@{
     ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<nav>
-    <div>
-        <h1>
-            Memaybel
-        </h1>
-    </div>
-</nav>
-<main>
-    @*<section class="row" aria-labelledby="aspnetTitle">
-        <h1 id="title">ASP.NET</h1>
-        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-        <p><a href="https://asp.net" class="btn btn-primary btn-md">Learn more &raquo;</a></p>
-    </section>
 
-    <div class="row">
-        <section class="col-md-4" aria-labelledby="gettingStartedTitle">
-            <h2 id="gettingStartedTitle">Getting started</h2>
-            <p>
-                ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-                enables a clean separation of concerns and gives you full control over markup
-                for enjoyable, agile development.
+<section class="hero-section py-5">
+    <div class="row align-items-center">
+
+        <div class="col-lg-6">
+            <h2 class="display-4 fw-bold">
+                Quoc Khanh Hospital 
+            </h2>
+            <h4>Your Trusted Healthcare Partner</h4>
+            <p class="lead">
+                Professional healthcare services with experienced doctors
+                and modern facilities.
             </p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-        </section>
-        <section class="col-md-4" aria-labelledby="librariesTitle">
-            <h2 id="librariesTitle">Get more libraries</h2>
-            <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-        </section>
-        <section class="col-md-4" aria-labelledby="hostingTitle">
-            <h2 id="hostingTitle">Web Hosting</h2>
-            <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-        </section>
-    </div>*@
-</main>
+
+            <a href="@Url.Action("Create","Appointment")"
+               class="btn btn-primary btn-lg">
+                Book Appointment
+            </a>
+        </div>
+
+        <div class="col-lg-6">
+
+            <div id="heroCarousel"
+                 class="carousel slide"
+                 data-bs-ride="carousel">
+
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active"></button>
+                    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1"></button>
+                    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2"></button>
+                    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="3"></button>
+                    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="4"></button>
+                </div>
+
+                <div class="carousel-inner rounded shadow">
+
+                    <div class="carousel-item active">
+                        <img src="~/Content/images/1.jpg"
+                             class="d-block w-100"
+                             alt="Hospital Image 1">
+                    </div>
+
+                    <div class="carousel-item">
+                        <img src="~/Content/images/2.jpg"
+                             class="d-block w-100"
+                             alt="Hospital Image 2">
+                    </div>
+
+                    <div class="carousel-item">
+                        <img src="~/Content/images/3.jpg"
+                             class="d-block w-100"
+                             alt="Hospital Image 3">
+                    </div>
+
+                    <div class="carousel-item">
+                        <img src="~/Content/images/4.jpg"
+                             class="d-block w-100"
+                             alt="Hospital Image 4">
+                    </div>
+
+                    <div class="carousel-item">
+                        <img src="~/Content/images/5.jpg"
+                             class="d-block w-100"
+                             alt="Hospital Image 5">
+                    </div>
+
+                </div>
+
+                <button class="carousel-control-prev"
+                        type="button"
+                        data-bs-target="#heroCarousel"
+                        data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </button>
+
+                <button class="carousel-control-next"
+                        type="button"
+                        data-bs-target="#heroCarousel"
+                        data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </button>
+
+            </div>
+
+        </div>
+    </div>
+</section>
+<style>
+    .hero-section {
+        min-height: 500px;
+        display: flex;
+        align-items: center;
+    }
+
+    .card {
+        transition: .3s;
+    }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+    section {
+        margin-bottom: 30px;
+    }
+    #heroCarousel img {
+        height: 450px;
+        object-fit: cover;
+        width :100px;
+    }
+</style>
