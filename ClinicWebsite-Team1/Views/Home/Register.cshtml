@@ -1,0 +1,191 @@
+﻿@model ClinicWebsite_Team1.Models.Register
+    @{
+    Layout = null;
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+    html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        font-family: 'Segoe UI', sans-serif;
+        overflow: hidden;
+    }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: url('/Content/images/register.jpg') no-repeat center center;
+            background-size: cover;
+            filter: blur(10px);
+            transform: scale(1.1);
+            z-index: -2;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.45);
+            z-index: -1;
+        }
+
+    .register-container {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .register-card {
+        width: 430px;
+        background: rgba(255,255,255,0.95);
+        border-radius: 16px;
+        padding: 32px;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    }
+
+    .register-title {
+        text-align: center;
+        font-size: 22px;
+        font-weight: 700;
+        margin-bottom: 20px;
+    }
+
+    .input-group {
+        margin-bottom: 14px;
+    }
+
+    label {
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    .input-icon {
+        position: relative;
+    }
+
+        .input-icon i {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #888;
+        }
+
+    .form-control {
+        width: 100%;
+        padding: 10px 10px 10px 35px;
+        border-radius: 10px;
+        border: 1px solid #ddd;
+    }
+
+    .btn-gradient {
+        width: 100%;
+        padding: 11px;
+        border: none;
+        border-radius: 10px;
+        background: linear-gradient(135deg,#4facfe,#00f2fe);
+        color: white;
+        font-weight: 600;
+    }
+
+    .helper-text {
+        text-align: center;
+        margin-top: 14px;
+        font-size: 13px;
+    }
+
+    .back-btn {
+        display: block;
+        text-align: center;
+        margin-top: 10px;
+        font-size: 13px;
+    }
+</style>
+
+<div class="register-container">
+
+    <div class="register-card">
+
+        <div class="register-title">🏥 Create Patient Account</div>
+
+        @using (Html.BeginForm())
+        {
+            <div class="input-group">
+                <label>Full Name</label>
+                <div class="input-icon">
+                    <i class="fa fa-user"></i>
+                    @Html.TextBoxFor(m => m.FullName, new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label>Gender</label>
+                <div class="input-icon">
+                    <i class="fa fa-venus-mars"></i>
+                    @Html.DropDownListFor(m => m.Gender,
+                        new SelectList(new[] { "Male", "Female", "Other" }),
+                        "-- Select Gender --",
+                        new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label>Email</label>
+                <div class="input-icon">
+                    <i class="fa fa-envelope"></i>
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                </div>
+                @Html.ValidationMessageFor(m => m.Email, "", new { @style = "color:red;font-size:12px;" })
+            </div>
+
+            <div class="input-group">
+                <label>Phone</label>
+                <div class="input-icon">
+                    <i class="fa fa-phone"></i>
+                    @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
+                </div>
+                @Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @style = "color:red;font-size:12px;" })
+            </div>
+
+            <div class="input-group">
+                <label>Password</label>
+                <div class="input-icon">
+                    <i class="fa fa-lock"></i>
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                </div>
+                @Html.ValidationMessageFor(m => m.Password, "", new { @style = "color:red;font-size:12px;" })
+            </div>
+
+            <div class="input-group">
+                <label>Confirm Password</label>
+                <div class="input-icon">
+                    <i class="fa fa-lock"></i>
+                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                </div>
+                @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @style = "color:red;font-size:12px;" })
+            </div>
+
+            <button type="submit" class="btn-gradient">
+                Create Account
+            </button>
+
+            <div class="helper-text">
+                Already have account?
+                <a href="@Url.Action("Login","Home")">Login</a>
+            </div>
+
+            <a class="back-btn" href="@Url.Action("Index","Home")">
+                Back to Home
+            </a>
+
+            @Html.ValidationSummary(true)
+        }
+
+    </div>
+
+</div>

@@ -145,9 +145,12 @@
     <Compile Include="Models\Consultation.cs" />
     <Compile Include="Models\Doctor.cs" />
     <Compile Include="Models\DoctorReview.cs" />
+    <Compile Include="Models\Login.cs" />
     <Compile Include="Models\MedicalService.cs" />
     <Compile Include="Models\Patient.cs" />
     <Compile Include="Models\Payment.cs" />
+    <Compile Include="Models\Register.cs" />
+    <Compile Include="Models\ResetPassword.cs" />
     <Compile Include="Models\Schedule.cs" />
     <Compile Include="Models\Specialty.cs" />
     <Compile Include="Models\UserAccount.cs" />
@@ -241,6 +244,11 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\DoctorDetail.cshtml" />
     <Content Include="Views\Home\Details.cshtml" />
+    <Content Include="Views\Home\Register.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\Home\ForgotPassword.cshtml" />
+    <Content Include="Views\Home\VerifyCode.cshtml" />
+    <Content Include="Views\Home\ResetPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Doctor\" />

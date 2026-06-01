@@ -3,142 +3,141 @@
 @{
     var schedules = ViewBag.Schedules as List<ClinicWebsite_Team1.Models.schedule>;
     var reviews = ViewBag.Reviews as List<ClinicWebsite_Team1.Models.doctor_review>;
+    ViewBag.Title = Model.user_account.full_name + "- QK Hos";
+
 }
 
-<!-- DOCTOR INFO -->
-<div class="card shadow border-0 mb-4">
-    <div class="row g-0">
+<div class="container my-4">
 
-        <div class="col-md-4">
-            <img src="@Url.Content(Model.image_url)"
-                 class="w-100"
-                 style="height:350px; object-fit:cover;" />
-        </div>
+    <!-- DOCTOR INFO -->
+    <div class="card shadow-lg border-0 mb-4">
 
-        <div class="col-md-8">
-            <div class="card-body p-4">
+        <div class="row g-0">
 
-                <h3>@Model.user_account.full_name</h3>
-
-                <p class="text-primary">
-                    @Model.specialty.name
-                </p>
-
-                <p><b>Experience:</b> @Model.experience_years years</p>
-
-                <p><b>Consultation Fee:</b> @Model.consultation_fee VND</p>
-
-                <p><b>Phone:</b> @Model.user_account.phone_number</p>
-
-                <a class="btn btn-success"
-                   href="@Url.Action("Create", "Appointment", new { doctorId = Model.id })">
-                    Book Appointment
-                </a>
-
+            <div class="col-md-4">
+                <img src="@Url.Content(Model.image_url)"
+                     class="w-100"
+                     style="height:350px; object-fit:cover;" />
             </div>
-        </div>
 
-    </div>
-</div>
+            <div class="col-md-8">
+                <div class="card-body p-4">
 
-<!-- SCHEDULE -->
-<div class="card mb-4">
-    <div class="card-header bg-primary text-white">
-        Work Schedule
-    </div>
+                    <h3>@Model.user_account.full_name</h3>
 
-    <div class="card-body">
-        @if (schedules != null && schedules.Any())
-        {
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Time</th>
-                        <th>Room</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var s in schedules)
-                    {
-                        <tr>
-                            <td>@s.work_date.ToString("dd/MM/yyyy")</td>
-                            <td>@s.start_time - @s.end_time</td>
-                            <td>@s.room_id</td>
-                            <td>@s.status</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        }
-        else
-        {
-            <p>No schedule available.</p>
-        }
-    </div>
-</div>
+                    <p class="text-primary">
+                        @Model.specialty.name
+                    </p>
 
-<!-- REVIEWS -->
-<div class="card mb-4">
-    <div class="card-header bg-success text-white">
-        Patient Reviews
-    </div>
+                    <p>Experience: @Model.experience_years years</p>
 
-    <div class="card-body">
-        @if (reviews != null && reviews.Any())
-        {
-            foreach (var r in reviews)
-            {
-                <div class="border-bottom pb-2 mb-2">
+                    <p>Fee: @String.Format("{0:N0} VND", Model.consultation_fee)</p>
 
-                    <div>
-                        ⭐ @r.rating / 5
-                    </div>
+                    <p>Phone: @Model.user_account.phone_number</p>
 
-                    <p class="mb-1">@r.comment</p>
-
-                    <small class="text-muted">
-    @((DateTime)r.review_date)
-</small>
+                    <a class="btn btn-success"
+                       href="@Url.Action("Create", "Appointment", new { doctorId = Model.id })">
+                        Book Appointment
+                    </a>
 
                 </div>
-            }
-        }
-        else
-        {
-            <p>No reviews yet.</p>
-        }
-    </div>
-    <div class="card-body">
-        @if (schedules != null && schedules.Any())
-        {
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Time</th>
-                        <th>Room</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
+            </div>
 
-                <tbody>
-                    @foreach (var s in schedules)
-                    {
-                        <tr>
-                            <td>@((DateTime)s.work_date)</td>
-                            <td>@s.start_time - @s.end_time</td>
-                            <td>@s.room_id</td>
-                            <td>@s.status</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        }
-        else
-        {
-            <p>No schedule available.</p>
-        }
+        </div>
     </div>
+
+    <!-- SCHEDULE -->
+    <div class="card mb-4">
+
+        <div class="card-header bg-primary text-white">
+            Work Schedule
+        </div>
+
+        <div class="card-body">
+
+            @if (schedules != null && schedules.Any())
+            {
+                <table class="table table-hover align-middle">
+
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Room</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var s in schedules)
+                        {
+                            <tr>
+                                <td>@s.work_date.ToString("dd/MM/yyyy")</td>
+                                <td>@s.start_time - @s.end_time</td>
+                                <td>@s.room_id</td>
+                                <td><b>@s.status</b></td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            }
+            else
+            {
+                <p>No schedule available.</p>
+            }
+
+        </div>
+    </div>
+
+    <!-- REVIEWS -->
+    <div class="card mb-4">
+
+        <div class="card-header bg-success text-white">
+            Patient Reviews
+        </div>
+
+        <div class="card-body">
+
+            @if (reviews != null && reviews.Any())
+            {
+                foreach (var r in reviews)
+                {
+                    <div class="border-bottom pb-3 mb-3">
+
+                        <div class="d-flex justify-content-between">
+
+                            <div>
+                                ⭐ <b>@r.rating / 5</b>
+                            </div>
+
+                            <small class="text-muted">
+                                @(r.review_date?.ToString("dd/MM/yyyy"))
+                            </small>
+
+                        </div>
+
+                        <p class="mt-2 mb-0">
+                            @r.comment
+                        </p>
+
+                    </div>
+                }
+            }
+            else
+            {
+                <p>No reviews yet.</p>
+            }
+
+        </div>
+    </div>
+
+    <!-- BACK BUTTON -->
+    <div class="text-center mt-4">
+        <a href="@Url.Action("Index","Home")"
+           class="btn btn-outline-primary px-4">
+            ← Back to Home
+        </a>
+    </div>
+
 </div>

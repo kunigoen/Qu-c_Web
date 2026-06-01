@@ -1,0 +1,215 @@
+﻿@model ClinicWebsite_Team1.Models.Login
+@{
+    Layout = null;
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+    html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        font-family: 'Segoe UI', sans-serif;
+        overflow: hidden;
+    }
+
+        /* Background */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: url('/Content/images/login.jpg') no-repeat center center;
+            background-size: cover;
+            filter: blur(10px);
+            transform: scale(1.1);
+            z-index: -2;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.45);
+            z-index: -1;
+        }
+
+    /* Center */
+    .login-container {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Card */
+    .login-card {
+        width: 380px;
+        background: rgba(255,255,255,0.95);
+        backdrop-filter: blur(10px);
+        padding: 32px;
+        border-radius: 16px;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        text-align: center;
+        transition: 0.3s ease;
+    }
+
+        .login-card:hover {
+            transform: translateY(-4px);
+        }
+
+    /* Title */
+    .welcome {
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 18px;
+    }
+
+    /* input */
+    .input-group {
+        margin-bottom: 14px;
+        text-align: left;
+    }
+
+    .input-icon {
+        position: relative;
+    }
+
+        .input-icon i {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #888;
+        }
+
+    .form-control {
+        width: 100%;
+        padding: 10px 10px 10px 35px;
+        border-radius: 10px;
+        border: 1px solid #ddd;
+        outline: none;
+        transition: 0.2s;
+    }
+
+        .form-control:focus {
+            border-color: #4facfe;
+            box-shadow: 0 0 0 3px rgba(79,172,254,0.2);
+        }
+
+    /* checkbox */
+    .remember {
+        text-align: left;
+        font-size: 13px;
+        margin-bottom: 10px;
+        color: #333;
+    }
+
+    /* button */
+    .btn-gradient {
+        width: 100%;
+        padding: 11px;
+        border: none;
+        border-radius: 10px;
+        background: linear-gradient(135deg, #11998e, #38ef7d);
+        color: white;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+        .btn-gradient:hover {
+            transform: scale(1.03);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+    /* links */
+    .footer-text {
+        margin-top: 14px;
+        font-size: 13px;
+    }
+
+        .footer-text a {
+            color: #4facfe;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+            .footer-text a:hover {
+                text-decoration: underline;
+            }
+
+    /* back */
+    .back-btn {
+        display: block;
+        margin-top: 10px;
+        font-size: 13px;
+        color: #ccc;
+        text-decoration: none;
+    }
+
+        .back-btn:hover {
+            color: #fff;
+        }
+    .field-error {
+        background: #ffe5e5;
+        border: 1px solid #ffb3b3;
+        padding: 6px 8px;
+        border-radius: 6px;
+        margin-top: 5px;
+        font-size: 12px;
+        color: #b30000;
+    }
+</style>
+
+<div class="login-container">
+
+    <div class="login-card">
+
+        <div class="welcome">
+            👋 Welcome to Quoc Khanh Hospital
+        </div>
+
+        @using (Html.BeginForm())
+        {
+            <div class="input-group">
+                <div class="input-icon">
+                    <i class="fa fa-envelope"></i>
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Email" })
+                </div>
+                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "field-error" })
+            </div>
+
+            <div class="input-group">
+                <div class="input-icon">
+                    <i class="fa fa-lock"></i>
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Password" })
+                </div>
+                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "field-error" })
+            </div>
+
+            <div class="remember">
+                @Html.CheckBoxFor(m => m.RememberMe)
+                Remember Me
+            </div>
+
+            <button type="submit" class="btn-gradient">
+                Login
+            </button>
+
+            <div class="footer-text">
+                Don't have an account?
+                <a href="@Url.Action("Register","Home")">Register</a>
+            </div>
+
+            <a href="@Url.Action("Index","Home")" class="back-btn">
+                ← Back to Home
+            </a>
+            <a href="@Url.Action("ForgotPassword","Home")">
+                Forgot password?
+            </a>
+        }
+
+    </div>
+
+</div>

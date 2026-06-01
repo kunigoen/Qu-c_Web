@@ -25,7 +25,8 @@ namespace ClinicWebsite_Team1.Models
         public DateTime? LockoutEnd { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
-
+        public string reset_token { get; set; }
+        public DateTime? reset_expire { get; set; } = DateTime.UtcNow;
         public virtual ICollection<Doctor> Doctors { get; set; }
         public virtual ICollection<Patient> Patients { get; set; }
     }

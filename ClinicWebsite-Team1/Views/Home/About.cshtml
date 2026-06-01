@@ -4,21 +4,24 @@
     ViewBag.Title = "About";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div class="container my-4">
+<div class="filter-bar shadow-sm p-3 mb-4 bg-white rounded">
 
-    <h2 class="text-center mb-4">Doctor List</h2>
+    <div class="row align-items-center">
 
-    <div class="row mb-3">
-
-        <!-- Search -->
+        <!-- SEARCH -->
         <div class="col-md-6">
-            <input type="text" id="searchBox" class="form-control"
-                   placeholder="Search doctor name..." onkeyup="filterDoctors()">
+            <input type="text"
+                   id="searchBox"
+                   class="form-control search-box"
+                   placeholder="🔍 Search doctor by name..."
+                   onkeyup="filterDoctors()">
         </div>
 
-        <!-- Filter Specialty -->
+        <!-- FILTER -->
         <div class="col-md-6">
-            <select id="specialtyFilter" class="form-select" onchange="filterDoctors()">
+            <select id="specialtyFilter"
+                    class="form-select"
+                    onchange="filterDoctors()">
                 <option value="">All Specialties</option>
                 @foreach (var s in Model.Select(x => x.specialty.name).Distinct())
                 {
@@ -28,25 +31,26 @@
         </div>
 
     </div>
-    <div class="row" id="doctorContainer">
+</div>
+<div class="row g-4" id="doctorContainer">
 
-        @foreach (var d in Model)
-        {
-            <div class="col-md-4 doctor-item"
-                 data-name="@d.user_account.full_name.ToLower()"
-                 data-specialty="@d.specialty.name">
+    @foreach (var d in Model)
+    {
+        <div class="col-md-4 doctor-item"
+             data-name="@d.user_account.full_name.ToLower()"
+             data-specialty="@d.specialty.name">
 
-                <div class="card mb-4 shadow-sm">
+            <a href="@Url.Action("Details", "Home", new { id = d.id })"
+               class="text-decoration-none text-dark">
+
+                <div class="card doctor-card shadow-sm">
 
                     <img src="@Url.Content(d.image_url)"
-                         class="card-img-top"
-                         style="height:220px; object-fit:cover;" />
+                         class="card-img-top" />
 
                     <div class="card-body text-center">
 
-                        <h5 class="doctor-name">
-                            @d.user_account.full_name
-                        </h5>
+                        <h5>@d.user_account.full_name</h5>
 
                         <p class="text-primary mb-1">
                             @d.specialty.name
@@ -64,26 +68,12 @@
 
                 </div>
 
-            </div>
-        }
-
-    </div>
-    <div class="text-center mt-3">
-        <button class="btn btn-outline-primary" onclick="changePage(-1)">Prev</button>
-        <span id="pageInfo" class="mx-2"></span>
-        <button class="btn btn-outline-primary" onclick="changePage(1)">Next</button>
-    </div>
+            </a>
+        </div>
+    }
 
 </div>
 <script>
-    let currentPage = 1;
-    const itemsPerPage = 6;
-
-    function filterDoctors() {
-        currentPage = 1;
-        renderDoctors();
-    }
-
     function renderDoctors() {
         const search = document.getElementById("searchBox").value.toLowerCase();
         const specialty = document.getElementById("specialtyFilter").value;
@@ -93,7 +83,6 @@
         let visibleItems = [];
 
         items.forEach(item => {
-
             const name = item.getAttribute("data-name");
             const spec = item.getAttribute("data-specialty");
 
@@ -101,35 +90,27 @@
             const matchSpec = specialty === "" || spec === specialty;
 
             if (matchSearch && matchSpec) {
+                item.classList.remove("hidden");
                 visibleItems.push(item);
             } else {
-                item.style.display = "none";
+                item.classList.add("hidden");
             }
         });
 
-        // pagination
         const totalPages = Math.ceil(visibleItems.length / itemsPerPage);
 
         visibleItems.forEach((item, index) => {
-
             if (index >= (currentPage - 1) * itemsPerPage &&
                 index < currentPage * itemsPerPage) {
-                item.style.display = "block";
+                item.classList.remove("hidden");
             } else {
-                item.style.display = "none";
+                item.classList.add("hidden");
             }
         });
 
         document.getElementById("pageInfo").innerText =
             `Page ${currentPage} / ${totalPages || 1}`;
     }
-
-    function changePage(step) {
-        currentPage += step;
-        if (currentPage < 1) currentPage = 1;
-        renderDoctors();
-    }
-
     // init
     window.onload = renderDoctors;
 </script>

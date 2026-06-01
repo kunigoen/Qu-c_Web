@@ -301,7 +301,27 @@ INSERT INTO payment(appointment_id,amount,payment_method,transaction_code,paymen
 INSERT INTO payment(appointment_id,amount,payment_method,transaction_code,payment_date,status) VALUES (14,300000,'VNPay','TXN0014',GETDATE(),'Paid');
 INSERT INTO payment(appointment_id,amount,payment_method,transaction_code,payment_date,status) VALUES (15,300000,'VNPay','TXN0015',GETDATE(),'Paid');
 
+INSERT INTO doctor_review(appointment_id, doctor_id, patient_id, rating, comment)
+VALUES
+(1, 1, 1, 5, N'Bác sĩ rất tận tâm, khám kỹ'),
+(2, 2, 2, 4, N'Dịch vụ tốt, khá hài lòng'),
+(3, 3, 3, 5, N'Bác sĩ tư vấn rõ ràng'),
+(4, 4, 4, 3, N'Bình thường, thời gian chờ hơi lâu'),
+(5, 5, 5, 5, N'Rất chuyên nghiệp'),
+(6, 6, 6, 4, N'Khám ổn, cơ sở vật chất tốt'),
+(7, 7, 7, 5, N'Bác sĩ giỏi, giải thích dễ hiểu'),
+(8, 8, 8, 4, N'Hài lòng với dịch vụ'),
+(9, 9, 9, 5, N'Quá tốt, sẽ quay lại'),
+(10, 10, 10, 3, N'Tạm ổn'),
+(11, 11, 11, 4, N'Bác sĩ thân thiện'),
+(12, 12, 12, 5, N'Rất chuyên nghiệp và chu đáo'),
+(13, 13, 13, 4, N'Khám nhanh gọn'),
+(14, 14, 14, 5, N'Rất hài lòng'),
+(15, 15, 15, 5, N'Bác sĩ tuyệt vời');
 
+ALTER TABLE user_account
+ADD reset_token NVARCHAR(100) NULL,
+    reset_expire DATETIME NULL;
 WITH cte AS (
     SELECT 
         id,

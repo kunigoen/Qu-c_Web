@@ -1,0 +1,17 @@
+﻿@{
+    ViewBag.Title = "Verify Your Code";
+    Layout = null;
+}
+
+<div class="card">
+    <h3>Enter OTP</h3>
+
+    @using (Html.BeginForm())
+    {
+        <input type="text" name="code" placeholder="6-digit code" />
+
+        <button type="submit">Verify</button>
+
+        <p style="color:red">@ViewBag.Error</p>
+    }
+</div>
