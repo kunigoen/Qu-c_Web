@@ -1,17 +1,181 @@
 ﻿@{
-    ViewBag.Title = "Verify Your Code";
     Layout = null;
+    ViewBag.Title = "Verify OTP";
 }
 
-<div class="card">
-    <h3>Enter OTP</h3>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewBag.Title</title>
 
-    @using (Html.BeginForm())
-    {
-        <input type="text" name="code" placeholder="6-digit code" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", sans-serif;
+        }
 
-        <button type="submit">Verify</button>
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg,#0f172a,#1e40af);
+        }
 
-        <p style="color:red">@ViewBag.Error</p>
-    }
-</div>
+        .card {
+            width: 420px;
+            background: #fff;
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: 0 20px 40px rgba(0,0,0,.2);
+        }
+
+        .icon {
+            text-align: center;
+            font-size: 50px;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #111827;
+            margin-bottom: 10px;
+        }
+
+        .description {
+            text-align: center;
+            color: #6b7280;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+
+        .alert {
+            padding: 12px 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .alert-error {
+            background: #fee2e2;
+            color: #b91c1c;
+            border: 1px solid #fecaca;
+        }
+
+        .alert-success {
+            background: #dcfce7;
+            color: #15803d;
+            border: 1px solid #bbf7d0;
+        }
+
+        .otp-input {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #d1d5db;
+            border-radius: 12px;
+            font-size: 22px;
+            text-align: center;
+            letter-spacing: 8px;
+            margin-bottom: 20px;
+        }
+
+            .otp-input:focus {
+                outline: none;
+                border-color: #2563eb;
+            }
+
+        .btn-submit {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            background: #2563eb;
+            color: white;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: .2s;
+        }
+
+            .btn-submit:hover {
+                background: #1d4ed8;
+            }
+
+        .back-link {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+            .back-link a {
+                text-decoration: none;
+                color: #2563eb;
+                font-size: 14px;
+            }
+
+                .back-link a:hover {
+                    text-decoration: underline;
+                }
+    </style>
+</head>
+
+<body>
+
+    <div class="card">
+
+        <div class="icon">🔐</div>
+
+        <h2>Verify OTP</h2>
+
+        <div class="description">
+            Enter the 6-digit verification code sent to your email.
+        </div>
+
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert-error">
+                @TempData["Error"]
+            </div>
+        }
+
+        @if (TempData["Success"] != null)
+        {
+            <div class="alert alert-success">
+                @TempData["Success"]
+            </div>
+        }
+
+        @if (ViewBag.Error != null)
+        {
+            <div class="alert alert-error">
+                @ViewBag.Error
+            </div>
+        }
+
+        @using (Html.BeginForm("VerifyCode", "Home", FormMethod.Post))
+        {
+            <input type="text"
+                   name="code"
+                   maxlength="6"
+                   class="otp-input"
+                   placeholder="000000"
+                   required />
+
+            <button type="submit" class="btn-submit">
+                Verify Code
+            </button>
+        }
+
+        <div class="back-link">
+            <a href="@Url.Action("ForgotPassword","Home")">
+                Back to Forgot Password
+            </a>
+        </div>
+
+    </div>
+
+</body>
+</html>

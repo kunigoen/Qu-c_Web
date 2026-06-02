@@ -15,23 +15,48 @@ namespace ClinicWebsite_Team1.Controllers
         // Khai báo DbContext ở đây
         private ClinicWebsiteDataContext db = new ClinicWebsiteDataContext();
 
-        public ActionResult Index()
+        public ActionResult Index(string keyword, int? specialtyId, int page = 1)
         {
+            int pageSize = 6;
+
             var doctors = db.doctors
+                .Include("user_account")
+                .Include("specialty")
+                .AsQueryable();
+            var service = db.medical_services
                             .OrderBy(x => x.id)
                             .ToList();
-            var specialties = db.specialties
-                                .OrderBy(x => x.id)
-                                .ToList();
-            var service =  db.medical_services
-                            .OrderBy(x => x.id)
-                            .ToList();
+            // SEARCH
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                doctors = doctors.Where(x =>
+                    x.user_account.full_name.Contains(keyword));
+            }
+
+            // FILTER
+            if (specialtyId.HasValue)
+            {
+                doctors = doctors.Where(x =>
+                    x.specialty_id == specialtyId);
+            }
+
+            int totalItems = doctors.Count();
+
+            // 🔥 QUAN TRỌNG: PAGING
+            var result = doctors
+                .OrderBy(x => x.id)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            ViewBag.Specialties = db.specialties.ToList();
+            ViewBag.CurrentPage = page;
             ViewBag.Services = service;
-            ViewBag.Specialties = specialties;
-            return View(doctors);
+            
+            ViewBag.TotalPages = (int)Math.Ceiling((double)totalItems / pageSize);
+
+            return View(result);
         }
-
-
         public ActionResult About()
         {
             var doctors = db.doctors
@@ -171,19 +196,18 @@ namespace ClinicWebsite_Team1.Controllers
         {
             return View();
         }
+
         [HttpPost]
-        
         public ActionResult ForgotPassword(string email)
         {
             var user = db.user_accounts.FirstOrDefault(x => x.email == email);
 
             if (user == null)
             {
-                ViewBag.Error = "Email không tồn tại";
-                return View();
+                TempData["Error"] = "Email does not exist!";
+                return RedirectToAction("ForgotPassword");
             }
 
-            // tạo token
             var token = new Random().Next(100000, 999999).ToString();
 
             user.reset_token = token;
@@ -193,53 +217,65 @@ namespace ClinicWebsite_Team1.Controllers
 
             SendEmail(user.email, token);
 
-            TempData["email"] = email;
+            // Lưu email vào Session
+            Session["ResetEmail"] = email;
+
+            TempData["Success"] = "Verification code has been sent to your email.";
 
             return RedirectToAction("VerifyCode");
         }
-        public ActionResult ResetPassword(string token)
-        {
-            var user = db.user_accounts
-                .FirstOrDefault(x => x.reset_token == token &&
-                                     x.reset_expire > DateTime.Now);
 
-            if (user == null)
-                return Content("Token hết hạn hoặc không hợp lệ");
-
-            return View(new ResetPassword { Token = token });
-        }
+        [HttpGet]
         public ActionResult VerifyCode()
         {
+            if (Session["ResetEmail"] == null)
+            {
+                TempData["Error"] = "Session expired!";
+                return RedirectToAction("ForgotPassword");
+            }
+
             return View();
         }
 
         [HttpPost]
         public ActionResult VerifyCode(string code)
         {
-            var email = TempData["email"]?.ToString();
+            var email = Session["ResetEmail"]?.ToString();
 
-            var user = db.user_accounts
-                .FirstOrDefault(x => x.email == email);
+            if (string.IsNullOrEmpty(email))
+            {
+                TempData["Error"] = "Session expired!";
+                return RedirectToAction("ForgotPassword");
+            }
+
+            var user = db.user_accounts.FirstOrDefault(x => x.email == email);
 
             if (user == null)
             {
-                ViewBag.Error = "Session expired";
+                ViewBag.Error = "Email Not Found";
                 return View();
             }
 
-            if (user.reset_token != code || user.reset_expire < DateTime.Now)
+            if (user.reset_token != code ||
+                user.reset_expire == null ||
+                user.reset_expire < DateTime.Now)
             {
-                ViewBag.Error = "Invalid or expired code";
-                TempData["email"] = email;
+                ViewBag.Error = "Invalid or expired verification code";
                 return View();
             }
 
-            TempData["email"] = email;
             return RedirectToAction("ResetPassword");
         }
+
         [HttpGet]
         public ActionResult ResetPassword()
         {
+            if (Session["ResetEmail"] == null)
+            {
+                TempData["Error"] = "Session expired!";
+                return RedirectToAction("ForgotPassword");
+            }
+
             return View();
         }
 
@@ -247,28 +283,41 @@ namespace ClinicWebsite_Team1.Controllers
         [ActionName("ResetPassword")]
         public ActionResult ResetPassword(string newPassword, string confirmPassword)
         {
-            var email = TempData["email"]?.ToString();
+            var email = Session["ResetEmail"]?.ToString();
+
+            if (string.IsNullOrEmpty(email))
+            {
+                TempData["Error"] = "Session expired!";
+                return RedirectToAction("ForgotPassword");
+            }
 
             var user = db.user_accounts.FirstOrDefault(x => x.email == email);
 
             if (user == null)
-                return RedirectToAction("Login");
+            {
+                TempData["Error"] = "Email Not Found";
+                return RedirectToAction("ForgotPassword");
+            }
 
             if (newPassword != confirmPassword)
             {
-                ViewBag.Error = "Password not match";
+                ViewBag.Error = "Passwords do not match";
                 return View();
             }
 
-            user.password_hash = newPassword;
+            user.password_hash = newPassword; // Nên hash mật khẩu
+
             user.reset_token = null;
             user.reset_expire = null;
 
             db.SubmitChanges();
 
+            Session.Remove("ResetEmail");
+
+            TempData["Success"] = "Password reset successfully";
+
             return RedirectToAction("Login");
         }
-
 
         void SendEmail(string toEmail, string token)
     {

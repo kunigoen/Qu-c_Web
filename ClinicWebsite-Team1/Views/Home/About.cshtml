@@ -1,37 +1,52 @@
-﻿@using System.Linq
-@model List<ClinicWebsite_Team1.Models.doctor>
+﻿@model List<ClinicWebsite_Team1.Models.doctor>
+
 @{
-    ViewBag.Title = "About";
+    ViewBag.Title = "Doctors";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="filter-bar shadow-sm p-3 mb-4 bg-white rounded">
 
-    <div class="row align-items-center">
+    <div class="row align-items-center g-3">
 
-        <!-- SEARCH -->
+        <!-- SEARCH (LEFT) -->
         <div class="col-md-6">
-            <input type="text"
-                   id="searchBox"
-                   class="form-control search-box"
-                   placeholder="🔍 Search doctor by name..."
-                   onkeyup="filterDoctors()">
+            <div class="input-group">
+
+                <span class="input-group-text bg-white">
+                    🔍
+                </span>
+
+                <input type="text"
+                       id="searchBox"
+                       class="form-control search-box"
+                       placeholder="Search doctor by name..."
+                       onkeyup="filterDoctors()">
+
+            </div>
         </div>
 
-        <!-- FILTER -->
-        <div class="col-md-6">
+        <!-- FILTER (RIGHT) -->
+        <div class="col-md-6 d-flex justify-content-md-end">
+
             <select id="specialtyFilter"
-                    class="form-select"
+                    class="form-select w-auto"
                     onchange="filterDoctors()">
+
                 <option value="">All Specialties</option>
+
                 @foreach (var s in Model.Select(x => x.specialty.name).Distinct())
                 {
                     <option value="@s">@s</option>
                 }
+
             </select>
+
         </div>
 
     </div>
+
 </div>
+
 <div class="row g-4" id="doctorContainer">
 
     @foreach (var d in Model)
@@ -71,48 +86,105 @@
             </a>
         </div>
     }
+<div class="d-flex justify-content-center align-items-center gap-3 mt-4 mb-4">
+
+    <!-- PREVIOUS -->
+    <button id="prevBtn"
+            class="btn btn-outline-secondary px-4"
+            onclick="changePage(-1)">
+        ← Previous
+    </button>
+
+    <!-- PAGE INDICATOR -->
+    <div class="px-3 py-1 border rounded bg-light fw-semibold"
+         id="pageIndicator">
+        Page 1
+    </div>
+
+    <!-- NEXT -->
+    <button id="nextBtn"
+            class="btn btn-primary px-4"
+            onclick="changePage(1)">
+        Next →
+    </button>
+
+</div>  
+</div>
+<div class="text-center mt-4">
+
+    <a href="@Url.Action("Index","Home")"
+       class="btn btn-outline-primary btn-lg">
+        Back to Home
+    </a>
 
 </div>
 <script>
-    function renderDoctors() {
+
+    let currentPage = 1;
+    const itemsPerPage = 6;
+
+    function getFilteredItems() {
+
         const search = document.getElementById("searchBox").value.toLowerCase();
         const specialty = document.getElementById("specialtyFilter").value;
 
         const items = document.querySelectorAll(".doctor-item");
 
-        let visibleItems = [];
+        return Array.from(items).filter(item => {
 
-        items.forEach(item => {
-            const name = item.getAttribute("data-name");
-            const spec = item.getAttribute("data-specialty");
+            const name = item.dataset.name;
+            const spec = item.dataset.specialty;
 
-            const matchSearch = name.includes(search);
+            const matchName = name.includes(search);
             const matchSpec = specialty === "" || spec === specialty;
 
-            if (matchSearch && matchSpec) {
-                item.classList.remove("hidden");
-                visibleItems.push(item);
-            } else {
-                item.classList.add("hidden");
-            }
+            return matchName && matchSpec;
         });
-
-        const totalPages = Math.ceil(visibleItems.length / itemsPerPage);
-
-        visibleItems.forEach((item, index) => {
-            if (index >= (currentPage - 1) * itemsPerPage &&
-                index < currentPage * itemsPerPage) {
-                item.classList.remove("hidden");
-            } else {
-                item.classList.add("hidden");
-            }
-        });
-
-        document.getElementById("pageInfo").innerText =
-            `Page ${currentPage} / ${totalPages || 1}`;
     }
-    // init
-    window.onload = renderDoctors;
+
+    function renderPage() {
+
+        const items = getFilteredItems();
+
+        const totalPages = Math.ceil(items.length / itemsPerPage);
+
+        // fix page bounds
+        if (currentPage > totalPages) currentPage = 1;
+        if (currentPage < 1) currentPage = 1;
+
+        // hide all first
+        document.querySelectorAll(".doctor-item").forEach(x => {
+            x.style.display = "none";
+        });
+
+        // show only current page items
+        const start = (currentPage - 1) * itemsPerPage;
+        const end = start + itemsPerPage;
+
+        items.slice(start, end).forEach(x => {
+            x.style.display = "block";
+        });
+
+        // update UI
+        document.getElementById("prevBtn").disabled = currentPage === 1;
+        document.getElementById("nextBtn").disabled = currentPage === totalPages || totalPages === 0;
+
+        document.getElementById("pageIndicator").innerText =
+            `Page ${totalPages === 0 ? 0 : currentPage} / ${totalPages}`;
+    }
+
+    function changePage(dir) {
+        currentPage += dir;
+        renderPage();
+    }
+
+    function filterDoctors() {
+        currentPage = 1;
+        renderPage();
+    }
+
+    window.onload = renderPage;
+
 </script>
 <style>
     .card-img-top {

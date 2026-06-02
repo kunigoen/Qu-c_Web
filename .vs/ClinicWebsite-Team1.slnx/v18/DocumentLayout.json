@@ -3,40 +3,40 @@
   "WorkspaceRootPath": "D:\\Thanh\\GitHub\\WebPrograming\\FinalsPJ\\ClinicWebsite-Team1\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{6DD14F2D-0399-4F4D-9B4A-B5B8EE1F83BC}|ClinicWebsite-Team1\\ClinicWebsite-Team1.csproj|d:\\thanh\\github\\webprograming\\finalspj\\clinicwebsite-team1\\clinicwebsite-team1\\models\\register.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6DD14F2D-0399-4F4D-9B4A-B5B8EE1F83BC}|ClinicWebsite-Team1\\ClinicWebsite-Team1.csproj|solutionrelative:clinicwebsite-team1\\models\\register.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6DD14F2D-0399-4F4D-9B4A-B5B8EE1F83BC}|ClinicWebsite-Team1\\ClinicWebsite-Team1.csproj|d:\\thanh\\github\\webprograming\\finalspj\\clinicwebsite-team1\\clinicwebsite-team1\\models\\useraccount.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6DD14F2D-0399-4F4D-9B4A-B5B8EE1F83BC}|ClinicWebsite-Team1\\ClinicWebsite-Team1.csproj|solutionrelative:clinicwebsite-team1\\models\\useraccount.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6DD14F2D-0399-4F4D-9B4A-B5B8EE1F83BC}|ClinicWebsite-Team1\\ClinicWebsite-Team1.csproj|D:\\Thanh\\GitHub\\WebPrograming\\FinalsPJ\\ClinicWebsite-Team1\\clinicwebsite-team1\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{6DD14F2D-0399-4F4D-9B4A-B5B8EE1F83BC}|ClinicWebsite-Team1\\ClinicWebsite-Team1.csproj|solutionrelative:clinicwebsite-team1\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6DD14F2D-0399-4F4D-9B4A-B5B8EE1F83BC}|ClinicWebsite-Team1\\ClinicWebsite-Team1.csproj|D:\\Thanh\\GitHub\\WebPrograming\\FinalsPJ\\ClinicWebsite-Team1\\clinicwebsite-team1\\views\\home\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{6DD14F2D-0399-4F4D-9B4A-B5B8EE1F83BC}|ClinicWebsite-Team1\\ClinicWebsite-Team1.csproj|solutionrelative:clinicwebsite-team1\\views\\home\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6DD14F2D-0399-4F4D-9B4A-B5B8EE1F83BC}|ClinicWebsite-Team1\\ClinicWebsite-Team1.csproj|D:\\Thanh\\GitHub\\WebPrograming\\FinalsPJ\\ClinicWebsite-Team1\\clinicwebsite-team1\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6DD14F2D-0399-4F4D-9B4A-B5B8EE1F83BC}|ClinicWebsite-Team1\\ClinicWebsite-Team1.csproj|solutionrelative:clinicwebsite-team1\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6DD14F2D-0399-4F4D-9B4A-B5B8EE1F83BC}|ClinicWebsite-Team1\\ClinicWebsite-Team1.csproj|D:\\Thanh\\GitHub\\WebPrograming\\FinalsPJ\\ClinicWebsite-Team1\\clinicwebsite-team1\\views\\home\\verifycode.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{6DD14F2D-0399-4F4D-9B4A-B5B8EE1F83BC}|ClinicWebsite-Team1\\ClinicWebsite-Team1.csproj|solutionrelative:clinicwebsite-team1\\views\\home\\verifycode.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6DD14F2D-0399-4F4D-9B4A-B5B8EE1F83BC}|ClinicWebsite-Team1\\ClinicWebsite-Team1.csproj|d:\\thanh\\github\\webprograming\\finalspj\\clinicwebsite-team1\\clinicwebsite-team1\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{6DD14F2D-0399-4F4D-9B4A-B5B8EE1F83BC}|ClinicWebsite-Team1\\ClinicWebsite-Team1.csproj|solutionrelative:clinicwebsite-team1\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{6DD14F2D-0399-4F4D-9B4A-B5B8EE1F83BC}|ClinicWebsite-Team1\\ClinicWebsite-Team1.csproj|d:\\thanh\\github\\webprograming\\finalspj\\clinicwebsite-team1\\clinicwebsite-team1\\views\\home\\about.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{6DD14F2D-0399-4F4D-9B4A-B5B8EE1F83BC}|ClinicWebsite-Team1\\ClinicWebsite-Team1.csproj|solutionrelative:clinicwebsite-team1\\views\\home\\about.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6DD14F2D-0399-4F4D-9B4A-B5B8EE1F83BC}|ClinicWebsite-Team1\\ClinicWebsite-Team1.csproj|D:\\Thanh\\GitHub\\WebPrograming\\FinalsPJ\\ClinicWebsite-Team1\\clinicwebsite-team1\\views\\home\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{6DD14F2D-0399-4F4D-9B4A-B5B8EE1F83BC}|ClinicWebsite-Team1\\ClinicWebsite-Team1.csproj|solutionrelative:clinicwebsite-team1\\views\\home\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6DD14F2D-0399-4F4D-9B4A-B5B8EE1F83BC}|ClinicWebsite-Team1\\ClinicWebsite-Team1.csproj|D:\\Thanh\\GitHub\\WebPrograming\\FinalsPJ\\ClinicWebsite-Team1\\clinicwebsite-team1\\views\\home\\doctordetail.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "AbsoluteMoniker": "D:0:0:{6DD14F2D-0399-4F4D-9B4A-B5B8EE1F83BC}|ClinicWebsite-Team1\\ClinicWebsite-Team1.csproj|d:\\thanh\\github\\webprograming\\finalspj\\clinicwebsite-team1\\clinicwebsite-team1\\views\\home\\doctordetail.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{6DD14F2D-0399-4F4D-9B4A-B5B8EE1F83BC}|ClinicWebsite-Team1\\ClinicWebsite-Team1.csproj|solutionrelative:clinicwebsite-team1\\views\\home\\doctordetail.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6DD14F2D-0399-4F4D-9B4A-B5B8EE1F83BC}|ClinicWebsite-Team1\\ClinicWebsite-Team1.csproj|D:\\Thanh\\GitHub\\WebPrograming\\FinalsPJ\\ClinicWebsite-Team1\\clinicwebsite-team1\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6DD14F2D-0399-4F4D-9B4A-B5B8EE1F83BC}|ClinicWebsite-Team1\\ClinicWebsite-Team1.csproj|solutionrelative:clinicwebsite-team1\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6DD14F2D-0399-4F4D-9B4A-B5B8EE1F83BC}|ClinicWebsite-Team1\\ClinicWebsite-Team1.csproj|D:\\Thanh\\GitHub\\WebPrograming\\FinalsPJ\\ClinicWebsite-Team1\\clinicwebsite-team1\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{6DD14F2D-0399-4F4D-9B4A-B5B8EE1F83BC}|ClinicWebsite-Team1\\ClinicWebsite-Team1.csproj|solutionrelative:clinicwebsite-team1\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6DD14F2D-0399-4F4D-9B4A-B5B8EE1F83BC}|ClinicWebsite-Team1\\ClinicWebsite-Team1.csproj|D:\\Thanh\\GitHub\\WebPrograming\\FinalsPJ\\ClinicWebsite-Team1\\clinicwebsite-team1\\views\\home\\verifycode.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{6DD14F2D-0399-4F4D-9B4A-B5B8EE1F83BC}|ClinicWebsite-Team1\\ClinicWebsite-Team1.csproj|solutionrelative:clinicwebsite-team1\\views\\home\\verifycode.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6DD14F2D-0399-4F4D-9B4A-B5B8EE1F83BC}|ClinicWebsite-Team1\\ClinicWebsite-Team1.csproj|D:\\Thanh\\GitHub\\WebPrograming\\FinalsPJ\\ClinicWebsite-Team1\\clinicwebsite-team1\\views\\home\\resetpassword.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{6DD14F2D-0399-4F4D-9B4A-B5B8EE1F83BC}|ClinicWebsite-Team1\\ClinicWebsite-Team1.csproj|solutionrelative:clinicwebsite-team1\\views\\home\\resetpassword.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6DD14F2D-0399-4F4D-9B4A-B5B8EE1F83BC}|ClinicWebsite-Team1\\ClinicWebsite-Team1.csproj|D:\\Thanh\\GitHub\\WebPrograming\\FinalsPJ\\ClinicWebsite-Team1\\clinicwebsite-team1\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{6DD14F2D-0399-4F4D-9B4A-B5B8EE1F83BC}|ClinicWebsite-Team1\\ClinicWebsite-Team1.csproj|solutionrelative:clinicwebsite-team1\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6DD14F2D-0399-4F4D-9B4A-B5B8EE1F83BC}|ClinicWebsite-Team1\\ClinicWebsite-Team1.csproj|D:\\Thanh\\GitHub\\WebPrograming\\FinalsPJ\\ClinicWebsite-Team1\\clinicwebsite-team1\\models\\useraccount.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6DD14F2D-0399-4F4D-9B4A-B5B8EE1F83BC}|ClinicWebsite-Team1\\ClinicWebsite-Team1.csproj|solutionrelative:clinicwebsite-team1\\models\\useraccount.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6DD14F2D-0399-4F4D-9B4A-B5B8EE1F83BC}|ClinicWebsite-Team1\\ClinicWebsite-Team1.csproj|D:\\Thanh\\GitHub\\WebPrograming\\FinalsPJ\\ClinicWebsite-Team1\\clinicwebsite-team1\\views\\_viewstart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -54,11 +54,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 220,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "_Layout.cshtml",
               "DocumentMoniker": "D:\\Thanh\\GitHub\\WebPrograming\\FinalsPJ\\ClinicWebsite-Team1\\ClinicWebsite-Team1\\Views\\Shared\\_Layout.cshtml",
               "RelativeDocumentMoniker": "ClinicWebsite-Team1\\Views\\Shared\\_Layout.cshtml",
@@ -67,61 +67,32 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACYAAAA6AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2026-06-01T04:13:29.593Z",
-              "IsPinned": true,
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Login.cshtml",
-              "DocumentMoniker": "D:\\Thanh\\GitHub\\WebPrograming\\FinalsPJ\\ClinicWebsite-Team1\\ClinicWebsite-Team1\\Views\\Home\\Login.cshtml",
-              "RelativeDocumentMoniker": "ClinicWebsite-Team1\\Views\\Home\\Login.cshtml",
-              "ToolTip": "D:\\Thanh\\GitHub\\WebPrograming\\FinalsPJ\\ClinicWebsite-Team1\\ClinicWebsite-Team1\\Views\\Home\\Login.cshtml",
-              "RelativeToolTip": "ClinicWebsite-Team1\\Views\\Home\\Login.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAALAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-01T13:19:57.179Z",
-              "IsPinned": true,
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "HomeController.cs",
-              "DocumentMoniker": "D:\\Thanh\\GitHub\\WebPrograming\\FinalsPJ\\ClinicWebsite-Team1\\ClinicWebsite-Team1\\Controllers\\HomeController.cs",
-              "RelativeDocumentMoniker": "ClinicWebsite-Team1\\Controllers\\HomeController.cs",
-              "ToolTip": "D:\\Thanh\\GitHub\\WebPrograming\\FinalsPJ\\ClinicWebsite-Team1\\ClinicWebsite-Team1\\Controllers\\HomeController.cs",
-              "RelativeToolTip": "ClinicWebsite-Team1\\Controllers\\HomeController.cs",
-              "ViewState": "AgIAAL0AAAAAAAAAAAAqwPUAAAASAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-01T12:52:10.025Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Register.cs",
-              "DocumentMoniker": "D:\\Thanh\\GitHub\\WebPrograming\\FinalsPJ\\ClinicWebsite-Team1\\ClinicWebsite-Team1\\Models\\Register.cs",
-              "RelativeDocumentMoniker": "ClinicWebsite-Team1\\Models\\Register.cs",
-              "ToolTip": "D:\\Thanh\\GitHub\\WebPrograming\\FinalsPJ\\ClinicWebsite-Team1\\ClinicWebsite-Team1\\Models\\Register.cs",
-              "RelativeToolTip": "ClinicWebsite-Team1\\Models\\Register.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAA0AAAAsAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-02T03:04:49.493Z",
+              "Title": "About.cshtml",
+              "DocumentMoniker": "D:\\Thanh\\GitHub\\WebPrograming\\FinalsPJ\\ClinicWebsite-Team1\\ClinicWebsite-Team1\\Views\\Home\\About.cshtml",
+              "RelativeDocumentMoniker": "ClinicWebsite-Team1\\Views\\Home\\About.cshtml",
+              "ToolTip": "D:\\Thanh\\GitHub\\WebPrograming\\FinalsPJ\\ClinicWebsite-Team1\\ClinicWebsite-Team1\\Views\\Home\\About.cshtml",
+              "RelativeToolTip": "ClinicWebsite-Team1\\Views\\Home\\About.cshtml",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAIwBMAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-02T16:00:38.343Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "UserAccount.cs",
-              "DocumentMoniker": "D:\\Thanh\\GitHub\\WebPrograming\\FinalsPJ\\ClinicWebsite-Team1\\ClinicWebsite-Team1\\Models\\UserAccount.cs",
-              "RelativeDocumentMoniker": "ClinicWebsite-Team1\\Models\\UserAccount.cs",
-              "ToolTip": "D:\\Thanh\\GitHub\\WebPrograming\\FinalsPJ\\ClinicWebsite-Team1\\ClinicWebsite-Team1\\Models\\UserAccount.cs",
-              "RelativeToolTip": "ClinicWebsite-Team1\\Models\\UserAccount.cs",
-              "ViewState": "AgIAABIAAAAAAAAAAAA7wAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-02T03:04:32.196Z",
+              "DocumentIndex": 2,
+              "Title": "DoctorDetail.cshtml",
+              "DocumentMoniker": "D:\\Thanh\\GitHub\\WebPrograming\\FinalsPJ\\ClinicWebsite-Team1\\ClinicWebsite-Team1\\Views\\Home\\DoctorDetail.cshtml",
+              "RelativeDocumentMoniker": "ClinicWebsite-Team1\\Views\\Home\\DoctorDetail.cshtml",
+              "ToolTip": "D:\\Thanh\\GitHub\\WebPrograming\\FinalsPJ\\ClinicWebsite-Team1\\ClinicWebsite-Team1\\Views\\Home\\DoctorDetail.cshtml",
+              "RelativeToolTip": "ClinicWebsite-Team1\\Views\\Home\\DoctorDetail.cshtml",
+              "ViewState": "AgIAAJAAAAAAAAAAAAAAAAcAAABUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-02T15:52:33.47Z",
               "EditorCaption": ""
             },
             {
@@ -134,55 +105,79 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "VerifyCode.cshtml",
-              "DocumentMoniker": "D:\\Thanh\\GitHub\\WebPrograming\\FinalsPJ\\ClinicWebsite-Team1\\ClinicWebsite-Team1\\Views\\Home\\VerifyCode.cshtml",
-              "RelativeDocumentMoniker": "ClinicWebsite-Team1\\Views\\Home\\VerifyCode.cshtml",
-              "ToolTip": "D:\\Thanh\\GitHub\\WebPrograming\\FinalsPJ\\ClinicWebsite-Team1\\ClinicWebsite-Team1\\Views\\Home\\VerifyCode.cshtml",
-              "RelativeToolTip": "ClinicWebsite-Team1\\Views\\Home\\VerifyCode.cshtml",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAMAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-01T14:41:48.162Z",
+              "DocumentIndex": 3,
+              "Title": "HomeController.cs",
+              "DocumentMoniker": "D:\\Thanh\\GitHub\\WebPrograming\\FinalsPJ\\ClinicWebsite-Team1\\ClinicWebsite-Team1\\Controllers\\HomeController.cs",
+              "RelativeDocumentMoniker": "ClinicWebsite-Team1\\Controllers\\HomeController.cs",
+              "ToolTip": "D:\\Thanh\\GitHub\\WebPrograming\\FinalsPJ\\ClinicWebsite-Team1\\ClinicWebsite-Team1\\Controllers\\HomeController.cs",
+              "RelativeToolTip": "ClinicWebsite-Team1\\Controllers\\HomeController.cs",
+              "ViewState": "AgIAABwAAAAAAAAAAAAQwDYAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-02T03:18:48.91Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "Index.cshtml",
               "DocumentMoniker": "D:\\Thanh\\GitHub\\WebPrograming\\FinalsPJ\\ClinicWebsite-Team1\\ClinicWebsite-Team1\\Views\\Home\\Index.cshtml",
               "RelativeDocumentMoniker": "ClinicWebsite-Team1\\Views\\Home\\Index.cshtml",
               "ToolTip": "D:\\Thanh\\GitHub\\WebPrograming\\FinalsPJ\\ClinicWebsite-Team1\\ClinicWebsite-Team1\\Views\\Home\\Index.cshtml",
               "RelativeToolTip": "ClinicWebsite-Team1\\Views\\Home\\Index.cshtml",
-              "ViewState": "AgIAANQBAAAAAAAAAAAAAOQBAAAYAAAAAAAAAA==",
+              "ViewState": "AgIAAB8CAAAAAAAAAAD4v70AAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2026-06-01T08:33:56.881Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "DoctorDetail.cshtml",
-              "DocumentMoniker": "D:\\Thanh\\GitHub\\WebPrograming\\FinalsPJ\\ClinicWebsite-Team1\\ClinicWebsite-Team1\\Views\\Home\\DoctorDetail.cshtml",
-              "RelativeDocumentMoniker": "ClinicWebsite-Team1\\Views\\Home\\DoctorDetail.cshtml",
-              "ToolTip": "D:\\Thanh\\GitHub\\WebPrograming\\FinalsPJ\\ClinicWebsite-Team1\\ClinicWebsite-Team1\\Views\\Home\\DoctorDetail.cshtml",
-              "RelativeToolTip": "ClinicWebsite-Team1\\Views\\Home\\DoctorDetail.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFMAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-01T10:14:59.431Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 1,
               "Title": "Details.cshtml",
               "DocumentMoniker": "D:\\Thanh\\GitHub\\WebPrograming\\FinalsPJ\\ClinicWebsite-Team1\\ClinicWebsite-Team1\\Views\\Home\\Details.cshtml",
               "RelativeDocumentMoniker": "ClinicWebsite-Team1\\Views\\Home\\Details.cshtml",
               "ToolTip": "D:\\Thanh\\GitHub\\WebPrograming\\FinalsPJ\\ClinicWebsite-Team1\\ClinicWebsite-Team1\\Views\\Home\\Details.cshtml",
               "RelativeToolTip": "ClinicWebsite-Team1\\Views\\Home\\Details.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAcAAAAAAAAAA==",
+              "ViewState": "AgIAAMkAAAAAAAAAAAAAAMwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2026-06-01T10:19:51.674Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "VerifyCode.cshtml",
+              "DocumentMoniker": "D:\\Thanh\\GitHub\\WebPrograming\\FinalsPJ\\ClinicWebsite-Team1\\ClinicWebsite-Team1\\Views\\Home\\VerifyCode.cshtml",
+              "RelativeDocumentMoniker": "ClinicWebsite-Team1\\Views\\Home\\VerifyCode.cshtml",
+              "ToolTip": "D:\\Thanh\\GitHub\\WebPrograming\\FinalsPJ\\ClinicWebsite-Team1\\ClinicWebsite-Team1\\Views\\Home\\VerifyCode.cshtml",
+              "RelativeToolTip": "ClinicWebsite-Team1\\Views\\Home\\VerifyCode.cshtml",
+              "ViewState": "AgIAAJsAAAAAAAAAAAAswLQAAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-01T14:41:48.162Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ResetPassword.cshtml",
+              "DocumentMoniker": "D:\\Thanh\\GitHub\\WebPrograming\\FinalsPJ\\ClinicWebsite-Team1\\ClinicWebsite-Team1\\Views\\Home\\ResetPassword.cshtml",
+              "RelativeDocumentMoniker": "ClinicWebsite-Team1\\Views\\Home\\ResetPassword.cshtml",
+              "ToolTip": "D:\\Thanh\\GitHub\\WebPrograming\\FinalsPJ\\ClinicWebsite-Team1\\ClinicWebsite-Team1\\Views\\Home\\ResetPassword.cshtml",
+              "RelativeToolTip": "ClinicWebsite-Team1\\Views\\Home\\ResetPassword.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-02T03:16:14.698Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "UserAccount.cs",
+              "DocumentMoniker": "D:\\Thanh\\GitHub\\WebPrograming\\FinalsPJ\\ClinicWebsite-Team1\\ClinicWebsite-Team1\\Models\\UserAccount.cs",
+              "RelativeDocumentMoniker": "ClinicWebsite-Team1\\Models\\UserAccount.cs",
+              "ToolTip": "D:\\Thanh\\GitHub\\WebPrograming\\FinalsPJ\\ClinicWebsite-Team1\\ClinicWebsite-Team1\\Models\\UserAccount.cs",
+              "RelativeToolTip": "ClinicWebsite-Team1\\Models\\UserAccount.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAA5wBkAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-02T03:04:32.196Z"
             },
             {
               "$type": "Document",
@@ -194,8 +189,7 @@
               "RelativeToolTip": "ClinicWebsite-Team1\\packages.config",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
-              "WhenOpened": "2026-06-01T09:50:55.022Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-01T09:50:55.022Z"
             },
             {
               "$type": "Document",
@@ -207,8 +201,7 @@
               "RelativeToolTip": "ClinicWebsite-Team1\\Views\\_ViewStart.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-01T09:51:06.882Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-01T09:51:06.882Z"
             }
           ]
         },

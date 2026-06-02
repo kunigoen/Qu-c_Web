@@ -1,7 +1,4 @@
-﻿CREATE DATABASE ClinicWebsite
-GO
-USE ClinicWebsite
-GO
+﻿
 CREATE DATABASE ClinicWebsite;
 GO
 USE ClinicWebsite;
@@ -318,7 +315,7 @@ VALUES
 (13, 13, 13, 4, N'Khám nhanh gọn'),
 (14, 14, 14, 5, N'Rất hài lòng'),
 (15, 15, 15, 5, N'Bác sĩ tuyệt vời');
-
+SELECT TOP 1 reset_token, reset_expire FROM user_account
 ALTER TABLE user_account
 ADD reset_token NVARCHAR(100) NULL,
     reset_expire DATETIME NULL;
@@ -399,3 +396,23 @@ FROM appointment;
 
 SELECT COUNT(*) AS total_payments
 FROM payment;
+
+IF NOT EXISTS (
+    SELECT * FROM sys.columns 
+    WHERE Name = N'reset_token' 
+    AND Object_ID = Object_ID(N'user_account')
+)
+BEGIN
+    ALTER TABLE user_account ADD reset_token NVARCHAR(100) NULL;
+END
+
+IF NOT EXISTS (
+    SELECT * FROM sys.columns 
+    WHERE Name = N'reset_expire' 
+    AND Object_ID = Object_ID(N'user_account')
+)
+BEGIN
+    ALTER TABLE user_account ADD reset_expire DATETIME NULL;
+END
+
+select * from user_account as a where a.role = 'Patient' AND a.full_name ='Le Nguyen Bao Khang'; 
