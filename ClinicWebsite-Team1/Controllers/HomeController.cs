@@ -244,6 +244,7 @@ namespace ClinicWebsite_Team1.Controllers
         }
 
         [HttpPost]
+        [ActionName("ResetPassword")]
         public ActionResult ResetPassword(string newPassword, string confirmPassword)
         {
             var email = TempData["email"]?.ToString();

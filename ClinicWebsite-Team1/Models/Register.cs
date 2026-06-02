@@ -9,11 +9,11 @@ using System.Web;
     {
         public class Register
         {
-            [Required]
-            [RegularExpression(@"^[a-zA-Z\s]+$", ErrorMessage = "Full Name must not contain numbers")]
-            public string FullName { get; set; }
+        [Required]
+        [RegularExpression(@"^[\p{L}\s]+$", ErrorMessage = "Full Name must contain letters only")]
+        public string FullName { get; set; }
 
-            public string Gender { get; set; }
+        public string Gender { get; set; }
 
             [Required]
             [EmailAddress]

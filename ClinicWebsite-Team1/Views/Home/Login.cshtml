@@ -1,10 +1,13 @@
 ﻿@model ClinicWebsite_Team1.Models.Login
 @{
+    
     Layout = null;
+
 }
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
+<title>Login - Quoc Khanh Hospital</title>
+<icon src=""></icon>
 <style>
     html, body {
         margin: 0;
@@ -151,7 +154,9 @@
         .back-btn:hover {
             color: #fff;
         }
+
     .field-error {
+        display: none;
         background: #ffe5e5;
         border: 1px solid #ffb3b3;
         padding: 6px 8px;
@@ -160,6 +165,10 @@
         font-size: 12px;
         color: #b30000;
     }
+
+        .field-error.show {
+            display: block;
+        }
 </style>
 
 <div class="login-container">
