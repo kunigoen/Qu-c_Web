@@ -1,5 +1,6 @@
 ﻿using ClinicWebsite_Team1.Models;
 using System;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -458,9 +459,42 @@ namespace ClinicWebsite_Team1.Controllers
 
         public ActionResult Appointments()
         {
-            return View(db.appointments.ToList());
-        }
+            var data = db.appointments
+                .Include("patient.user_account")
+                .Include("doctor.user_account")
+                .Include("schedule")
+                .Include("appointment_status")
+                .OrderByDescending(x => x.id)
+                .ToList();
 
+            return View(data);
+        }
+        public ActionResult UpdateAppointmentStatus(int id, int statusId)
+        {
+            var appt = db.appointments.FirstOrDefault(x => x.id == id);
+
+            if (appt != null)
+            {
+                appt.status_id = statusId;
+                appt.updated_at = DateTime.Now;
+
+                db.SubmitChanges(); 
+            }
+
+            return RedirectToAction("Appointments");
+        }
+        public ActionResult DeleteAppointment(int id)
+        {
+            var appt = db.appointments.FirstOrDefault(x => x.id == id);
+
+            if (appt != null)
+            {
+                db.appointments.DeleteOnSubmit(appt);
+                db.SubmitChanges();
+            }
+
+            return RedirectToAction("Appointments");
+        }
         public ActionResult Payments()
         {
             return View(db.payments.ToList());

@@ -2,83 +2,97 @@
 
 @{
     ViewBag.Title = "Edit Specialty";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Edit Specialty</h2>
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
 
-@using (Html.BeginForm(
-    "EditSpecialty",
-    "Admin",
-    FormMethod.Post,
-    new { enctype = "multipart/form-data" }))
-{
-    @Html.HiddenFor(m => m.id)
+            <div class="card shadow">
 
-    <div class="mb-3">
-        <label>Name</label>
+                <div class="card-header bg-primary text-white text-center">
+                    <h4 class="mb-0">Edit Specialty</h4>
+                </div>
 
-        @Html.TextBoxFor(
-            m => m.name,
-            new { @class = "form-control" })
+                <div class="card-body">
+
+                    @using (Html.BeginForm(
+                        "EditSpecialty",
+                        "Admin",
+                        FormMethod.Post,
+                        new { enctype = "multipart/form-data" }))
+                    {
+                        @Html.HiddenFor(m => m.id)
+
+                        <div class="mb-3">
+                            <label class="form-label">Name</label>
+                            @Html.TextBoxFor(
+                                m => m.name,
+                                new { @class = "form-control" })
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Description</label>
+                            @Html.TextAreaFor(
+                                m => m.description,
+                                new { @class = "form-control", rows = 4 })
+                        </div>
+
+                        <div class="mb-3 text-center">
+                            <label class="form-label d-block">Current Image</label>
+
+                            <img id="currentImage"
+                                 src="@Url.Content("~/Content/images/" + Model.image_url)"
+                                 width="180"
+                                 class="img-thumbnail" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Choose New Image</label>
+
+                            <input type="file"
+                                   name="ImageFile"
+                                   class="form-control"
+                                   accept="image/*"
+                                   onchange="previewImage(event)" />
+                        </div>
+
+                        <div class="mb-3 text-center">
+                            <label class="form-label d-block">Preview</label>
+
+                            <img id="preview"
+                                 src="@Url.Content("~/Content/images/" + Model.image_url)"
+                                 width="180"
+                                 class="img-thumbnail" />
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit"
+                                    class="btn btn-primary px-4">
+                                Save
+                            </button>
+
+                            <a href="@Url.Action("Specialties")"
+                               class="btn btn-secondary px-4">
+                                Back
+                            </a>
+                        </div>
+                    }
+
+                </div>
+            </div>
+
+        </div>
     </div>
-
-    <div class="mb-3">
-        <label>Description</label>
-
-        @Html.TextAreaFor(
-            m => m.description,
-            new { @class = "form-control", rows = 4 })
-    </div>
-
-    <div class="mb-3">
-        <label>Current Image</label>
-        <br />
-
-        <img id="currentImage"
-             src="@Url.Content("~/Content/images/" + Model.image_url)"
-             width="200"
-             class="img-thumbnail" />
-    </div>
-
-    <div class="mb-3">
-        <label>Choose New Image</label>
-
-        <input type="file"
-               name="ImageFile"
-               class="form-control"
-               accept="image/*"
-               onchange="previewImage(event)" />
-    </div>
-
-    <div class="mb-3">
-        <label>Preview</label>
-        <br />
-
-        <img id="preview"
-             src="@Url.Content("~/Content/images/" + Model.image_url)"
-             width="200"
-             class="img-thumbnail" />
-    </div>
-
-    <button type="submit"
-            class="btn btn-primary">
-        Save
-    </button>
-
-    <a href="@Url.Action("Specialties")"
-       class="btn btn-secondary">
-        Back
-    </a>
-}
+</div>
 
 <script>
     function previewImage(event) {
-
         var reader = new FileReader();
 
         reader.onload = function () {
-            document.getElementById("preview").src =
-                reader.result;
+            document.getElementById("preview").src = reader.result;
         };
 
         reader.readAsDataURL(event.target.files[0]);

@@ -265,6 +265,7 @@
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
     <Content Include="Views\Admin\Patients.cshtml" />
     <Content Include="Views\Admin\EditPatient.cshtml" />
+    <Content Include="Views\Admin\Appointments.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Doctor\" />

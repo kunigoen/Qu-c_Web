@@ -169,8 +169,7 @@ namespace ClinicWebsite_Team1.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-            var user = db.user_accounts
-                .FirstOrDefault(x => x.email == model.Email);
+            var user = db.user_accounts.FirstOrDefault(x => x.email == model.Email);
 
             if (user == null)
             {
@@ -178,15 +177,16 @@ namespace ClinicWebsite_Team1.Controllers
                 return View(model);
             }
 
-            if (user.password_hash != model.Password)
+            if (string.IsNullOrWhiteSpace(model.Password) ||
+                user.password_hash != model.Password.Trim())
             {
-                ModelState.AddModelError("Password", "Incorrect password");
+                ModelState.AddModelError("Password", "Wrong Password");
                 return View(model);
             }
+
             Session["UserName"] = user.full_name;
             Session["UserId"] = user.id;
             Session["Role"] = user.role;
-
 
             return RedirectToAction("Index", "Home");
         }
