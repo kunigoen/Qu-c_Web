@@ -34,7 +34,10 @@
 
                 <option value="">All Specialties</option>
 
-                @foreach (var s in Model.Select(x => x.specialty.name).Distinct())
+                @foreach (var s in Model
+                    .Where(x => x.specialty != null)
+                    .Select(x => x.specialty.name)
+                    .Distinct())
                 {
                     <option value="@s">@s</option>
                 }

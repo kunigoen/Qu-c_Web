@@ -128,11 +128,13 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\DoctorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AddDoctorViewModel.cs" />
     <Compile Include="Models\Appointment.cs" />
     <Compile Include="Models\AppointmentService.cs" />
     <Compile Include="Models\AppointmentStatus.cs" />
@@ -148,6 +150,7 @@
     <Compile Include="Models\Login.cs" />
     <Compile Include="Models\MedicalService.cs" />
     <Compile Include="Models\Patient.cs" />
+    <Compile Include="Models\PatientViewModel.cs" />
     <Compile Include="Models\Payment.cs" />
     <Compile Include="Models\Register.cs" />
     <Compile Include="Models\ResetPassword.cs" />
@@ -249,6 +252,19 @@
     <Content Include="Views\Home\ForgotPassword.cshtml" />
     <Content Include="Views\Home\VerifyCode.cshtml" />
     <Content Include="Views\Home\ResetPassword.cshtml" />
+    <Content Include="Views\Admin\Dashboard.cshtml" />
+    <Content Include="Views\Admin\Doctors.cshtml" />
+    <Content Include="Views\Admin\CreateDoctor.cshtml" />
+    <Content Include="Views\Admin\EditDoctor.cshtml" />
+    <Content Include="Views\Admin\Specialties.cshtml" />
+    <Content Include="Views\Admin\EditSpecialty.cshtml" />
+    <Content Include="Views\Admin\Schedules.cshtml" />
+    <Content Include="Views\Admin\CreateSchedule.cshtml" />
+    <Content Include="Views\Admin\EditSchedule.cshtml" />
+    <Content Include="Views\Admin\CreateSpecialty.cshtml" />
+    <Content Include="Views\Shared\_AdminLayout.cshtml" />
+    <Content Include="Views\Admin\Patients.cshtml" />
+    <Content Include="Views\Admin\EditPatient.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Doctor\" />

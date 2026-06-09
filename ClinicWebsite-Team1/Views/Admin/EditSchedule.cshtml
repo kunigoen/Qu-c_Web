@@ -1,0 +1,78 @@
+﻿@model ClinicWebsite_Team1.Models.schedule
+
+@{
+    ViewBag.Title = "Edit Schedule";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit Schedule</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(m => m.id)
+
+    <div class="mb-3">
+        <label>Doctor</label>
+        @Html.DropDownListFor(m => m.doctor_id,
+            new SelectList(ViewBag.Doctors, "id", "id", Model.doctor_id),
+            new { @class = "form-control" })
+    </div>
+
+    <div class="mb-3">
+        <label>Room</label>
+        @Html.DropDownListFor(m => m.room_id,
+            new SelectList(ViewBag.Rooms, "id", "room_code", Model.room_id),
+            new { @class = "form-control" })
+    </div>
+
+    <div class="mb-3">
+        <label>Date</label>
+        @Html.TextBoxFor(m => m.work_date,
+            new
+            {
+                @class = "form-control",
+                type = "date",
+                id = "work_date"
+            })
+    </div>
+
+    <div class="mb-3">
+        <label>Start Time</label>
+        @Html.TextBoxFor(m => m.start_time,
+            new { @class = "form-control", type = "time" })
+    </div>
+
+    <div class="mb-3">
+        <label>End Time</label>
+        @Html.TextBoxFor(m => m.end_time,
+            new { @class = "form-control", type = "time" })
+    </div>
+
+    <div class="mb-3">
+        <label>Max Patients</label>
+        @Html.TextBoxFor(m => m.max_patients,
+            new { @class = "form-control", type = "number" })
+    </div>
+
+    <div class="mb-3">
+        <label>Status</label>
+        @Html.DropDownListFor(m => m.status,
+            new SelectList(new[] { "Available", "Full", "Closed" }, Model.status),
+            new { @class = "form-control" })
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+        Update
+    </button>
+
+    <a href="@Url.Action("Schedules")" class="btn btn-secondary">
+        Back
+    </a>
+}
+
+<script>
+    window.onload = function () {
+        let today = new Date().toISOString().split('T')[0];
+        document.getElementById("work_date").setAttribute("min", today);
+    }
+</script>

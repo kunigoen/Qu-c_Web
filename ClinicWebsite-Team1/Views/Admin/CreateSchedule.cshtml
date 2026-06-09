@@ -1,0 +1,84 @@
+﻿@model ClinicWebsite_Team1.Models.schedule
+
+@{
+    ViewBag.Title = "Create Schedule";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create Schedule</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="mb-3">
+        <label>Doctor</label>
+        @Html.DropDownListFor(m => m.doctor_id,
+            new SelectList(ViewBag.Doctors, "id", "id"),
+            "-- Select Doctor --",
+            new { @class = "form-control" })
+    </div>
+
+    <div class="mb-3">
+        <label>Room</label>
+        @Html.DropDownListFor(m => m.room_id,
+            new SelectList(ViewBag.Rooms, "id", "room_code"),
+            "-- Select Room --",
+            new { @class = "form-control" })
+    </div>
+
+    <div class="mb-3">
+        <label>Date</label>
+        @Html.TextBoxFor(m => m.work_date,
+            new
+            {
+                @class = "form-control",
+                type = "date",
+                id = "work_date"
+            })
+    </div>
+
+    <div class="mb-3">
+        <label>Start Time</label>
+        @Html.TextBoxFor(m => m.start_time,
+            new { @class = "form-control", type = "time" })
+    </div>
+
+    <div class="mb-3">
+        <label>End Time</label>
+        @Html.TextBoxFor(m => m.end_time,
+            new { @class = "form-control", type = "time" })
+    </div>
+
+    <div class="mb-3">
+        <label>Max Patients</label>
+        @Html.TextBoxFor(m => m.max_patients,
+            new { @class = "form-control", type = "number", min = "1" })
+    </div>
+
+    <div class="mb-3">
+        <label>Status</label>
+        @Html.DropDownListFor(m => m.status,
+            new SelectList(new[] { "Available", "Full", "Closed" }),
+            "-- Select Status --",
+            new { @class = "form-control" })
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+        Save
+    </button>
+}
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger mt-3">
+        @Html.ValidationSummary()
+    </div>
+}
+
+<script>
+    window.onload = function () {
+        let today = new Date().toISOString().split('T')[0];
+        document.getElementById("work_date").setAttribute("min", today);
+    }
+</script>

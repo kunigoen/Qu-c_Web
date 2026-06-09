@@ -1,0 +1,44 @@
+﻿@model List<ClinicWebsite_Team1.Models.PatientViewModel>
+
+<h2>Manage Patients</h2>
+
+<table class="table table-bordered">
+    <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Gender</th>
+        <th>Address</th>
+        <th>Status</th>
+        <th>Action</th>
+    </tr>
+
+    @foreach (var p in Model)
+    {
+        <tr>
+            <td>@p.FullName</td>
+            <td>@p.Email</td>
+            <td>@p.Phone</td>
+            <td>@p.Gender</td>
+            <td>@p.Address</td>
+
+            <td>
+                @(p.IsActive ? "Active" : "Inactive")
+            </td>
+
+            <td>
+                <a href="@Url.Action("EditPatient",
+                        new { id = p.Id })"
+                   class="btn btn-warning">
+                    Edit
+                </a>
+
+                <a href="@Url.Action("TogglePatientStatus",
+                        new { id = p.Id })"
+                   class="btn btn-info">
+                    Change Status
+                </a>
+            </td>
+        </tr>
+    }
+</table>

@@ -1,0 +1,153 @@
+﻿@model ClinicWebsite_Team1.Models.doctor
+
+@{
+    ViewBag.Title = "Edit Doctor";
+}
+
+<h2>Edit Doctor</h2>
+
+@using (Html.BeginForm(
+    "EditDoctor",
+    "Admin",
+    FormMethod.Post,
+    new { enctype = "multipart/form-data" }))
+{
+    @Html.HiddenFor(m => m.id)
+
+    <div class="mb-3">
+        <label>Full Name</label>
+        <input type="text"
+               name="FullName"
+               class="form-control"
+               value="@Model.user_account.full_name" />
+    </div>
+
+    <div class="mb-3">
+        <label>Email</label>
+        <input type="email"
+               name="Email"
+               class="form-control"
+               value="@Model.user_account.email" />
+    </div>
+
+    <div class="mb-3">
+        <label>Phone</label>
+        <input type="text"
+               name="PhoneNumber"
+               class="form-control"
+               value="@Model.phone_number" />
+    </div>
+
+    <div class="mb-3">
+        <label>Specialty</label>
+
+        <select name="specialty_id"
+                class="form-control">
+
+            @foreach (var s in ViewBag.Specialties)
+            {
+                <option value="@s.id"
+                        @(s.id == Model.specialty_id ? "selected" : "")>
+                    @s.name
+                </option>
+            }
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label>License Number</label>
+
+        @Html.TextBoxFor(
+            m => m.license_number,
+            new { @class = "form-control" })
+    </div>
+
+    <div class="mb-3">
+        <label>Experience Years</label>
+
+        @Html.TextBoxFor(
+            m => m.experience_years,
+            new { @class = "form-control" })
+    </div>
+
+    <div class="mb-3">
+        <label>Consultation Fee</label>
+
+        @Html.TextBoxFor(
+            m => m.consultation_fee,
+            new { @class = "form-control" })
+    </div>
+
+    <div class="mb-3">
+        <label>Status</label>
+
+        <select name="status"
+                class="form-control">
+
+            <option value="Active"
+                    @(Model.status == "Active" ? "selected" : "")>
+                Active
+            </option>
+
+            <option value="Inactive"
+                    @(Model.status == "Inactive" ? "selected" : "")>
+                Inactive
+            </option>
+
+            <option value="OnLeave"
+                    @(Model.status == "OnLeave" ? "selected" : "")>
+                On Leave
+            </option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+
+        <label>Current Image</label>
+        <br />
+
+        <img src="@Url.Content(Model.image_url)"
+             width="150"
+             class="img-thumbnail" />
+
+    </div>
+
+    <div class="mb-3">
+        <label>Choose New Image</label>
+
+        <input type="file"
+               name="ImageFile"
+               class="form-control"
+               accept="image/*"
+               onchange="previewImage(event)" />
+    </div>
+
+    <div class="mb-3">
+        <img id="preview"
+             width="150"
+             class="img-thumbnail" />
+    </div>
+
+    <button type="submit"
+            class="btn btn-primary">
+        Save
+    </button>
+
+    <a href="@Url.Action("Doctors")"
+       class="btn btn-secondary">
+        Back
+    </a>
+}
+
+<script>
+function previewImage(event) {
+    const reader = new FileReader();
+
+    reader.onload = function () {
+        document.getElementById("preview").src =
+            reader.result;
+    };
+
+    reader.readAsDataURL(event.target.files[0]);
+}
+</script>

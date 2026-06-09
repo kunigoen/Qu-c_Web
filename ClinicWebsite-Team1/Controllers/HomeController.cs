@@ -13,7 +13,11 @@ namespace ClinicWebsite_Team1.Controllers
     public class HomeController : Controller
     {
         // Khai báo DbContext ở đây
-        private ClinicWebsiteDataContext db = new ClinicWebsiteDataContext();
+        ClinicWebsiteDataContext db =
+                new ClinicWebsiteDataContext(
+                    System.Configuration.ConfigurationManager
+                        .ConnectionStrings["ClinicWebsiteConnectionString"]
+                        .ConnectionString);
 
         public ActionResult Index(string keyword, int? specialtyId, int page = 1)
         {
@@ -60,12 +64,11 @@ namespace ClinicWebsite_Team1.Controllers
         public ActionResult About()
         {
             var doctors = db.doctors
-                  .Include("specialty")
-                  .Include("user_account")
-                  .ToList();
+                .Where(x => x.specialty_id > 0)
+                .ToList();
 
             return View(doctors);
-            
+
         }
         public ActionResult Details(int? id)
         {

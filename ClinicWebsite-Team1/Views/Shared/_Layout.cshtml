@@ -24,9 +24,25 @@
             <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
 
                 <ul class="navbar-nav flex-grow-1">
+
                     <li class="nav-item">
-                        @Html.ActionLink("Doctor", "About", "Home", null, new { @class = "nav-link" })
+                        @Html.ActionLink("Doctor", "About", "Home", null,
+                            new { @class = "nav-link" })
                     </li>
+
+                    @if (Session["Role"] != null &&
+                         Session["Role"].ToString() == "Admin")
+                    {
+                        <li class="nav-item">
+                            @Html.ActionLink(
+                                "Admin Dashboard",
+                                "Dashboard",
+                                "Admin",
+                                null,
+                                new { @class = "nav-link" })
+                        </li>
+                    }
+
                 </ul>
 
                 <!-- RIGHT SIDE -->

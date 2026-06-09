@@ -1,0 +1,65 @@
+﻿@model ClinicWebsite_Team1.Models.patient
+
+@{
+    ViewBag.Title = "Edit Patient";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Edit Patient</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(m => m.id)
+
+    <div class="mb-3">
+        <label>Phone Number</label>
+
+        @Html.TextBoxFor(
+            m => m.phone_number,
+            new { @class = "form-control" })
+    </div>
+
+    <div class="mb-3">
+        <label>Gender</label>
+
+        @Html.DropDownListFor(
+            m => m.gender,
+            new SelectList(
+                new[] { "Male", "Female", "Other" }),
+            new { @class = "form-control" })
+    </div>
+
+    <div class="mb-3">
+        <label>Address</label>
+
+        @Html.TextAreaFor(
+            m => m.address,
+            new { @class = "form-control" })
+    </div>
+
+    <div class="mb-3">
+        <label>Blood Type</label>
+
+        @Html.TextBoxFor(
+            m => m.blood_type,
+            new { @class = "form-control" })
+    </div>
+
+    <div class="mb-3">
+        <label>Emergency Contact</label>
+
+        @Html.TextBoxFor(
+            m => m.emergency_contact,
+            new { @class = "form-control" })
+    </div>
+
+    <button type="submit"
+            class="btn btn-primary">
+        Update
+    </button>
+
+    <a href="@Url.Action("Patients")"
+       class="btn btn-secondary">
+        Back
+    </a>
+}

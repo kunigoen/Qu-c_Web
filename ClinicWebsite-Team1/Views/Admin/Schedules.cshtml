@@ -1,0 +1,66 @@
+﻿@model List<ClinicWebsite_Team1.Models.schedule>
+
+@{
+    ViewBag.Title = "Manage Schedules";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Manage Schedules</h2>
+
+<p>
+    <a href="@Url.Action("CreateSchedule","Admin")"
+       class="btn btn-success">
+        Add Schedule
+    </a>
+</p>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Doctor</th>
+            <th>Room</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.id</td>
+
+                <td>@item.doctor_id</td>
+                <td>@item.room_id</td>
+
+                <td>@item.work_date.ToString("yyyy-MM-dd")</td>
+
+                <td>
+                    @item.start_time - @item.end_time
+                </td>
+
+                <td>
+                    <span class="badge bg-info">
+                        @item.status
+                    </span>
+                </td>
+
+                <td>
+                    <a href="@Url.Action("EditSchedule","Admin",new { id = item.id })"
+                       class="btn btn-warning btn-sm">
+                        Edit
+                    </a>
+
+                    <a href="@Url.Action("DeleteSchedule","Admin",new { id = item.id })"
+                       class="btn btn-danger btn-sm"
+                       onclick="return confirm('Delete schedule?');">
+                        Delete
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

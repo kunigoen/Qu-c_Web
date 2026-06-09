@@ -1,0 +1,114 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container-fluid">
+
+            <span class="navbar-brand">
+                Admin Panel
+            </span>
+
+            <div>
+                <span class="text-white me-3">
+                    @Session["UserName"]
+                </span>
+
+                <a href="@Url.Action("Logout","Home")"
+                   class="btn btn-danger">
+                    Logout
+                </a>
+            </div>
+
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+
+        <div class="row">
+
+            <!-- MENU -->
+            <div class="col-md-2 bg-light min-vh-100">
+
+                <ul class="nav flex-column mt-3">
+
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           href="@Url.Action("Dashboard","Admin")">
+                            Dashboard
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           href="@Url.Action("Doctors","Admin")">
+                            Doctors
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           href="@Url.Action("Specialties","Admin")">
+                            Specialties
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           href="@Url.Action("Schedules","Admin")">
+                            Schedules
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           href="@Url.Action("Patients","Admin")">
+                            Patients
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           href="@Url.Action("Appointments","Admin")">
+                            Appointments
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           href="@Url.Action("Payments","Admin")">
+                            Payments
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           href="@Url.Action("Reviews","Admin")">
+                            Reviews
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+            <!-- CONTENT -->
+            <div class="col-md-10 p-4">
+                @RenderBody()
+            </div>
+
+        </div>
+
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+</body>
+</html>

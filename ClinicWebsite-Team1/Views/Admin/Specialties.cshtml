@@ -1,0 +1,61 @@
+﻿@model List<ClinicWebsite_Team1.Models.specialty>
+
+@{
+    ViewBag.Title = "Manage Specialties";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Manage Specialties</h2>
+
+<p>
+    <a href="@Url.Action("CreateSpecialty", "Admin")"
+       class="btn btn-success">
+        Add Specialty
+    </a>
+</p>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th width="220">Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.id</td>
+
+                <!-- FIX ẢNH CHUẨN -->
+                <td>
+                    <img src="@Url.Content("~/Content/images/" + item.image_url)"
+                         width="100"
+                         height="80"
+                         style="object-fit:cover; border-radius:8px;" />
+                </td>
+
+                <td>@item.name</td>
+
+                <td>@item.description</td>
+
+                <td>
+                    <a href="@Url.Action("EditSpecialty", "Admin", new { id = item.id })"
+                       class="btn btn-warning btn-sm">
+                        Edit
+                    </a>
+
+                    <a href="@Url.Action("DeleteSpecialty", "Admin", new { id = item.id })"
+                       class="btn btn-danger btn-sm"
+                       onclick="return confirm('Delete this specialty?');">
+                        Delete
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

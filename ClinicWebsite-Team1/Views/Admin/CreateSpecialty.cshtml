@@ -1,0 +1,61 @@
+﻿@model ClinicWebsite_Team1.Models.specialty
+
+<h2>Add Specialty</h2>
+
+@using (Html.BeginForm(
+    "CreateSpecialty",
+    "Admin",
+    FormMethod.Post,
+    new { enctype = "multipart/form-data" }))
+{
+    <div class="mb-3">
+        <label>Name</label>
+        @Html.TextBoxFor(m => m.name,
+            new { @class = "form-control" })
+    </div>
+
+    <div class="mb-3">
+        <label>Description</label>
+
+        @Html.TextAreaFor(
+            m => m.description,
+            new { @class = "form-control" })
+    </div>
+
+    <div class="mb-3">
+        <label>Image</label>
+
+        <input type="file"
+               name="ImageFile"
+               class="form-control"
+               accept="image/*"
+               onchange="previewImage(event)" />
+    </div>
+
+    <img id="preview"
+         width="150"
+         class="img-thumbnail" />
+
+    <br />
+    <br />
+
+    <button type="submit"
+            class="btn btn-success">
+        Save
+    </button>
+}
+
+<script>
+function previewImage(event)
+{
+    let reader = new FileReader();
+
+    reader.onload = function()
+    {
+        document.getElementById("preview").src =
+            reader.result;
+    };
+
+    reader.readAsDataURL(event.target.files[0]);
+}
+</script>

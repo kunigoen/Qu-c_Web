@@ -1,0 +1,89 @@
+﻿@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Admin Dashboard</h2>
+
+<div class="row mt-4">
+
+    <div class="col-md-2">
+        <div class="card text-center">
+            <div class="card-body">
+                <h2>@ViewBag.TotalDoctors</h2>
+                <p>Total Doctors</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-2">
+        <div class="card text-center">
+            <div class="card-body">
+                <h2>@ViewBag.TotalPatients</h2>
+                <p>Total Patients</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-2">
+        <div class="card text-center">
+            <div class="card-body">
+                <h2>@ViewBag.TotalSchedules</h2>
+                <p>Total Schedules</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <h2>@ViewBag.TotalAppointments</h2>
+                <p>Total Appointments</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <h2>@String.Format("{0:N0}", ViewBag.TotalRevenue)</h2>
+                <p>Total Revenue</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<hr />
+
+<div class="row mt-4">
+
+    <div class="col-md-6 mb-2">
+        <a href="@Url.Action("Doctors","Admin")"
+           class="btn btn-primary w-100">
+            Manage Doctors
+        </a>
+    </div>
+
+    <div class="col-md-6 mb-2">
+        <a href="@Url.Action("Specialties","Admin")"
+           class="btn btn-success w-100">
+            Manage Specialties
+        </a>
+    </div>
+
+    <div class="col-md-6 mb-2">
+        <a href="@Url.Action("Schedules","Admin")"
+           class="btn btn-warning w-100">
+            Manage Schedules
+        </a>
+    </div>
+
+    <div class="col-md-6 mb-2">
+        <a href="@Url.Action("Patients","Admin")"
+           class="btn btn-info w-100">
+            Manage Patients
+        </a>
+    </div>
+
+</div>
