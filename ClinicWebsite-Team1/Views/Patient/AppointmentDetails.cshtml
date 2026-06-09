@@ -1,0 +1,32 @@
+﻿﻿@model ClinicWebsite_Team1.Models.appointment
+
+@{
+    ViewBag.Title = "Appointment Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="mb-4">Appointment Details</h2>
+
+<div class="card shadow-sm border-0">
+    <div class="card-header bg-primary text-white">
+        Appointment Information
+    </div>
+
+    <div class="card-body">
+        <p><strong>Doctor:</strong> @Model.doctor.user_account.full_name</p>
+        <p><strong>Specialty:</strong> @Model.doctor.specialty.name</p>
+        <p><strong>Date:</strong> @Model.schedule.work_date.ToString("dd/MM/yyyy")</p>
+        <p><strong>Time:</strong> @Model.schedule.start_time - @Model.schedule.end_time</p>
+        <p><strong>Room:</strong> @(Model.schedule.clinic_room != null ? Model.schedule.clinic_room.room_code : "N/A")</p>
+        <p><strong>Status:</strong> @Model.appointment_status.name</p>
+        <p><strong>Symptoms:</strong> @Model.symptoms</p>
+        <p><strong>Note:</strong> @Model.note</p>
+        <p><strong>Created At:</strong> @(Model.created_at.HasValue ? Model.created_at.Value.ToString("dd/MM/yyyy HH:mm") : "N/A")</p>
+    </div>
+</div>
+
+<div class="mt-4">
+    <a href="@Url.Action("MyAppointments", "Patient")" class="btn btn-outline-secondary">
+        Back to My Appointments
+    </a>
+</div>

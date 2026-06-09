@@ -190,6 +190,19 @@ namespace ClinicWebsite_Team1.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+        public ActionResult TestSession()
+        {
+            string userId = Session["UserId"] == null
+                ? "NULL"
+                : Session["UserId"].ToString();
+
+            string role = Session["Role"] == null
+                ? "NULL"
+                : Session["Role"].ToString();
+
+            return Content("UserId = " + userId + " | Role = " + role);
+        }
+
         public ActionResult Logout()
         {
             Session.Clear();

@@ -14,7 +14,22 @@ namespace ClinicWebsite_Team1.Controllers
                 System.Configuration.ConfigurationManager
                     .ConnectionStrings["ClinicWebsiteConnectionString"]
                     .ConnectionString);
+        private bool IsAdmin()
+        {
+            return Session["UserId"] != null
+                && Session["Role"] != null
+                && Session["Role"].ToString() == "Admin";
+        }
 
+        private ActionResult CheckAdminAccess()
+        {
+            if (!IsAdmin())
+            {
+                return RedirectToAction("Login", "Home");
+            }
+
+            return null;
+        }
         public ActionResult Dashboard()
         {
             if (Session["Role"] == null ||
@@ -497,12 +512,80 @@ namespace ClinicWebsite_Team1.Controllers
         }
         public ActionResult Payments()
         {
-            return View(db.payments.ToList());
+            var accessResult = CheckAdminAccess();
+            if (accessResult != null) return accessResult;
+
+            var payments = db.payments
+                .OrderByDescending(x => x.payment_date)
+                .ToList();
+
+            return View(payments);
         }
 
+        [HttpPost]
+        public ActionResult UpdatePaymentStatus(int paymentId, string status)
+        {
+            var accessResult = CheckAdminAccess();
+            if (accessResult != null) return accessResult;
+
+            var payment = db.payments.FirstOrDefault(x => x.id == paymentId);
+            if (payment == null) return HttpNotFound();
+
+            payment.status = status;
+
+            if (status == "Paid" && payment.payment_date == null)
+            {
+                payment.payment_date = DateTime.Now;
+            }
+
+            db.SubmitChanges();
+
+            TempData["Success"] = "Payment status updated successfully.";
+            return RedirectToAction("Payments");
+        }
+
+        [HttpPost]
+        public ActionResult ConfirmPayment(int paymentId)
+        {
+            return UpdatePaymentStatus(paymentId, "Paid");
+        }
+
+        // 8. Manage Reviews
         public ActionResult Reviews()
         {
-            return View(db.doctor_reviews.ToList());
+            var accessResult = CheckAdminAccess();
+            if (accessResult != null) return accessResult;
+
+            var reviews = db.doctor_reviews
+                .OrderByDescending(x => x.review_date)
+                .ToList();
+
+            ViewBag.TotalReviews = reviews.Count;
+
+            ViewBag.AverageRating = reviews.Any()
+                ? reviews.Average(x => x.rating ?? 0)
+                : 0;
+
+            ViewBag.FiveStarReviews = reviews.Count(x => x.rating == 5);
+            ViewBag.LowRatingReviews = reviews.Count(x => x.rating <= 2);
+
+            return View(reviews);
+        }
+
+        [HttpPost]
+        public ActionResult DeleteReview(int id)
+        {
+            var accessResult = CheckAdminAccess();
+            if (accessResult != null) return accessResult;
+
+            var review = db.doctor_reviews.FirstOrDefault(x => x.id == id);
+            if (review == null) return HttpNotFound();
+
+            db.doctor_reviews.DeleteOnSubmit(review);
+            db.SubmitChanges();
+
+            TempData["Success"] = "Review deleted successfully.";
+            return RedirectToAction("Reviews");
         }
     }
 }

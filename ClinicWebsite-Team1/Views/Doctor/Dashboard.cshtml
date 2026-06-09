@@ -1,0 +1,87 @@
+﻿﻿@{
+    ViewBag.Title = "Doctor Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var doctor = ViewBag.Doctor as ClinicWebsite_Team1.Models.doctor;
+    var recentActivities = ViewBag.RecentActivities as List<ClinicWebsite_Team1.Models.appointment>;
+}
+
+<h2 class="mb-4">Doctor Dashboard</h2>
+
+@if (doctor != null)
+{
+    <div class="alert alert-primary">
+        Welcome, Dr. @doctor.user_account.full_name
+    </div>
+}
+
+<div class="row g-4 mb-4">
+
+    <div class="col-md-4">
+        <div class="card shadow-sm border-0">
+            <div class="card-body text-center">
+                <h5>Total Appointments</h5>
+                <h2 class="text-primary">@ViewBag.TotalAppointments</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card shadow-sm border-0">
+            <div class="card-body text-center">
+                <h5>Today Appointments</h5>
+                <h2 class="text-success">@ViewBag.TodayAppointments</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card shadow-sm border-0">
+            <div class="card-body text-center">
+                <h5>Patient Count</h5>
+                <h2 class="text-warning">@ViewBag.PatientCount</h2>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="card shadow-sm border-0">
+    <div class="card-header bg-primary text-white">
+        Recent Activities
+    </div>
+
+    <div class="card-body">
+
+        @if (recentActivities != null && recentActivities.Any())
+        {
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Patient</th>
+                        <th>Appointment Date</th>
+                        <th>Status</th>
+                        <th>Symptoms</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in recentActivities)
+                    {
+                        <tr>
+                            <td>@item.patient.user_account.full_name</td>
+                            <td>@item.schedule.work_date.ToString("dd/MM/yyyy")</td>
+                            <td>@item.appointment_status.name</td>
+                            <td>@item.symptoms</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p class="text-muted mb-0">No recent activities.</p>
+        }
+
+    </div>
+</div>

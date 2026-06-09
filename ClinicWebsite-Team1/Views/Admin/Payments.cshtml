@@ -1,0 +1,127 @@
+﻿﻿@model List<ClinicWebsite_Team1.Models.payment>
+
+@{
+    ViewBag.Title = "Manage Payments";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="mb-4">Manage Payments</h2>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+<div class="card shadow-sm border-0">
+    <div class="card-header bg-dark text-white">
+        Payment List
+    </div>
+
+    <div class="card-body">
+
+        @if (Model != null && Model.Any())
+        {
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Patient</th>
+                            <th>Doctor</th>
+                            <th>Amount</th>
+                            <th>Method</th>
+                            <th>Transaction</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th style="width: 260px;">Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var p in Model)
+                        {
+                            <tr>
+                                <td>@p.id</td>
+
+                                <td>
+                                    @(p.appointment != null ? p.appointment.patient.user_account.full_name : "N/A")
+                                </td>
+
+                                <td>
+                                    @(p.appointment != null ? p.appointment.doctor.user_account.full_name : "N/A")
+                                </td>
+
+                                <td>@String.Format("{0:N0} đ", p.amount)</td>
+
+                                <td>@p.payment_method</td>
+
+                                <td>@p.transaction_code</td>
+
+                                <td>
+                                    @(p.payment_date.HasValue ? p.payment_date.Value.ToString("dd/MM/yyyy") : "N/A")
+                                </td>
+
+                                <td>
+                                    @if (p.status == "Paid")
+                                    {
+                                        <span class="badge bg-success px-3 py-2">Paid</span>
+                                    }
+                                    else if (p.status == "Pending")
+                                    {
+                                        <span class="badge bg-warning text-dark px-3 py-2">Pending</span>
+                                    }
+                                    else if (p.status == "Failed")
+                                    {
+                                        <span class="badge bg-danger px-3 py-2">Failed</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-secondary px-3 py-2">@p.status</span>
+                                    }
+                                </td>
+
+                                <td>
+                                    <form method="post"
+                                          action="@Url.Action("UpdatePaymentStatus", "Admin")"
+                                          class="d-flex gap-2 mb-2">
+
+                                        <input type="hidden" name="paymentId" value="@p.id" />
+
+                                        <select name="status" class="form-select form-select-sm">
+                                            <option value="Pending" @(p.status == "Pending" ? "selected" : "")>Pending</option>
+                                            <option value="Paid" @(p.status == "Paid" ? "selected" : "")>Paid</option>
+                                            <option value="Failed" @(p.status == "Failed" ? "selected" : "")>Failed</option>
+                                            <option value="Refunded" @(p.status == "Refunded" ? "selected" : "")>Refunded</option>
+                                        </select>
+
+                                        <button type="submit" class="btn btn-sm btn-primary">
+                                            Save
+                                        </button>
+                                    </form>
+
+                                    <form method="post" action="@Url.Action("ConfirmPayment", "Admin")">
+                                        <input type="hidden" name="paymentId" value="@p.id" />
+
+                                        <button type="submit" class="btn btn-sm btn-success">
+                                            Confirm Paid
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <p class="text-muted mb-0">No payments found.</p>
+        }
+
+    </div>
+</div>

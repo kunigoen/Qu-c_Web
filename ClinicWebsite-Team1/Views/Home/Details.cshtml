@@ -52,8 +52,8 @@
 
                 <div class="col-lg-3 text-center">
 
-                    <a href="@Url.Action("Create", "Appointment",
-                    new { doctorId = Model.id })"
+                    <a href="@Url.Action("BookAppointment", "Patient",
+                             new { doctorId = Model.id })"
                        class="btn btn-success btn-lg w-100 mb-3">
                         Book Appointment
                     </a>

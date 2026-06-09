@@ -1,0 +1,46 @@
+﻿﻿@model ClinicWebsite_Team1.Models.appointment
+
+@{
+    ViewBag.Title = "Cancel Appointment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="mb-4">Cancel Appointment</h2>
+
+<div class="alert alert-warning">
+    Are you sure you want to cancel this appointment?
+</div>
+
+<div class="card shadow-sm border-0 mb-4">
+    <div class="card-header bg-danger text-white">
+        Appointment Summary
+    </div>
+
+    <div class="card-body">
+        <p><strong>Doctor:</strong> @Model.doctor.user_account.full_name</p>
+        <p><strong>Specialty:</strong> @Model.doctor.specialty.name</p>
+        <p><strong>Date:</strong> @Model.schedule.work_date.ToString("dd/MM/yyyy")</p>
+        <p><strong>Time:</strong> @Model.schedule.start_time - @Model.schedule.end_time</p>
+        <p><strong>Current Status:</strong> @Model.appointment_status.name</p>
+    </div>
+</div>
+
+<form method="post" action="@Url.Action("CancelAppointment", "Patient")">
+    <input type="hidden" name="appointmentId" value="@Model.id" />
+
+    <div class="mb-3">
+        <label class="form-label">Cancel Reason</label>
+        <textarea name="reason"
+                  class="form-control"
+                  rows="4"
+                  required></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-danger">
+        Confirm Cancel
+    </button>
+
+    <a href="@Url.Action("MyAppointments", "Patient")" class="btn btn-outline-secondary">
+        Back
+    </a>
+</form>

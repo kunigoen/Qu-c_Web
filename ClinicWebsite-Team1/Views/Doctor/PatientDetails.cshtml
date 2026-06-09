@@ -1,0 +1,80 @@
+﻿﻿@model ClinicWebsite_Team1.Models.patient
+
+@{
+    ViewBag.Title = "Patient Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var appointmentHistory = ViewBag.AppointmentHistory as List<ClinicWebsite_Team1.Models.appointment>;
+}
+
+<h2 class="mb-4">Patient Information</h2>
+
+<div class="card shadow-sm border-0 mb-4">
+    <div class="card-header bg-primary text-white">
+        Patient Profile
+    </div>
+
+    <div class="card-body">
+        <p><strong>Full Name:</strong> @Model.user_account.full_name</p>
+        <p><strong>Email:</strong> @Model.user_account.email</p>
+        <p><strong>Phone:</strong> @Model.phone_number</p>
+        <p><strong>Gender:</strong> @Model.gender</p>
+
+        <p>
+            <strong>Date of Birth:</strong>
+            @(Model.date_of_birth.HasValue ? Model.date_of_birth.Value.ToString("dd/MM/yyyy") : "N/A")
+        </p>
+
+        <p><strong>Address:</strong> @Model.address</p>
+        <p><strong>Emergency Contact:</strong> @Model.emergency_contact</p>
+        <p><strong>Blood Type:</strong> @Model.blood_type</p>
+    </div>
+</div>
+
+<div class="card shadow-sm border-0">
+    <div class="card-header bg-primary text-white">
+        Appointment History
+    </div>
+
+    <div class="card-body">
+
+        @if (appointmentHistory != null && appointmentHistory.Any())
+        {
+            <table class="table table-hover align-middle">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Symptoms</th>
+                        <th>Status</th>
+                        <th>Note</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in appointmentHistory)
+                    {
+                        <tr>
+                            <td>@item.schedule.work_date.ToString("dd/MM/yyyy")</td>
+                            <td>@item.schedule.start_time - @item.schedule.end_time</td>
+                            <td>@item.symptoms</td>
+                            <td>@item.appointment_status.name</td>
+                            <td>@item.note</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p class="text-muted mb-0">No appointment history.</p>
+        }
+
+    </div>
+</div>
+
+<div class="mt-4">
+    <a href="@Url.Action("Appointments", "Doctor")" class="btn btn-outline-secondary">
+        Back to Appointments
+    </a>
+</div>  

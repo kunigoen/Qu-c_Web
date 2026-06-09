@@ -1,0 +1,129 @@
+﻿﻿@model List<ClinicWebsite_Team1.Models.doctor_review>
+
+@{
+    ViewBag.Title = "Manage Reviews";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="mb-4">Manage Reviews</h2>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+<div class="row g-4 mb-4">
+
+    <div class="col-md-3">
+        <div class="card shadow-sm border-0">
+            <div class="card-body text-center">
+                <h6>Total Reviews</h6>
+                <h2 class="text-primary">@ViewBag.TotalReviews</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card shadow-sm border-0">
+            <div class="card-body text-center">
+                <h6>Average Rating</h6>
+                <h2 class="text-warning">
+                    @String.Format("{0:0.0}", ViewBag.AverageRating) / 5
+                </h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card shadow-sm border-0">
+            <div class="card-body text-center">
+                <h6>Five Star</h6>
+                <h2 class="text-success">@ViewBag.FiveStarReviews</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card shadow-sm border-0">
+            <div class="card-body text-center">
+                <h6>Low Rating</h6>
+                <h2 class="text-danger">@ViewBag.LowRatingReviews</h2>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="card shadow-sm border-0">
+    <div class="card-header bg-dark text-white">
+        Review List
+    </div>
+
+    <div class="card-body">
+
+        @if (Model != null && Model.Any())
+        {
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Doctor</th>
+                            <th>Patient</th>
+                            <th>Rating</th>
+                            <th>Comment</th>
+                            <th>Date</th>
+                            <th style="width: 120px;">Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var r in Model)
+                        {
+                            <tr>
+                                <td>@r.id</td>
+                                <td>@r.doctor.user_account.full_name</td>
+                                <td>@r.patient.user_account.full_name</td>
+
+                                <td>
+                                    <span class="badge bg-warning text-dark px-3 py-2">
+                                        @r.rating / 5
+                                    </span>
+                                </td>
+
+                                <td>@r.comment</td>
+
+                                <td>
+                                    @(r.review_date.HasValue ? r.review_date.Value.ToString("dd/MM/yyyy") : "N/A")
+                                </td>
+
+                                <td>
+                                    <form method="post"
+                                          action="@Url.Action("DeleteReview", "Admin")"
+                                          onsubmit="return confirm('Delete this review?');">
+
+                                        <input type="hidden" name="id" value="@r.id" />
+
+                                        <button type="submit" class="btn btn-sm btn-danger">
+                                            Delete
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <p class="text-muted mb-0">No reviews found.</p>
+        }
+
+    </div>
+</div>

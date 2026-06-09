@@ -1,0 +1,301 @@
+﻿﻿@{
+    ViewBag.Title = "Book Appointment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var specialties = ViewBag.Specialties as List<ClinicWebsite_Team1.Models.specialty>;
+    var doctors = ViewBag.Doctors as List<ClinicWebsite_Team1.Models.doctor>;
+    var schedules = ViewBag.Schedules as List<ClinicWebsite_Team1.Models.schedule>;
+    var selectedDoctor = ViewBag.SelectedDoctor as ClinicWebsite_Team1.Models.doctor;
+
+    int? selectedSpecialtyId = ViewBag.SelectedSpecialtyId as int?;
+    int? selectedDoctorId = ViewBag.SelectedDoctorId as int?;
+}
+
+<h2 class="mb-4">Book Appointment</h2>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Success"]
+    </div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Error"]
+    </div>
+}
+
+<!-- STEP 1: SELECT SPECIALTY -->
+<div class="card shadow-sm border-0 mb-4">
+    <div class="card-header bg-primary text-white">
+        Step 1: Select Specialty
+    </div>
+
+    <div class="card-body">
+
+        @if (specialties != null && specialties.Any())
+        {
+            <div class="row g-3">
+                @foreach (var s in specialties)
+                {
+                    var isSelected = selectedSpecialtyId.HasValue && selectedSpecialtyId.Value == s.id;
+
+                    <div class="col-md-3">
+                        <a href="@Url.Action("BookAppointment", "Patient", new { specialtyId = s.id })"
+                           class="text-decoration-none">
+
+                            <div class="card h-100 shadow-sm @(isSelected ? "border-primary border-2" : "border-0") specialty-card">
+                                <div class="card-body text-center">
+
+                                    <h5 class="mb-2">@s.name</h5>
+
+                                    <p class="text-muted small mb-0">
+                                        @(string.IsNullOrWhiteSpace(s.description) ? "Select this specialty" : s.description)
+                                    </p>
+
+                                </div>
+                            </div>
+
+                        </a>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <p class="text-muted mb-0">No specialties available.</p>
+        }
+
+    </div>
+</div>
+
+
+<!-- STEP 2: SELECT DOCTOR -->
+@if (selectedSpecialtyId.HasValue)
+{
+    <div class="card shadow-sm border-0 mb-4">
+        <div class="card-header bg-success text-white">
+            Step 2: Select Doctor
+        </div>
+
+        <div class="card-body">
+
+            @if (doctors != null && doctors.Any())
+            {
+                <div class="row g-4">
+                    @foreach (var d in doctors)
+                    {
+                        var isDoctorSelected = selectedDoctorId.HasValue && selectedDoctorId.Value == d.id;
+
+                        var imageUrl = !string.IsNullOrWhiteSpace(d.image_url)
+                            ? d.image_url
+                            : "~/Content/images/doctor1.jpg";
+
+                        <div class="col-md-4">
+                            <div class="card h-100 shadow-sm @(isDoctorSelected ? "border-success border-2" : "border-0") doctor-card">
+
+                                <img src="@Url.Content(imageUrl)"
+                                     class="card-img-top"
+                                     style="height:220px; object-fit:contain; background:#f8f9fa; padding:8px;" />
+
+                                <div class="card-body text-center">
+
+                                    <h5>@d.user_account.full_name</h5>
+
+                                    <p class="text-primary mb-1">
+                                        @d.specialty.name
+                                    </p>
+
+                                    <p class="small mb-1">
+                                        Experience: @(d.experience_years ?? 0) years
+                                    </p>
+
+                                    <p class="fw-bold text-danger mb-3">
+                                        Fee: @String.Format("{0:N0} đ", d.consultation_fee)
+                                    </p>
+
+                                    <a href="@Url.Action("BookAppointment", "Patient", new { specialtyId = selectedSpecialtyId, doctorId = d.id })"
+                                       class="btn @(isDoctorSelected ? "btn-success" : "btn-outline-success") w-100">
+                                        @(isDoctorSelected ? "Selected" : "Select Doctor")
+                                    </a>
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <p class="text-muted mb-0">No doctors available for this specialty.</p>
+            }
+
+        </div>
+    </div>
+}
+
+
+<!-- STEP 3: SELECT SCHEDULE + APPOINTMENT INFORMATION -->
+@if (selectedDoctorId.HasValue && selectedDoctor != null)
+{
+    <div class="card shadow-sm border-0 mb-4">
+        <div class="card-header bg-dark text-white">
+            Step 3: Select Schedule & Enter Appointment Information
+        </div>
+
+        <div class="card-body">
+
+            <div class="alert alert-info">
+                <strong>Selected Doctor:</strong> @selectedDoctor.user_account.full_name
+                |
+                <strong>Specialty:</strong> @selectedDoctor.specialty.name
+                |
+                <strong>Fee:</strong> @String.Format("{0:N0} đ", selectedDoctor.consultation_fee)
+            </div>
+
+            <form method="post" action="@Url.Action("BookAppointment", "Patient")">
+
+                <input type="hidden" name="doctorId" value="@selectedDoctor.id" />
+
+                <h5 class="mb-3">Available Schedules</h5>
+
+                @if (schedules != null && schedules.Any())
+                {
+                    <div class="row g-3 mb-4">
+
+                        @foreach (var s in schedules)
+                        {
+                            var booked = s.booked_patients ?? 0;
+                            var available = s.max_patients - booked;
+
+                            var isAvailable = s.status == "Available" && available > 0;
+
+                            var scheduleCardClass = isAvailable
+                                ? "schedule-card border-success"
+                                : "schedule-card bg-light text-muted border-secondary";
+
+                            <div class="col-md-4">
+                                <label class="w-100">
+                                    <div class="card h-100 shadow-sm @scheduleCardClass">
+                                        <div class="card-body">
+
+                                            <div class="form-check mb-2">
+                                                <input class="form-check-input"
+                                                       type="radio"
+                                                       name="scheduleId"
+                                                       value="@s.id"
+                                                       required
+                                                       @(isAvailable ? "" : "disabled") />
+
+                                                <span class="form-check-label fw-bold">
+                                                    @s.work_date.ToString("dd/MM/yyyy")
+                                                </span>
+                                            </div>
+
+                                            <p class="mb-1">
+                                                <strong>Time:</strong>
+                                                @s.start_time - @s.end_time
+                                            </p>
+
+                                            <p class="mb-1">
+                                                <strong>Room:</strong>
+                                                @(s.clinic_room != null ? s.clinic_room.room_code : "N/A")
+                                            </p>
+
+                                            <p class="mb-1">
+                                                <strong>Available:</strong>
+                                                @available / @s.max_patients
+                                            </p>
+
+                                            <p class="mb-0">
+                                                <strong>Status:</strong>
+
+                                                @if (isAvailable)
+                                                {
+                                                    <span class="badge bg-success">Available</span>
+                                                }
+                                                else if (s.status == "Full" || available <= 0)
+                                                {
+                                                    <span class="badge bg-danger">Busy / Full</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="badge bg-secondary">@s.status</span>
+                                                }
+                                            </p>
+
+                                        </div>
+                                    </div>
+                                </label>
+                            </div>
+                        }
+
+                    </div>
+                }
+                else
+                {
+                    <div class="alert alert-warning">
+                        This doctor has no schedule available.
+                    </div>
+                }
+
+                <div class="mb-3">
+                    <label class="form-label">Symptoms</label>
+                    <textarea name="symptoms"
+                              class="form-control"
+                              rows="3"
+                              placeholder="Describe your symptoms..."
+                              required></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Note</label>
+                    <textarea name="note"
+                              class="form-control"
+                              rows="3"
+                              placeholder="Additional note for the doctor..."></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-success">
+                    Confirm Appointment
+                </button>
+
+                <a href="@Url.Action("MyAppointments", "Patient")"
+                   class="btn btn-outline-secondary">
+                    Back
+                </a>
+
+            </form>
+
+        </div>
+    </div>
+}
+
+<style>
+    .specialty-card,
+    .doctor-card,
+    .schedule-card {
+        transition: 0.25s;
+        border-radius: 14px;
+    }
+
+        .specialty-card:hover,
+        .doctor-card:hover {
+            transform: translateY(-4px);
+        }
+
+    .schedule-card {
+        cursor: pointer;
+    }
+
+        .schedule-card.bg-light {
+            cursor: not-allowed;
+            opacity: 0.75;
+        }
+
+    .form-check-input:disabled {
+        cursor: not-allowed;
+    }
+</style>

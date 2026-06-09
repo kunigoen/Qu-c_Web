@@ -1,0 +1,375 @@
+﻿﻿@model ClinicWebsite_Team1.Models.payment
+
+@{
+    ViewBag.Title = "Online Payment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var appointment = Model.appointment;
+    var transactionHistory = ViewBag.TransactionHistory as List<ClinicWebsite_Team1.Models.payment>;
+}
+
+<h2 class="mb-4">Online Payment</h2>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Success"]
+    </div>
+}
+
+<div class="row g-4">
+
+    <div class="col-md-5">
+        <div class="card shadow-sm border-0 mb-4">
+            <div class="card-header bg-primary text-white">
+                Appointment Information
+            </div>
+
+            <div class="card-body">
+                <p><strong>Doctor:</strong> @appointment.doctor.user_account.full_name</p>
+                <p><strong>Specialty:</strong> @appointment.doctor.specialty.name</p>
+                <p><strong>Date:</strong> @appointment.schedule.work_date.ToString("dd/MM/yyyy")</p>
+                <p><strong>Time:</strong> @appointment.schedule.start_time - @appointment.schedule.end_time</p>
+                <p><strong>Appointment Status:</strong> @appointment.appointment_status.name</p>
+            </div>
+        </div>
+
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-success text-white">
+                Payment Information
+            </div>
+
+            <div class="card-body">
+                <p>
+                    <strong>Amount:</strong>
+                    <span class="fs-5 text-danger fw-bold">
+                        @String.Format("{0:N0} đ", Model.amount)
+                    </span>
+                </p>
+
+                <p>
+                    <strong>Payment Method:</strong>
+                    @Model.payment_method
+                </p>
+
+                <p>
+                    <strong>Transaction Code:</strong>
+                    @Model.transaction_code
+                </p>
+
+                <p>
+                    <strong>Payment Date:</strong>
+                    @(Model.payment_date.HasValue ? Model.payment_date.Value.ToString("dd/MM/yyyy HH:mm") : "N/A")
+                </p>
+
+                <p>
+                    <strong>Payment Status:</strong>
+
+                    @if (Model.status == "Paid")
+                    {
+                        <span class="badge bg-success px-3 py-2">Paid</span>
+                    }
+                    else if (Model.status == "Pending")
+                    {
+                        <span class="badge bg-warning text-dark px-3 py-2">Pending</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-secondary px-3 py-2">@Model.status</span>
+                    }
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-7">
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-dark text-white">
+                Select Payment Method
+            </div>
+
+            <div class="card-body">
+
+                @if (Model.status == "Paid")
+                {
+                    <div class="alert alert-success">
+                        This appointment has already been paid.
+                    </div>
+
+                    <a href="@Url.Action("MyAppointments", "Patient")"
+                       class="btn btn-outline-secondary">
+                        Back to My Appointments
+                    </a>
+                }
+                else
+                {
+                    <form method="post" action="@Url.Action("ConfirmPayment", "Patient")">
+                        <input type="hidden" name="paymentId" value="@Model.id" />
+
+                        <div class="mb-3">
+                            <label class="form-label">Payment Method</label>
+
+                            <select name="paymentMethod"
+                                    id="paymentMethod"
+                                    class="form-select"
+                                    onchange="changePaymentMethod()"
+                                    required>
+                                <option value="">-- Select Method --</option>
+                                <option value="VNPay">VNPay</option>
+                                <option value="MoMo">MoMo</option>
+                                <option value="PayPal">PayPal</option>
+                                <option value="Bank Transfer">Bank Transfer</option>
+                            </select>
+                        </div>
+
+                        <div id="qrSection" class="payment-section d-none">
+                            <div class="border rounded p-3 text-center bg-light mb-3">
+                                <h5 id="qrTitle">Scan QR Code</h5>
+
+                                <div class="qr-box mx-auto my-3">
+                                    QR
+                                </div>
+
+                                <p class="mb-1">
+                                    <strong>Amount:</strong>
+                                    @String.Format("{0:N0} đ", Model.amount)
+                                </p>
+
+                                <p class="text-muted mb-0">
+                                    Scan this demo QR code to complete payment.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div id="bankSection" class="payment-section d-none">
+                            <div class="border rounded p-3 mb-3">
+                                <h5>Bank Account Information</h5>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Account Name</label>
+                                    <input type="text"
+                                           name="accountName"
+                                           class="form-control"
+                                           placeholder="Enter account holder name" />
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Account Number</label>
+                                    <input type="text"
+                                           name="accountNumber"
+                                           class="form-control"
+                                           placeholder="Enter account number" />
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Bank Name</label>
+                                    <input type="text"
+                                           name="bankName"
+                                           class="form-control"
+                                           placeholder="Example: Vietcombank, BIDV, Techcombank" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="momoSection" class="payment-section d-none">
+                            <div class="border rounded p-3 mb-3">
+                                <h5>MoMo Wallet Information</h5>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Wallet Phone Number</label>
+                                    <input type="text"
+                                           name="walletPhone"
+                                           class="form-control"
+                                           placeholder="Enter MoMo phone number" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="paypalSection" class="payment-section d-none">
+                            <div class="border rounded p-3 mb-3">
+                                <h5>PayPal Information</h5>
+
+                                <div class="mb-3">
+                                    <label class="form-label">PayPal Email</label>
+                                    <input type="email"
+                                           name="paypalEmail"
+                                           class="form-control"
+                                           placeholder="Enter PayPal email" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-success">
+                            Confirm Payment
+                        </button>
+
+                        <a href="@Url.Action("MyAppointments", "Patient")"
+                           class="btn btn-outline-secondary">
+                            Back
+                        </a>
+                    </form>
+                }
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="card shadow-sm border-0 mt-4">
+    <div class="card-header bg-secondary text-white">
+        Transaction History
+    </div>
+
+    <div class="card-body">
+
+        @if (transactionHistory != null && transactionHistory.Any())
+        {
+            <table class="table table-hover align-middle">
+                <thead>
+                    <tr>
+                        <th>Transaction Code</th>
+                        <th>Method</th>
+                        <th>Amount</th>
+                        <th>Payment Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in transactionHistory)
+                    {
+                        <tr>
+                            <td>@item.transaction_code</td>
+
+                            <td>@item.payment_method</td>
+
+                            <td>@String.Format("{0:N0} đ", item.amount)</td>
+
+                            <td>
+                                @(item.payment_date.HasValue ? item.payment_date.Value.ToString("dd/MM/yyyy HH:mm") : "N/A")
+                            </td>
+
+                            <td>
+                                @if (item.status == "Paid")
+                                {
+                                    <span class="badge bg-success">Paid</span>
+                                }
+                                else if (item.status == "Pending")
+                                {
+                                    <span class="badge bg-warning text-dark">Pending</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-secondary">@item.status</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p class="text-muted mb-0">No transaction history.</p>
+        }
+
+    </div>
+</div>
+
+<style>
+    .qr-box {
+        width: 160px;
+        height: 160px;
+        border: 8px solid #222;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 32px;
+        font-weight: bold;
+        background: linear-gradient(90deg, #222 10px, transparent 10px) 0 0 / 40px 40px, linear-gradient(#222 10px, transparent 10px) 0 0 / 40px 40px, #fff;
+    }
+
+    .payment-section {
+        transition: 0.2s;
+    }
+</style>
+
+<script>
+    function hidePaymentSections() {
+        var qrSection = document.querySelector("#qrSection");
+        var bankSection = document.querySelector("#bankSection");
+        var momoSection = document.querySelector("#momoSection");
+        var paypalSection = document.querySelector("#paypalSection");
+
+        if (qrSection) {
+            qrSection.classList.add("d-none");
+        }
+
+        if (bankSection) {
+            bankSection.classList.add("d-none");
+        }
+
+        if (momoSection) {
+            momoSection.classList.add("d-none");
+        }
+
+        if (paypalSection) {
+            paypalSection.classList.add("d-none");
+        }
+    }
+
+    function changePaymentMethod() {
+        hidePaymentSections();
+
+        var selectedOption = document.querySelector("#paymentMethod option:checked");
+        var method = selectedOption ? selectedOption.getAttribute("value") : "";
+
+        var qrTitle = document.querySelector("#qrTitle");
+        var qrSection = document.querySelector("#qrSection");
+        var bankSection = document.querySelector("#bankSection");
+        var momoSection = document.querySelector("#momoSection");
+        var paypalSection = document.querySelector("#paypalSection");
+
+        if (method === "VNPay") {
+            if (qrTitle) {
+                qrTitle.textContent = "VNPay QR Payment";
+            }
+
+            if (qrSection) {
+                qrSection.classList.remove("d-none");
+            }
+        }
+        else if (method === "MoMo") {
+            if (qrTitle) {
+                qrTitle.textContent = "MoMo QR Payment";
+            }
+
+            if (qrSection) {
+                qrSection.classList.remove("d-none");
+            }
+
+            if (momoSection) {
+                momoSection.classList.remove("d-none");
+            }
+        }
+        else if (method === "PayPal") {
+            if (qrTitle) {
+                qrTitle.textContent = "PayPal Payment QR";
+            }
+
+            if (qrSection) {
+                qrSection.classList.remove("d-none");
+            }
+
+            if (paypalSection) {
+                paypalSection.classList.remove("d-none");
+            }
+        }
+        else if (method === "Bank Transfer") {
+            if (bankSection) {
+                bankSection.classList.remove("d-none");
+            }
+        }
+    }
+</script>

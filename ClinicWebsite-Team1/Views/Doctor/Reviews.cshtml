@@ -1,0 +1,81 @@
+﻿﻿@model List<ClinicWebsite_Team1.Models.doctor_review>
+
+@{
+    ViewBag.Title = "Reviews";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="mb-4">Patient Reviews</h2>
+
+<div class="row g-4 mb-4">
+
+    <div class="col-md-6">
+        <div class="card shadow-sm border-0">
+            <div class="card-body text-center">
+                <h5>Total Reviews</h5>
+                <h2 class="text-primary">@ViewBag.TotalReviews</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card shadow-sm border-0">
+            <div class="card-body text-center">
+                <h5>Average Rating</h5>
+                <h2 class="text-warning">
+                    @String.Format("{0:0.0}", ViewBag.AverageRating) / 5
+                </h2>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="card shadow-sm border-0">
+    <div class="card-header bg-primary text-white">
+        Review List
+    </div>
+
+    <div class="card-body">
+
+        @if (Model != null && Model.Any())
+        {
+            <table class="table table-hover align-middle">
+                <thead>
+                    <tr>
+                        <th>Patient</th>
+                        <th>Rating</th>
+                        <th>Comment</th>
+                        <th>Review Date</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.patient.user_account.full_name</td>
+
+                            <td>
+                                <span class="badge bg-warning text-dark">
+                                    @item.rating / 5
+                                </span>
+                            </td>
+
+                            <td>@item.comment</td>
+
+                            <td>
+                                @(item.review_date.HasValue ? item.review_date.Value.ToString("dd/MM/yyyy") : "N/A")
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p class="text-muted mb-0">No reviews available.</p>
+        }
+
+    </div>
+</div>

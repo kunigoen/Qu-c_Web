@@ -1,21 +1,47 @@
-﻿<!DOCTYPE html>
+﻿﻿
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+
+    <title>@ViewBag.Title - Quoc Khanh Hospitals</title>
+
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
+
 <body>
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
         <div class="container">
 
-            @Html.ActionLink("Quoc Khanh Hospitals", "Index", "Home",
-                new { area = "" },
-                new { @class = "navbar-brand" })
+            @if (Session["Role"] != null && Session["Role"].ToString() == "Doctor")
+            {
+                @Html.ActionLink("Doctor Panel", "Dashboard", "Doctor",
+                    new { area = "" },
+                    new { @class = "navbar-brand" })
+            }
+            else if (Session["Role"] != null && Session["Role"].ToString() == "Patient")
+            {
+                @Html.ActionLink("Patient Panel", "Profile", "Patient",
+                    new { area = "" },
+                    new { @class = "navbar-brand" })
+            }
+            else if (Session["Role"] != null && Session["Role"].ToString() == "Admin")
+            {
+                @Html.ActionLink("Admin Panel", "Dashboard", "Admin",
+                    new { area = "" },
+                    new { @class = "navbar-brand" })
+            }
+            else
+            {
+                @Html.ActionLink("Quoc Khanh Hospitals", "Index", "Home",
+                    new { area = "" },
+                    new { @class = "navbar-brand" })
+            }
 
-            <button type="button" class="navbar-toggler"
+            <button type="button"
+                    class="navbar-toggler"
                     data-bs-toggle="collapse"
                     data-bs-target=".navbar-collapse">
                 <span class="navbar-toggler-icon"></span>
@@ -25,27 +51,85 @@
 
                 <ul class="navbar-nav flex-grow-1">
 
-                    <li class="nav-item">
-                        @Html.ActionLink("Doctor", "About", "Home", null,
-                            new { @class = "nav-link" })
-                    </li>
-
-                    @if (Session["Role"] != null &&
-                         Session["Role"].ToString() == "Admin")
+                    @if (Session["Role"] != null && Session["Role"].ToString() == "Doctor")
                     {
                         <li class="nav-item">
-                            @Html.ActionLink(
-                                "Admin Dashboard",
-                                "Dashboard",
-                                "Admin",
-                                null,
-                                new { @class = "nav-link" })
+                            @Html.ActionLink("Dashboard", "Dashboard", "Doctor", null, new { @class = "nav-link" })
+                        </li>
+
+                        <li class="nav-item">
+                            @Html.ActionLink("My Schedule", "Schedule", "Doctor", null, new { @class = "nav-link" })
+                        </li>
+
+                        <li class="nav-item">
+                            @Html.ActionLink("Appointments", "Appointments", "Doctor", null, new { @class = "nav-link" })
+                        </li>
+
+                        <li class="nav-item">
+                            @Html.ActionLink("Reviews", "Reviews", "Doctor", null, new { @class = "nav-link" })
+                        </li>
+                    }
+                    else if (Session["Role"] != null && Session["Role"].ToString() == "Patient")
+                    {
+                        <li class="nav-item">
+                            @Html.ActionLink("My Profile", "Profile", "Patient", null, new { @class = "nav-link" })
+                        </li>
+
+                        <li class="nav-item">
+                            @Html.ActionLink("Book Appointment", "BookAppointment", "Patient", null, new { @class = "nav-link" })
+                        </li>
+
+                        <li class="nav-item">
+                            @Html.ActionLink("My Appointments", "MyAppointments", "Patient", null, new { @class = "nav-link" })
+                        </li>
+                    }
+                    else if (Session["Role"] != null && Session["Role"].ToString() == "Admin")
+                    {
+                        <li class="nav-item">
+                            @Html.ActionLink("Dashboard", "Dashboard", "Admin", null, new { @class = "nav-link" })
+                        </li>
+
+                        <li class="nav-item">
+                            @Html.ActionLink("Doctors", "Doctors", "Admin", null, new { @class = "nav-link" })
+                        </li>
+
+                        <li class="nav-item">
+                            @Html.ActionLink("Specialties", "Specialties", "Admin", null, new { @class = "nav-link" })
+                        </li>
+
+                        <li class="nav-item">
+                            @Html.ActionLink("Schedules", "Schedules", "Admin", null, new { @class = "nav-link" })
+                        </li>
+
+                        <li class="nav-item">
+                            @Html.ActionLink("Patients", "Patients", "Admin", null, new { @class = "nav-link" })
+                        </li>
+
+                        <li class="nav-item">
+                            @Html.ActionLink("Appointments", "Appointments", "Admin", null, new { @class = "nav-link" })
+                        </li>
+
+                        <li class="nav-item">
+                            @Html.ActionLink("Payments", "Payments", "Admin", null, new { @class = "nav-link" })
+                        </li>
+
+                        <li class="nav-item">
+                            @Html.ActionLink("Reviews", "Reviews", "Admin", null, new { @class = "nav-link" })
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            @Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link" })
+                        </li>
+
+                        <li class="nav-item">
+                            @Html.ActionLink("Doctors", "About", "Home", null, new { @class = "nav-link" })
                         </li>
                     }
 
                 </ul>
 
-                <!-- RIGHT SIDE -->
                 <ul class="navbar-nav">
 
                     @if (Session["UserName"] != null)
@@ -57,7 +141,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="@Url.Action("Logout","Home")">
+                            <a class="nav-link" href="@Url.Action("Logout", "Home")">
                                 Logout
                             </a>
                         </li>
@@ -65,13 +149,13 @@
                     else
                     {
                         <li class="nav-item">
-                            <a class="nav-link" href="@Url.Action("Login","Home")">
+                            <a class="nav-link" href="@Url.Action("Login", "Home")">
                                 Login
                             </a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="@Url.Action("Register","Home")">
+                            <a class="nav-link" href="@Url.Action("Register", "Home")">
                                 Register
                             </a>
                         </li>
@@ -83,7 +167,7 @@
         </div>
     </nav>
 
-    <div class="container body-content">
+    <div class="container body-content mt-4">
         @RenderBody()
 
         <hr />
@@ -108,9 +192,9 @@
             </p>
         </footer>
     </div>
+
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>
-
 </html>

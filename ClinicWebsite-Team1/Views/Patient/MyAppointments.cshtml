@@ -1,0 +1,145 @@
+﻿﻿@model List<ClinicWebsite_Team1.Models.appointment>
+
+@{
+    ViewBag.Title = "My Appointments";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="mb-4">My Appointments</h2>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Success"]
+    </div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Error"]
+    </div>
+}
+
+<div class="card shadow-sm border-0">
+    <div class="card-header bg-primary text-white">
+        Appointment List
+    </div>
+
+    <div class="card-body">
+        @if (Model != null && Model.Any())
+        {
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Doctor</th>
+                            <th>Specialty</th>
+                            <th>Status</th>
+                            <th>Symptoms</th>
+                            <th>Details</th>
+                            <th>Cancel</th>
+                            <th>Payment</th>
+                            <th>Review</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            var statusName = item.appointment_status.name;
+                            var statusClass = "bg-secondary";
+
+                            if (statusName == "Pending")
+                            {
+                                statusClass = "bg-warning text-dark";
+                            }
+                            else if (statusName == "Confirmed")
+                            {
+                                statusClass = "bg-primary";
+                            }
+                            else if (statusName == "Completed")
+                            {
+                                statusClass = "bg-success";
+                            }
+                            else if (statusName == "Cancelled")
+                            {
+                                statusClass = "bg-danger";
+                            }
+
+                            <tr>
+                                <td>@item.schedule.work_date.ToString("dd/MM/yyyy")</td>
+
+                                <td>@item.doctor.user_account.full_name</td>
+
+                                <td>@item.doctor.specialty.name</td>
+
+                                <td>
+                                    <span class="badge @statusClass px-3 py-2">
+                                        @statusName
+                                    </span>
+                                </td>
+
+                                <td>@item.symptoms</td>
+
+                                <td>
+                                    <a href="@Url.Action("AppointmentDetails", "Patient", new { id = item.id })"
+                                       class="btn btn-sm btn-outline-primary">
+                                        Details
+                                    </a>
+                                </td>
+
+                                <td>
+                                    @if (statusName == "Pending" || statusName == "Confirmed")
+                                    {
+                                        <a href="@Url.Action("CancelAppointment", "Patient", new { id = item.id })"
+                                           class="btn btn-sm btn-outline-danger">
+                                            Cancel
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">N/A</span>
+                                    }
+                                </td>
+
+                                <td>
+                                    @if (statusName != "Cancelled")
+                                    {
+                                        <a href="@Url.Action("Payment", "Patient", new { id = item.id })"
+                                           class="btn btn-sm btn-outline-success">
+                                            Payment
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">N/A</span>
+                                    }
+                                </td>
+
+                                <td>
+                                    @if (statusName == "Completed")
+                                    {
+                                        <a href="@Url.Action("ReviewDoctor", "Patient", new { id = item.id })"
+                                           class="btn btn-sm btn-outline-warning">
+                                            Review
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">After completed</span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <p class="text-muted mb-0">No appointments found.</p>
+        }
+    </div>
+</div>

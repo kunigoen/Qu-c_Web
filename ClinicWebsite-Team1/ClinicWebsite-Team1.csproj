@@ -131,6 +131,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\DoctorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PatientController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -266,10 +267,22 @@
     <Content Include="Views\Admin\Patients.cshtml" />
     <Content Include="Views\Admin\EditPatient.cshtml" />
     <Content Include="Views\Admin\Appointments.cshtml" />
+    <Content Include="Views\Doctor\Dashboard.cshtml" />
+    <Content Include="Views\Doctor\Schedule.cshtml" />
+    <Content Include="Views\Doctor\Appointments.cshtml" />
+    <Content Include="Views\Doctor\PatientDetails.cshtml" />
+    <Content Include="Views\Doctor\Reviews.cshtml" />
+    <Content Include="Views\Admin\Payments.cshtml" />
+    <Content Include="Views\Admin\Reviews.cshtml" />
+    <Content Include="Views\Patient\Profile.cshtml" />
+    <Content Include="Views\Patient\BookAppointment.cshtml" />
+    <Content Include="Views\Patient\MyAppointments.cshtml" />
+    <Content Include="Views\Patient\AppointmentDetails.cshtml" />
+    <Content Include="Views\Patient\CancelAppointment.cshtml" />
+    <Content Include="Views\Patient\Payment.cshtml" />
+    <Content Include="Views\Patient\ReviewDoctor.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Doctor\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
     <Content Include="Content\bootstrap.rtl.css.map" />
